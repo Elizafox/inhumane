@@ -1,7 +1,7 @@
 {
     "copyright": "Unknown", 
-    "desc": "Cards included in Canadian orders.", 
+    "desc": "UK cards against humanity.", 
     "license": "Creative Commons", 
-    "name": "Canadian", 
+    "name": "UK", 
     "official": true
 }
