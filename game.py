@@ -1,8 +1,6 @@
 # Copyright © 2013 Elizabeth Myers. All Rights reserved.
 # Licensed according to the terms specified in LICENSE.
 
-import six
-
 from threading import RLock
 from random import shuffle
 from collections import deque
@@ -24,10 +22,18 @@ class Game(object):
 
         self.black_cards = deque()
         self.white_cards = deque()
+        maxdraw = 0
         # Get all the decks
+        # (and check for max len in each)
         for deck in kwargs.get('decks'):
-            list(map(self.black_cards.append, deck.black_cards))
-            list(map(self.white_cards.append, deck.white_cards))
+            self.black_cards.extend(deck.black_cards)
+            self.black_cards.extend(deck.white_cards)
+            if deck.maxdraw > maxdraw: maxdraw = deck.maxdraw
+
+        self.maxdraw = maxdraw
+
+        # Check to ensure we have enough cards for everyone
+        self.check_enough()
 
         # Shuffle the decks
         shuffle(self.black_cards)
@@ -58,6 +64,11 @@ class Game(object):
             self.gid = gcounter
             gcounter += 1
 
+    def check_enough(self):
+        maxhands = self.maxdraw + 10
+        if maxhands > len(self.white_cards):
+            raise GameError("Insufficient cards for all players!")
+
     def new_tsar(self, player=None):
         if len(self.players) == 0:
             # Game is spent.
@@ -65,8 +76,11 @@ class Game(object):
             self.tsar = None
             self.tsar_index = 0
 
-        assert len(self.players) > 0
-        assert player is None or player in self.players
+        if len(self.players) == 0:
+            raise GameError("Insufficent players")
+
+        if player is not None and player not in self.players:
+            raise GameError("Invalid player")
 
         if not player:
             player = self.players[(self.tsar_index + 1) % len(self.players)]
@@ -77,6 +91,8 @@ class Game(object):
         return self.tsar
 
     def add_player(self, player):
+        self.check_enough()
+
         # Reviving a game if it was spent due to losing all players
         self.spent = False
 
@@ -108,7 +124,8 @@ class Game(object):
             self.new_tsar()
 
     def check_empty(self):
-        assert len(self.discard_black) != len(self.black_cards) != 0
+        if len(self.discard_black) != len(self.black_cards) != 0:
+            raise GameError("Empty decks!")
 
         black_empty = white_empty = False
 
@@ -166,7 +183,8 @@ class Game(object):
 
     def choose_winner(self, player):
         # FIXME - presently tsar-based...
-        assert player != self.tsar
+        if player == self.tsar:
+            raise GameError("Tsar can't declare himself winner!")
 
         player.ap += 1
         self.end_round()
