@@ -28,6 +28,7 @@ class Player(object):
         self.cards = OrderedSet()
         self.play_cards = list()
         self.ap = 0
+        self.votes = 0
 
     def deal(self, cards):
         if isinstance(cards, Iterable):
@@ -37,8 +38,15 @@ class Player(object):
         
     def play(self, cards):
         assert self.game
-        assert self.game.in_round == True
-        assert self.game.tsar != self # FIXME - tsar based 
+
+        if not self.game:
+            raise GameError("No game!")
+
+        if not self.game.in_round:
+            raise GameError("Not in a round to play!")
+
+        if not self.game.voting and self.game.tsar == self:
+            raise GameError("The tsar can't play!")
 
         if isinstance(cards, Iterable):
             clen = len(cards)
@@ -46,7 +54,7 @@ class Player(object):
             clen = 1
 
         if clen != self.game.black_play.playcount:
-            raise GameError('Invalid number of cards played')
+            raise GameError("Invalid number of cards played")
 
         self.last_played = self.game.rounds
 
@@ -57,25 +65,40 @@ class Player(object):
             self.cards.remove(cards)
             self.play_cards.append(cards)
 
+    def vote_for(self, player):
+        if not self.game:
+            raise GameError("No game!")
+
+        if not self.game.voting:
+            raise GameError("Not a voting game.")
+
+        if self == player:
+            raise GameError("Cannot vote for yourself!")
+
+        self.votes += 1
+        if self.votes == (len(self.game.players) - 1):
+            # Declare victory
+            self.game.choose_winner(player)
+
     def game_start(self, game):
         assert self.game is None
 
+        self.reset()
         self.game = game
-        self.last_played = 0
-        self.cards.clear()
-        self.play_cards.clear()
-        self.ap = 0
 
     def game_end(self):
         if self.game:
             self.game.remove_player(self)
 
-        # Erase their cards
+        self.reset()
+
+    def reset(self):
         self.game = None
         self.last_played = 0
         self.cards.clear()
         self.play_cards.clear()
         self.ap = 0
+        self.votes = 0
 
     def rename(self, name):
         self.name = name

@@ -28,14 +28,11 @@ class Game(object):
         # (and check for max len in each)
         for deck in kwargs.get('decks'):
             self.black_cards.extend(deck.black_cards)
-            self.black_cards.extend(deck.white_cards)
+            self.white_cards.extend(deck.white_cards)
             if deck.maxdraw > maxdraw: maxdraw = deck.maxdraw
 
         # Maximum amount of cards ever drawn
         self.maxdraw = maxdraw
-
-        # Check to ensure we have enough cards for everyone
-        self.check_enough()
 
         # Shuffle the decks
         shuffle(self.black_cards)
@@ -45,7 +42,16 @@ class Game(object):
         self.discard_black = deque() 
         self.discard_white = deque()
 
-        # Current tsar (tracked for simplicity reasons even in tsar-less games)
+        # House rules
+        self.voting = kwargs.get('voting', False)
+        self.maxcards = kwargs.get('maxcards', 10)
+        self.trade_ap = kwargs.get('trade_ap', (0, 0))
+
+        # Check to ensure we have enough cards for everyone
+        # (After setting maxcards)
+        self.check_enough()
+
+        # Current tsar
         self.tsar = self.players[0] if len(self.players) > 0 else None
         self.tsar_index = 0
 
@@ -67,7 +73,7 @@ class Game(object):
             gcounter += 1
 
     def check_enough(self):
-        maxhands = (self.maxdraw + 10) * len(self.players)
+        maxhands = (self.maxdraw + self.maxcards) * len(self.players)
         if maxhands > len(self.white_cards):
             raise GameError("Insufficient cards for all players!")
 
@@ -106,7 +112,7 @@ class Game(object):
 
         # Give them cards if the round hasn't yet begun
         if not self.in_round:
-            self.deal_white(player, 10)
+            self.deal_white(player, self.maxcards) 
 
     def remove_player(self, player):
         self.players.remove(player)
@@ -126,7 +132,7 @@ class Game(object):
             self.new_tsar()
 
     def check_empty(self):
-        if len(self.discard_black) != len(self.black_cards) != 0:
+        if len(self.discard_black) == len(self.black_cards) == 0:
             raise GameError("Empty decks!")
 
         black_empty = white_empty = False
@@ -183,13 +189,33 @@ class Game(object):
         for player in self.players:
             self.deal_white(player, self.black_play.drawcount)
 
-    def choose_winner(self, player):
-        # FIXME - presently tsar-based...
-        if player == self.tsar:
-            raise GameError("Tsar can't declare himself winner!")
+    def choose_winner(self, player=None):
+        if player:
+            # We have a winner - chosen via tsar or fiat.
+            if player == self.tsar:
+                raise GameError("Tsar can't declare himself winner!")
+            winning = [player]
+            player.ap += 1
+        elif self.voting:
+            # A voting round without a fiat-declared winner.
+            assert len(self.players) > 1
+            topvote = sorted([(p.votes, p.uid, p) for p in self.players],
+                                reverse=True)
+            top = winning[0][0]
+            for i, val in enumerate(winning):
+                votes, uid, p = val
+                if votes < top:
+                    # Cut out the winners
+                    winning = winning[:i]
+                    break
+                else:
+                    # Ties are handled by giving everyone an AP
+                    p.ap += 1
+        else:
+            raise GameError("Player can't be None in a Tsar-based game")
 
-        player.ap += 1
         self.end_round()
+        return winning
 
     def end_round(self):
         if not self.in_round:
@@ -205,8 +231,8 @@ class Game(object):
             self.discard_white.extend(player.play_cards)
             player.play_cards.clear()
 
-            if len(player.cards) < 10:
-                self.deal_white(player, 10 - len(player.cards))
+            if len(player.cards) < self.maxcards:
+                self.deal_white(player, self.maxcards - len(player.cards))
 
         # Choose the new tsar
         self.new_tsar()

@@ -25,8 +25,8 @@ class Deck(object):
         self.desc = desc
         self.official = official
 
-        map(lambda card : card.set_deck(self),
-            chain(self.black_cards, self.white_cards))
+        for card in chain(self.black_cards, self.white_cards):
+            card.deck = self
 
         maxdraw = 0
         maxplay = 0
@@ -55,10 +55,6 @@ class Card(object):
             global ccounter
             self.cid = ccounter
             ccounter += 1
-
-    def set_deck(self, deck):
-        # XXX shoddy workaround
-        self.deck = deck
 
     def __eq__(self, other):
         return self.deck == other.deck and self.text == other.text
