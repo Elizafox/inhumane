@@ -26,7 +26,7 @@ Next from J.K. Rowling: Harry Potter and the Chamber of _____.	0	1	None
 A romantic, candlelit dinner would be incomplete without _____.	0	1	None
 White people like _____.	0	1	None
 _____. Betcha can't have just one!	0	1	None
-War!<br><br>What is it good for?	0	1	None
+War! / What is it good for?	0	1	None
 BILLY MAYS HERE FOR _____.	0	1	None
 _____. High five, bro.	0	1	None
 During sex, I like to think about _____.	0	1	None
@@ -78,7 +78,7 @@ In M. Night Shyamalan's new movie, Bruce Willis discovers that _____ had really 
 _____ is a slippery slope that leads to _____.	0	2	None
 In a world ravaged by _____, our only solace is _____.	0	2	None
 What's the next superhero/sidekick duo?	0	2	1.2
-Dear Abby,<br><br>I'm having some trouble with _____ and would like your advice.	0	1	1.2
+Dear Abby, / I'm having some trouble with _____ and would like your advice.	0	1	1.2
 After the earthquake, Sean Penn brought _____ to the people of Haiti.	0	1	1.2
 In L.A. County Jail, word is you can trade 200 cigarettes for _____.	0	1	1.2
 That's right, I killed _____. How, you ask? _____.	0	2	None

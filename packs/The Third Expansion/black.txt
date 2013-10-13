@@ -17,7 +17,7 @@ In the seventh circle of Hell, sinners must endure _____ for all eternity.	0	1	X
 As part of his daily regimen, Anderson Cooper sets aside 15 minutes for _____.	0	1	X3
 When you get right down to it, _____ is just _____.	0	2	X3
 Having problems with _____? Try _____!	0	2	X3
-And what did <i>you</i> bring for show and tell?	0	1	X3
+And what did /you/ bring for show and tell?	0	1	X3
 I'm not like the rest of you. I'm too rich and busy for _____.	0	1	X3
 With enough time and pressure, _____ will turn into _____.	0	2	X3
 _____: Hours of fun. Easy to use. Perfect for _____!	0	2	X3

@@ -1,7 +1,7 @@
 During his childhood, Salvador Dalí produced hundreds of paintings of _____.	0	1	1.3
 In 1,000 years, when paper money is a distant memory, how will we pay for goods and services?	0	1	1.3
 What don't you want to find in your Kung Pao chicken?	0	1	1.3
-Here is the church<br>Here is the steeple<br>Open the doors<br>And there is _____.	0	1	1.3
+Here is the church / Here is the steeple / Open the doors / And there is _____.	0	1	1.3
 How did I lose my virginity?	0	1	1.3
 Why can't I sleep at night?	0	1	None
 I got 99 problems but _____ ain't one.	0	1	None
@@ -28,14 +28,14 @@ In a world ravaged by _____, our only solace is _____.	0	2	None
 What does Dick Cheney prefer?	0	1	None
 What's the next superhero/sidekick duo?	0	2	1.2
 What's the most emo?	0	1	None
-Dear Abby,<br><br>I'm having some trouble with _____ and would like your advice.	0	1	1.2
+Dear Abby, / I'm having some trouble with _____ and would like your advice.	0	1	1.2
 Instead of coal, Santa now gives the bad children _____.	0	1	None
 Next from J.K. Rowling: Harry Potter and the Chamber of _____.	0	1	None
 A romantic, candlelit dinner would be incomplete without _____.	0	1	None
 Maybe she's born with it. Maybe it's _____.	0	1	1.2
 White people like _____.	0	1	None
 _____. Betcha can't have just one!	0	1	None
-War!<br><br>What is it good for?	0	1	None
+War! / What is it good for?	0	1	None
 BILLY MAYS HERE FOR _____.	0	1	None
 _____. High five, bro.	0	1	None
 During sex, I like to think about _____.	0	1	None

@@ -1,7 +1,7 @@
 In Kingdom Hearts, Donald Duck will be replaced with _____ .	0	1	Vidya
 we must embrace _____ and burn it as fuel for out journey.	0	1	Vidya
 Because of the lastest school shooting, _____ is being blamed for making kids too violent.	0	1	Vidya
->walk into gamestop<br>>see _____<br>>walk out	0	1	Vidya
+>walk into gamestop / >see _____ / >walk out	0	1	Vidya
 WHAT THE FUCK DID YOU SAY ABOUT ME YOU _____?	0	1	Vidya
 HEY, GOLLEN PALACE? HOW U SAY _____ IN CHINESE?	0	1	Vidya
 appealing to a larger audience	0	1	Vidya
@@ -20,7 +20,7 @@ Jill, here's a _____. It might come in handy if you, the master of _____, take i
 _____ is a pretty cool guy, eh _____ and doesn't afraid of anything.	0	2	Vidya
 Ironic _____ is still _____.	0	2	Vidya
 What is the new mustard paste?	0	1	Vidya
->_____<br>>_____<br>>2011<br>>ISHYGDDT	0	2	Vidya
+>_____ / >_____ / >2011 / >ISHYGDDT	0	2	Vidya
 All you had to do was _____ the damn _____!	0	2	Vidya
 The new ititeration in the Call of Duty franchise has players fighting off _____ deep in the jungles of _____ 	0	2	Vidya
 Here lies _____: peperony and chease	0	1	Vidya

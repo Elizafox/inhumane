@@ -83,7 +83,7 @@ There are guilty pleasures. And then there's _____.	0	1	AN
 Watch it! Or I'll take your _____.	0	1	AN
 This morning, hundreds of Japanese otaku lined up outside their favorite store to buy the limited collector's edition of _____.	0	1	AN
 Every now and then, I like to participate in the time-honored Japanese tradition of _____.	0	1	AN
-Chicks. Dig. _____. <i>Nice.</i>	0	1	AN
+Chicks. Dig. _____. Nice.	0	1	AN
 When it comes to Japanese cuisine, there's simply nothing better than _____.	0	1	AN
 New from Studio GAINAX: _____ the Animation.	0	1	AN
 Using my power of Geass, I command you to do... THIS!	0	1	AN
@@ -104,7 +104,7 @@ Cards Against Anime: It's more fun than _____!	0	1	AN
 On the mean streets of Tokyo, everyone knows that _____ is the leader of the _____ Gang.	0	2	AN
 When I found all 7 Dragon Balls, Shenron granted me my wish for _____.	0	1	AN
 The best part of my _____ costume is _____.	0	2	AN
-My _____ is the _____ that will pierce the heavens!!  <i>*same white card used for both blanks*</i>	0	1	AN
+My _____ is the _____ that will pierce the heavens!!  *same white card used for both blanks*	0	1	AN
 After years of searching, the crew of the Thousand Sunny finally found out that the One Piece is actually _____.	0	1	AN
 The World Line was changed when I sent a D-mail to myself about _____.	0	1	AN
 In this episode of Master Keaton, Keaton builds _____ out of _____ and _____.	2	3	AN

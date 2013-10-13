@@ -22,7 +22,7 @@ That's not a squid!  It's _____!	0	1	ANX1
 The moé debate was surprisingly civil until someone mentioned _____.	0	1	ANX1
 Anime has taught me that classic literature can always be improved by adding _____.	0	1	ANX1
 And from Kyoto Animation, a show about cute girls doing _____.	0	1	ANX1
-"_____."<br>"What the hell, man?!"<br>"_____."<br>"Oh, okay."	0	2	ANX1
+"_____." / "What the hell, man?!" / "_____." / "Oh, okay."	0	2	ANX1
 Madoka Kyouno's nickname for Muginami's older brother is _____.	0	1	ANX1
 What do otaku smell like?	0	1	ANX1
 Attention, duelists: My hair is _____.	0	1	ANX1
