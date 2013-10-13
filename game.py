@@ -18,7 +18,7 @@ class Game(object):
         self.name = name
 
         # Current players
-        self.players = kwargs.get('players', OrderedSet())
+        self.players = OrderedSet(kwargs.get('players', list()))
 
         # Card decks
         self.black_cards = deque()
