@@ -20,6 +20,7 @@ class Game(object):
         # Current players
         self.players = kwargs.get('players', OrderedSet())
 
+        # Card decks
         self.black_cards = deque()
         self.white_cards = deque()
         maxdraw = 0
@@ -30,6 +31,7 @@ class Game(object):
             self.black_cards.extend(deck.white_cards)
             if deck.maxdraw > maxdraw: maxdraw = deck.maxdraw
 
+        # Maximum amount of cards ever drawn
         self.maxdraw = maxdraw
 
         # Check to ensure we have enough cards for everyone
@@ -65,7 +67,7 @@ class Game(object):
             gcounter += 1
 
     def check_enough(self):
-        maxhands = self.maxdraw + 10
+        maxhands = (self.maxdraw + 10) * len(self.players)
         if maxhands > len(self.white_cards):
             raise GameError("Insufficient cards for all players!")
 
