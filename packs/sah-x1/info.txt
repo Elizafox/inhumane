@@ -1,0 +1,7 @@
+{
+    "abbrev": "SAH-X1",
+    "copyright": "Public Domain",
+    "desc": "Sporks Against Humanity pack (First Expansion)",
+    "license": "Public Domain",
+    "name": "Sporks Against Humanity (First Expansion)"
+}
