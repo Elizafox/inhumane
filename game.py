@@ -44,9 +44,6 @@ class Game(object):
         # Black card in play
         self.black_play = None
 
-        # White cards in play
-        self.white_play = set()
-
         # Round counter
         self.rounds = 0
 
@@ -142,7 +139,7 @@ class Game(object):
             self.check_empty() # XXX I hate constantly checking
             deal.append(self.white_cards.popleft())
 
-        player.deal(*deal)
+        player.deal(deal)
 
     def start_round(self):
         if self.in_round:

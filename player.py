@@ -3,6 +3,7 @@
 
 import six
 
+from collections import Iterable
 from threading import RLock
 
 from orderedset import OrderedSet
@@ -28,21 +29,33 @@ class Player(object):
         self.play_cards = list()
         self.ap = 0
 
-    def deal(self, *kargs):
-        self.cards.update(kargs)
+    def deal(self, cards):
+        if isinstance(cards, Iterable):
+            self.cards.update(cards)
+        else:
+            self.cards.add(cards)
         
-    def play(self, *kargs):
+    def play(self, cards):
         assert self.game
         assert self.game.in_round == True
         assert self.game.tsar != self # FIXME - tsar based 
 
-        if len(kargs) != self.game.black_play.playcount:
+        if isinstance(cards, Iterable):
+            clen = len(cards)
+        else:
+            clen = 1
+
+        if clen != self.game.black_play.playcount:
             raise GameError('Invalid number of cards played')
 
         self.last_played = self.game.rounds
 
-        self.cards.difference_update(kargs)
-        self.play_cards.extend(kargs)
+        if isinstance(cards, Iterable):
+            self.cards.difference_update(cards)
+            self.play_cards.extend(cards)
+        else:
+            self.cards.remove(cards)
+            self.play_cards.append(cards)
 
     def game_start(self, game):
         assert self.game is None

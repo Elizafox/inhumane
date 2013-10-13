@@ -19,7 +19,6 @@ def load_deck(pack):
         with open('black.txt', 'r') as f:
             for cinfo in f.readlines():
                 cinfo = cinfo.rstrip('\n')
-
                 cinfo = cinfo.split('\t')
                 cinfo[1], cinfo[2] = int(cinfo[1]), int(cinfo[2])
 
@@ -28,8 +27,9 @@ def load_deck(pack):
         with open('white.txt', 'r') as f:
             for cinfo in f.readlines():
                 cinfo = cinfo.rstrip('\n')
+                cinfo = cinfo.split('\t')
 
-                white_cards.append(Card(cinfo))
+                white_cards.append(Card(*cinfo))
 
         info.update({'black_cards' : black_cards, 'white_cards' : white_cards})
 
@@ -50,4 +50,3 @@ def load_packs(dir):
     return packs
 
 default_packs = load_packs('packs')
-print(default_packs[0].name)

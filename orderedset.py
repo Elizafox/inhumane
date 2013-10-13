@@ -19,8 +19,21 @@ class OrderedSet(collections.MutableSet):
         return key in self.map
 
     def __getitem__(self, index):
-        for i, k in enumerate(self):
-            if index == i: return k
+        if isinstance(index, slice):
+            retval = list()
+            iter = index.indices(len(self))
+
+            # XXX - blah, ugly, but I'm lazy
+            in_map = set()
+            for k in range(*iter): in_map.add(k)
+
+            for i, k in enumerate(self):
+                if i in in_map: retval.append(k)
+
+            return retval
+        else:
+            for i, k in enumerate(self):
+                if index == i: return k
 
         raise IndexError('Index out of range')
 

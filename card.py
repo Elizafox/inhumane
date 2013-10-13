@@ -12,14 +12,18 @@ ccounter = 0
 _cc_lock = RLock()
 
 class Deck(object):
-    def __init__(self, name, abbrev, black_cards, white_cards,
-                 copyright='Unknown', license='Unknown', desc=''):
+    def __init__(self, name, black_cards, white_cards, copyright='Unknown',
+                 license='Unknown', desc='', official=False):
         assert black_cards and white_cards
 
         self.name = name
-        self.abbrev = abbrev
         self.black_cards = black_cards
         self.white_cards = white_cards
+
+        self.license = license
+        self.copyright = copyright
+        self.desc = desc
+        self.official = official
 
         map(lambda card : card.set_deck(self),
             chain(self.black_cards, self.white_cards))
@@ -35,9 +39,10 @@ class Deck(object):
 
 
 class Card(object):
-    def __init__(self, text, drawcount=0, playcount=1, iswhite=True):
+    def __init__(self, text, drawcount=0, playcount=1, watermark='', iswhite=True):
         self.deck = None
         self.text = text
+        self.watermark = watermark
         
         # These two aren't used for white cards
         if not iswhite:
