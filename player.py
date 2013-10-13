@@ -80,6 +80,29 @@ class Player(object):
             # Declare victory
             self.game.choose_winner(player)
 
+    def trade_ap(self, cards):
+        # Get the exchange rate
+        # (see if exchange is permitted)
+        if self.game.trade_ap == (0, 0):
+            raise GameError("Trading AP for cards is not permitted")
+
+        ap, ccount = self.game.trade_ap
+
+        if self.ap < ap:
+            raise GameError("Insufficient AP")
+
+        if isinstance(cards, Iterable):
+            if len(cards) > ccount:
+                raise GameError("Too many cards")
+            self.cards.difference_update(cards)
+        else:
+            self.cards.remove(cards)
+
+        self.ap -= ap
+
+        # Deal a new hand
+        self.game.deal_white(self, game.maxcards - len(self.cards))
+
     def game_start(self, game):
         assert self.game is None
 
