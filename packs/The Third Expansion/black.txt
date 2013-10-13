@@ -1,0 +1,25 @@
+Hey baby, come back to my place and I'll show you _____.	0	1	X3
+My gym teacher got fired for adding _____ to the obstacle course.	0	1	X3
+Finally! A service that delivers _____ right to your door.	0	1	X3
+To prepare for his upcoming role, Daniel Day-Lewis immersed himself in the world of _____.	0	1	X3
+My life is ruled by a vicious cycle of _____ and _____.	0	2	X3
+During high school, I never really fit in until I found _____ club.	0	1	X3
+Money can't buy me love, but it can buy me _____.	0	1	X3
+Listen, son. If you want to get involved with _____, I won't stop you. Just steer clear of _____.	0	2	X3
+A successful job interview begins with a firm handshake and ends with _____.	0	1	X3
+Call the law offices of Goldstein & Goldstein, because no one should have to tolerate _____ in the workplace.	0	1	X3
+Lovin' you is easy 'cause you're _____.	0	1	X3
+The blind date was going horribly until we discovered our shared interest in _____.	0	1	X3
+What left this stain on my couch?	0	1	X3
+Turns out that _____-Man was neither the hero we needed nor wanted.	0	1	X3
+After months of practice with _____, I think I'm finally ready for _____.	0	2	X3
+In the seventh circle of Hell, sinners must endure _____ for all eternity.	0	1	X3
+As part of his daily regimen, Anderson Cooper sets aside 15 minutes for _____.	0	1	X3
+When you get right down to it, _____ is just _____.	0	2	X3
+Having problems with _____? Try _____!	0	2	X3
+And what did <i>you</i> bring for show and tell?	0	1	X3
+I'm not like the rest of you. I'm too rich and busy for _____.	0	1	X3
+With enough time and pressure, _____ will turn into _____.	0	2	X3
+_____: Hours of fun. Easy to use. Perfect for _____!	0	2	X3
+_____. Awesome in theory, kind of a mess in practice.	0	1	X3
+As part of his contract, Prince won't perform without _____ in his dressing room.	0	1	X3

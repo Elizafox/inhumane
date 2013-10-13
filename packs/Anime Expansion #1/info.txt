@@ -1,0 +1,7 @@
+{
+    "copyright": "Unknown", 
+    "desc": "http://www.desudesbrigade.com/", 
+    "license": "Creative Commons", 
+    "name": "Anime Expansion #1", 
+    "official": false
+}

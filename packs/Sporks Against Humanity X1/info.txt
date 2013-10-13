@@ -1,0 +1,7 @@
+{
+    "copyright": "Public Domain",
+    "desc": "Sporks Against Humanity pack - First expansion",
+    "license": "Public Domain",
+    "name": "Sporks Against Humanity - First Expansion",
+    "official": false
+}

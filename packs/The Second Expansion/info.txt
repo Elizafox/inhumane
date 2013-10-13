@@ -1,0 +1,7 @@
+{
+    "copyright": "Unknown", 
+    "desc": "The official Second Expansion.", 
+    "license": "Creative Commons", 
+    "name": "The Second Expansion", 
+    "official": false
+}

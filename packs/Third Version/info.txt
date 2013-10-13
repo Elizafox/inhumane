@@ -1,0 +1,7 @@
+{
+    "copyright": "Unknown", 
+    "desc": "Another updated version of the Cards Against Humanity base game.", 
+    "license": "Creative Commons", 
+    "name": "Third Version", 
+    "official": true
+}

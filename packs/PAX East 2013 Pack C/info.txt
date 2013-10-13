@@ -1,0 +1,7 @@
+{
+    "copyright": "Unknown", 
+    "desc": "PAX East 2013 Pack "C".", 
+    "license": "Creative Commons", 
+    "name": "PAX East 2013 Pack C", 
+    "official": false
+}

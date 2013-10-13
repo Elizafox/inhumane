@@ -1,0 +1,7 @@
+{
+    "copyright": "Unknown", 
+    "desc": "Cards included in Canadian orders.", 
+    "license": "Creative Commons", 
+    "name": "Canadian", 
+    "official": false
+}

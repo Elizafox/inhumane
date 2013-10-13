@@ -1,0 +1,47 @@
+In a news conference, Obama pulled out _____, to everyone's surprise.	0	1	RS
+Nights filled with _____.	0	1	RS
+_____ Game of the Year Edition.	0	1	RS
+What was going through Osama Bin Laden's head before he died?	0	1	RS
+The lion, the witch, and _____.	0	1	RS
+In the next episode, SpongeBob gets introduced to _____. 	0	1	RS
+Praise _____!	0	1	RS
+Justin Beiber's new song is all about _____.	0	1	RS
+Keith Richards enjoys _____ on his food.	0	1	RS
+The new fad diet is all about making people do _____ and eat _____.	0	2	RS
+What can you always find in between the couch cushions?	0	1	RS
+Grand Theft Auto™: _____.	0	1	RS
+The victim was found with _____.	0	1	RS
+I whip my _____ back and forth.	0	1	RS
+What is love without _____?	0	1	RS
+What is the next great Kickstarter project?	0	1	RS
+Who let the dogs out?	0	1	RS
+_____ 2012.	0	1	RS
+In his next movie, Will Smith saves the world from _____.	0	1	RS
+What is Curious George so curious about?	0	1	RS
+Lady Gaga has revealed her new dress will be made of _____.	0	1	RS
+What is the next big sideshow attraction?	0	1	RS
+_____ ruined many people's childhood.	0	1	RS
+_____ and _____ are the new hot couple.	0	2	RS
+Who needs college when you have _____.	0	1	RS
+When short on money, you can always _____.	0	1	RS
+When North Korea gets _____, it will be the end of the world.	0	1	RS
+My life for _____!	0	1	RS
+Plan a three course meal.	2	3	RS
+Tastes like _____.	0	1	RS
+What is literally worse than Hitler?	0	1	RS
+I wouldn't fuck _____ with _____'s dick.	0	2	RS
+The next Assassin's Creed game will take place in _____.	0	1	RS
+In the next Punch Out!!, _____ will be the secret final boss.	0	1	RS
+One does not simply walk into _____.	0	1	RS
+The next pokemon will combine _____ and _____.	0	2	RS
+What will Xyzzy take over the world with?	0	1	RS
+Instead of playing Cards Against Humanity, you could be _____.	0	1	RS
+Who is GLaDOS's next test subject?	0	1	RS
+In his second term, Obama will rid America of _____.	0	1	RS
+I never thought _____ would be so enjoyable.	0	1	RS
+In the future, _____ will fuel our cars.	0	1	RS
+What is Japan's national pastime?	0	1	RS
+Dustin Browder demands more _____ in StarCraft®.	0	1	RS
+Welcome to my secret lair on _____.	0	1	RS
+I've got the whole world in my _____.	0	1	RS
+What is the answer to life's question?	0	1	RS

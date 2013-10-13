@@ -1,0 +1,124 @@
+We'll always have _____.	0	1	VS
+What mildy annoyed you today?	0	1	VS
+Let's all rock out to the sounds of _____.	0	1	VS
+_____ uses _____. It is SUPER EFFECTIVE!	0	2	VS
+Take _____, it will last longer.	0	1	VS
+_____ is my worst habit.	0	1	VS
+It's the end of _____ as we know it.	0	1	VS
+Everything's better with _____.	0	1	VS
+What have you accomplished today?	0	1	VS
+What would you taste like?	0	1	VS
+Why are you frothing with rage?	0	1	VS
+What made you happy today?	0	1	VS
+My _____ is too big!	0	1	VS
+Best drink ever: One part _____, three parts _____, and a splash of _____.	2	3	VS
+_____. That is my fetish.	0	1	MLP
+_____ makes me uncomfortable.	0	1	VS
+Stop, drop, and _____.	0	1	VS
+Think before you _____.	0	1	VS
+The hills are alive with _____ of _____.	0	2	VS
+A wild _____ appeared! It used _____!	0	2	VS
+There's _____ in my soup.	0	1	VS
+If life gives you _____, make _____.	0	2	VS
+Who needs a bidet when you have _____?	0	1	VS
+Kill it with _____!	0	1	VS
+_____ for president!	0	1	VS
+Have fun, don't be _____.	0	1	VS
+Don't get mad, get _____.	0	1	VS
+After I saw _____, I needed _____.	0	2	VS
+I'm an expert on _____.	0	1	VS
+_____ is the only thing that matters.	0	1	VS
+Cunnilungus and psychiatry brought us to _____.	0	1	VS
+Alcoholic games of Clue® lead to _____.	0	1	SG
+_____.tumblr.com	0	1	SG
+_____ is the name of my _____ cover band.	0	2	SG
+_____? It's a DLC item.	0	1	NL
+Oh god, I can't believe we ate _____ at PAX.	0	1	NL
+_____ sounds like a great alternative rock band.	0	1	NL
+_____. Everything else is uncivilized.	0	1	NL
+Don't slow down in East Cleveland or _____.	0	1	SG
+Best game of 2013? _____, of course.	0	1	NL
+How do you get your dog to stop humping your leg?	0	1	NL
+Who let the dogs out?	0	1	RS
+In his next movie, Will Smith saves the world from _____.	0	1	RS
+_____ and _____ are the new hot couple.	0	2	RS
+When North Korea gets _____, it will be the end of the world.	0	1	RS
+Plan a three course meal.	2	3	RS
+Tastes like _____.	0	1	RS
+What will Xyzzy take over the world with?	0	1	RS
+Dustin Browder demands more _____ in StarCraft®.	0	1	RS
+Welcome to my secret lair on _____.	0	1	RS
+Sometimes, a man's just gotta _____.	0	1	NL
+Only in Korea can you see _____.	0	1	NL
+The Holy Trinity: _____, _____, and _____!	2	3	NL
+What can you always find in between the couch cushions?	0	1	RS
+What is the next great Kickstarter project?	0	1	RS
+My life for _____!	0	1	RS
+When I was a kid, all we had in Lunchables were three _____ and _____.	0	2	NL
+On its last dying breath, _____ sent out a cry for help. A bunch of _____ heard the cry.	0	2	NL
+OH MY GOD THIS IS THE GREATEST _____ I'VE EVER SEEN IN MY LIFE!	0	1	TGWTG
+No one wants to see your _____.	0	1	TGWTG
+I watch movies just to see if I can find a Big Lipped _____ Moment.	0	1	TGWTG
+STOP OR I WILL _____.	0	1	TGWTG
+_____! You know, for kids.	0	1	TGWTG
+I write slash fanfiction pairing _____ with _____.	0	2	TGWTG
+What doesn't work that way?	0	1	TGWTG
+What the fuck is wrong with you?	0	1	TGWTG
+Praise _____!	0	1	RS
+_____ is camping my lane.	0	1	GFC
+Hey guys, check out my _____ montage!	0	1	GFC
+Real men watch _____.	0	1	AN
+So wait, _____ was actually _____? Wow, I didn't see that one coming!	0	2	AN
+Whenever I'm splashed with cold water, I turn into _____.	0	1	AN
+No matter how you look at it, ultimately _____ is responsible for _____.	0	2	AN
+Vegeta, what does the scouter say?	0	1	AN
+Who the hell do you think I am?!	0	1	AN
+On the next episode of Dragon Ball Z, Goku has a fierce battle with _____.	0	1	AN
+Truly and without question, _____ is the manliest of all men.	0	1	AN
+WANTED: $50,000,000,000 reward for the apprehension of_____.	0	1	AN
+People die when they are _____.	0	1	AN
+Okay, I'll admit it. I would totally go gay for _____.	0	1	AN
+_____. Goddammit, Japan.	0	1	AN
+Digimon! Digivolve to: _____-mon!	0	1	AN
+I have never in my life laughed harder than the first time I watched _____.	0	1	AN
+There are guilty pleasures. And then there's _____.	0	1	AN
+When it comes to Japanese cuisine, there's simply nothing better than _____.	0	1	AN
+Just announced: The brand new anime adaptation of _____, starring _____ as the voice of _____.	2	3	AN
+And the award for the filthiest scene in an adult film goes to "5 women and _____."	0	1	MrMan
+The seldom mentioned 4th little pig build his house out of _____.	0	1	MrMan
+"Why Grandma", said Little Red Riding Hood, "What big _____ you have!"	0	1	MrMan
+I finally realized I hit rock bottom when I started digging through dumpsters for _____.	0	1	MrMan
+What do I keep hidden in the crawlspace?	0	1	MrMan
+Go-Go-Gadget, _____!	0	1	MrMan
+And it is said his ghost still wanders these halls, forever searching for his lost _____.	0	1	MrMan
+The best part of waking up is _____ in your cup.	0	1	MrMan
+The primitive villagers were both shocked and amazed when I showed them _____.	0	1	MrMan
+_____ is the root of all evil.	0	1	MrMan
+The road to success is paved with _____.	0	1	MrMan
+And on his farm he had _____, E-I-E-I-O!	0	1	MrMan
+The Himalayas are filled with many perils, such as _____.	0	1	MrMan
+The sad truth is, that at the edge of the universe, there is nothing but _____.	0	1	MrMan
+I'M-A FIRIN' MAH _____!	0	1	AN
+Of my entire collection, my most prized possession is _____.	0	1	AN
+Mom, I swear! Despite it's name, _____ is NOT a porno!	0	1	AN
+The government of Japan recently passed a law that effectively forbids all forms of _____.	0	1	AN
+With Democrats and Republicans in a dead heat, the election was snatched by _____ party.	0	1	MrMan
+Who would have guessed that the alien invasion would be easily thwarted by _____.	0	1	MrMan
+All your _____ are belong to us	0	1	Vidya
+Wake up, Mr. Freeman. Wake up and _____.	0	1	Vidya
+Sorry Mario, but _____ is in another castle.	0	1	Vidya
+The _____ is a lie.	0	1	Vidya
+It's difficult to explain to friends and family why I know so much about _____.	0	1	Furry
+Who knew I'd be able to make a living off of _____?	0	1	Furry
+Long story short, I ended up with _____ in my ass.	0	1	Furry
+At first I couldn't understand _____, but now it's my biggest kink.	0	1	Furry
+What is your mating call?	0	1	RT
+What is the worst thing anyone could say in front of the police?	0	1	RT
+What is the saddest thing you've ever seen?	0	1	RT
+What is your favorite book?	0	1	RT
+The Xbox One's DRM policy isn't half as bad as _____.	0	2	DAH
+_____, the one you want to get DDoS'd	0	1	DAH
+I AM THE _____ CZAR!!!	0	1	DAH
+I can't believe I spent most of my paycheck on _____.	0	1	Furry
+_____ is the greatest Canadian.	0	1	RT
+What is the meaning of life?	0	1	RT

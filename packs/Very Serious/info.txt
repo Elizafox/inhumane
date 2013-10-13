@@ -1,0 +1,7 @@
+{
+    "copyright": "Unknown", 
+    "desc": "http://forum.verysrs.com/", 
+    "license": "Creative Commons", 
+    "name": "Very Serious", 
+    "official": false
+}

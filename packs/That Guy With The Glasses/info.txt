@@ -1,0 +1,7 @@
+{
+    "copyright": "Unknown", 
+    "desc": "http://thatguywiththeglasses.com/", 
+    "license": "Creative Commons", 
+    "name": "That Guy With The Glasses", 
+    "official": true
+}

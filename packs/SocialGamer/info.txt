@@ -1,0 +1,7 @@
+{
+    "copyright": "Unknown", 
+    "desc": "Custom cards from the SocialGamer.net community.", 
+    "license": "Creative Commons", 
+    "name": "SocialGamer", 
+    "official": false
+}

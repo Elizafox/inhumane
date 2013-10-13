@@ -1,0 +1,7 @@
+{
+    "copyright": "Unknown", 
+    "desc": "The official Third Expansion.", 
+    "license": "Creative Commons", 
+    "name": "The Third Expansion", 
+    "official": false
+}

@@ -1,0 +1,7 @@
+{
+    "copyright": "Unknown", 
+    "desc": "http://www.reddit.com/r/mlplounge/", 
+    "license": "Creative Commons", 
+    "name": "r--MLPLounge", 
+    "official": false
+}

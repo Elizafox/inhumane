@@ -1,0 +1,7 @@
+{
+    "copyright": "Unknown", 
+    "desc": "The 2012 Holiday Pack.", 
+    "license": "Creative Commons", 
+    "name": "2012 Holiday Pack", 
+    "official": false
+}

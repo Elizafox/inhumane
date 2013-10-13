@@ -1,0 +1,9 @@
+Technology improves every day. One day soon, surfing the web will be replaced by _____.	0	1	AI
+Despite our Administration's best efforts, we are still incapable of _____.	0	1	AI
+At camp, we'd scare each other by telling stories about _____ around the fire.	0	1	AI
+Choosy Moms Choose _____.	0	1	AI
+The reason I go to church is to learn about _____.	0	1	AI
+Show me on _____, where he _____.	0	2	AI
+I wouldn't _____ you with _____.	0	2	AI
+All attempts at _____, have met with failure and crippling economic sanctions.	0	1	AI
+Eating _____ gave me _____.	2	2	AI

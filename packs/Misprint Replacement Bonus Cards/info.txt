@@ -1,0 +1,7 @@
+{
+    "copyright": "Unknown", 
+    "desc": "Bonus cards included with replacements for misprinted cards.", 
+    "license": "Creative Commons", 
+    "name": "Misprint Replacement Bonus Cards", 
+    "official": false
+}

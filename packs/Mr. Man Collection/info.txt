@@ -1,0 +1,7 @@
+{
+    "copyright": "Unknown", 
+    "desc": "", 
+    "license": "Creative Commons", 
+    "name": "Mr. Man Collection", 
+    "official": false
+}

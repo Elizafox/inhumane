@@ -1,0 +1,7 @@
+{
+    "copyright": "Unknown", 
+    "desc": "by Sl0nderman", 
+    "license": "Creative Commons", 
+    "name": "Vidya", 
+    "official": false
+}

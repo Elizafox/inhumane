@@ -1,0 +1,2 @@
+You have been waylaid by _____ and must defend yourself.	0	1	PAX A
+I have an idea even better than Kickstarter, and it's called _____starter.	0	1	PAX A

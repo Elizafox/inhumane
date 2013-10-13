@@ -1,0 +1,7 @@
+{
+    "copyright": "Public Domain",
+    "desc": "Sporks Against Humanity pack",
+    "license": "Public Domain",
+    "name": "Sporks Against Humanity",
+    "official": false
+}

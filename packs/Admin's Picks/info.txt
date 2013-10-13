@@ -1,0 +1,7 @@
+{
+    "copyright": "Unknown", 
+    "desc": "Custom cards that I think are particularly fitting.", 
+    "license": "Creative Commons", 
+    "name": "Admin's Picks", 
+    "official": false
+}
