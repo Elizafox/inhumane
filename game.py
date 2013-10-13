@@ -83,9 +83,7 @@ class Game(object):
             self.spent = True
             self.tsar = None
             self.tsar_index = 0
-
-        if len(self.players) == 0:
-            raise GameError("Insufficent players")
+            raise GameError("Insufficient Players")
 
         if player is not None and player not in self.players:
             raise GameError("Invalid player")

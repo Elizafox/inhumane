@@ -14,7 +14,7 @@ _cc_lock = RLock()
 class Deck(object):
     def __init__(self, name, black_cards, white_cards, copyright='Unknown',
                  license='Unknown', desc='', official=False):
-        assert black_cards and white_cards
+        assert len(black_cards) or len(white_cards)
 
         self.name = name
         self.black_cards = black_cards
@@ -57,10 +57,10 @@ class Card(object):
             ccounter += 1
 
     def __eq__(self, other):
-        return self.deck == other.deck and self.text == other.text
+        return self.text == other.text
 
     def __hash__(self):
-        h = hash(self.text) ^ hash(self.iswhite) ^ hash(self.cid) 
+        h = hash(self.text) ^ hash(self.iswhite)
         if not self.iswhite:
             h ^= hash(self.drawcount) << 32
             h ^= hash(self.playcount) << 64
