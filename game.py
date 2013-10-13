@@ -18,7 +18,7 @@ class Game(object):
         self.name = name
 
         # Current players
-        self.players = OrderedSet(kwargs.get('players', list()))
+        self.players = OrderedSet(kwargs.get("players", list()))
 
         # Card decks
         self.black_cards = deque()
@@ -26,7 +26,7 @@ class Game(object):
         maxdraw = 0
         # Get all the decks
         # (and check for max len in each)
-        for deck in kwargs.get('decks'):
+        for deck in kwargs.get("decks"):
             self.black_cards.extend(deck.black_cards)
             self.white_cards.extend(deck.white_cards)
             if deck.maxdraw > maxdraw: maxdraw = deck.maxdraw
@@ -43,9 +43,14 @@ class Game(object):
         self.discard_white = deque()
 
         # House rules
-        self.voting = kwargs.get('voting', False)
-        self.maxcards = kwargs.get('maxcards', 10)
-        self.trade_ap = kwargs.get('trade_ap', (0, 0))
+        self.voting = kwargs.get("voting", False)
+        self.maxcards = kwargs.get("maxcards", 10)
+        self.trade_ap = kwargs.get("trade_ap", (0, 0))
+        # TODO more house rules
+
+        # game play limits
+        self.maxrounds = kwargs.get("maxrounds", None)
+        self.maxap = kwargs.get("maxap", 10)
 
         # Check to ensure we have enough cards for everyone
         # (After setting maxcards)
@@ -54,6 +59,9 @@ class Game(object):
         # Current tsar
         self.tsar = self.players[0] if len(self.players) > 0 else None
         self.tsar_index = 0
+
+        # Votes
+        self.votes = 0
 
         # Black card in play
         self.black_play = None
@@ -96,7 +104,7 @@ class Game(object):
 
         return self.tsar
 
-    def add_player(self, player):
+    def player_add(self, player):
         self.check_enough()
 
         # Reviving a game if it was spent due to losing all players
@@ -112,7 +120,7 @@ class Game(object):
         if not self.in_round:
             self.deal_white(player, self.maxcards) 
 
-    def remove_player(self, player):
+    def player_remove(self, player):
         self.players.remove(player)
 
         # Return their cards to the discard pile
@@ -164,9 +172,9 @@ class Game(object):
 
         player.deal(deal)
 
-    def start_round(self):
+    def round_start(self):
         if self.in_round:
-            raise GameError('Attempting to start a round with one existing!')
+            raise GameError("Attempting to start a round with one existing!")
 
         # No players should have leftover played cards
         # (they should be purged at the end of a round)
@@ -212,12 +220,14 @@ class Game(object):
         else:
             raise GameError("Player can't be None in a Tsar-based game")
 
-        self.end_round()
+        self.round_end()
         return winning
 
-    def end_round(self):
+    def round_end(self):
         if not self.in_round:
-            raise GameError('Attempting to end a nonexistent round!')
+            raise GameError("Attempting to end a nonexistent round!")
+
+        self.in_round = False
 
         # Discard the black card
         self.discard_black.append(self.black_play)
@@ -232,7 +242,45 @@ class Game(object):
             if len(player.cards) < self.maxcards:
                 self.deal_white(player, self.maxcards - len(player.cards))
 
+        # Reset votes
+        self.votes = 0
+
+        # Check for end-of-game conditions
+        if self.maxrounds is not None and self.rounds == self.maxrounds:
+            self.game_end()
+        elif self.maxap != None:
+            # XXX eugh we iterate over the players twice when the game ends!
+            max = sorted([(p.ap, p.uid) for p in self.players], reverse=True)
+            if max[0][0] >= self.maxap:
+                self.game_end()
+
         # Choose the new tsar
         self.new_tsar()
 
-        self.in_round = False
+    def game_end(self):
+        # End the game
+        self.spent = True
+
+        if self.in_round:
+            self.round_end()
+
+        self.tsar = None
+        self.tsar_index = None
+
+        if self.players <= 1:
+            return [None]
+
+        # Find the winner
+        aplist = sorted([(p.ap, p.uid, p) for p in self.players],
+                        reversed=True)
+        top = aplist[0][0]
+        winning = None
+        for v in aplist:
+            ap, uid, player = v
+            if ap < top and winning is None:
+                winning = aplist[:i]
+            
+            self.player.remove(player)
+            
+        return winning
+

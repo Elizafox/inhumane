@@ -23,12 +23,11 @@ class Player(object):
             self.uid = pcounter
             pcounter += 1
 
-        self.game = game
-        self.last_played = 0
         self.cards = OrderedSet()
         self.play_cards = list()
-        self.ap = 0
-        self.votes = 0
+
+        self.reset()
+        self.game = game
 
     def deal(self, cards):
         if isinstance(cards, Iterable):
@@ -75,10 +74,14 @@ class Player(object):
         if self == player:
             raise GameError("Cannot vote for yourself!")
 
+        if player.voted:
+            raise GameError("No double voting!")
+
         self.votes += 1
-        if self.votes == (len(self.game.players) - 1):
-            # Declare victory
-            self.game.choose_winner(player)
+        self.game.votes += 1
+        player.voted = True
+        if self.game.votes == len(self.players):
+            self.game.choose_winner()
 
     def trade_ap(self, cards):
         # Get the exchange rate
@@ -122,6 +125,7 @@ class Player(object):
         self.play_cards.clear()
         self.ap = 0
         self.votes = 0
+        self.voted = False
 
     def rename(self, name):
         self.name = name
