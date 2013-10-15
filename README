@@ -5,3 +5,5 @@ This is a work in progress. Very undocumented, not yet stable.
 Will probably do horrible things and shag your sister and make unnatural freaky
 hybrids with your pets. You've been warned.
 
+Run tests from the main directory:  python3 -m unittest discover -s tests -v
+
