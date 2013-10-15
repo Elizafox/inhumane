@@ -181,6 +181,7 @@ class Game(object):
 
     def get_ap(self, player):
         """ Get AP for a user """
+        assert player in self.players
         return self.ap[player]
 
     def _check_enough(self):
