@@ -1,8 +1,8 @@
 # -*- coding: UTF-8 -*-
 from __future__ import print_function
 
-import game, player, card
-import deckloader
+from . import game, player, card
+from . import deckloader
 
 g = game.Game('testblah', decks=deckloader.default_decks)
 p_missingno = player.Player('Missingno')
