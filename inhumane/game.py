@@ -195,7 +195,7 @@ class Game(object):
         self.ap[player] -= ap
 
         # Deal a new hand
-        self.player_deal()
+        self.player_deal(player)
 
     def player_get_ap(self, player):
         """ Get AP for a user """
