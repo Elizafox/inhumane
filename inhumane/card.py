@@ -23,6 +23,8 @@ class Deck(object):
         self.desc = desc
         self.official = official
 
+        self.hash = None # Cached hash value
+
         for card in chain(self.blackcards, self.whitecards):
             card.deck = self
 
@@ -35,6 +37,26 @@ class Deck(object):
 
         self.maxdraw = maxdraw
         self.maxplay = maxplay
+
+    def __repr__(self):
+        return "Deck(name={n}, black cards={b}, white cards={w}, copyright={c}, license={l}, desc={d}, official={o})".format(
+            n=self.name, b=len(self.blackcards), w=len(self.whitecards),
+            c=self.copyright, l=self.license, d=self.desc, o=str(self.official))
+
+    def __hash__(self):
+        if self.hash is not None:
+            return self.hash
+
+        hashval = hash(self.blackcards[0])
+        for i, b in enumerate(self.blackcards[1:]):
+            hashval ^= hash(b) << (i % 48)
+        
+        for i, w in enumerate(self.whitecards):
+            hashval ^= hash(w) << (i % 48)
+
+        hashval ^= repr(self)
+        self.hash = hashval
+        return self.hash
 
 
 class Card(object):
