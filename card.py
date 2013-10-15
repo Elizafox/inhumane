@@ -12,25 +12,25 @@ ccounter = 0
 _cc_lock = RLock()
 
 class Deck(object):
-    def __init__(self, name, black_cards, white_cards, copyright='Unknown',
+    def __init__(self, name, blackcards, whitecards, copyright='Unknown',
                  license='Unknown', desc='', official=False):
-        assert len(black_cards) or len(white_cards)
+        assert len(blackcards) or len(whitecards)
 
         self.name = name
-        self.black_cards = black_cards
-        self.white_cards = white_cards
+        self.blackcards = blackcards
+        self.whitecards = whitecards
 
         self.license = license
         self.copyright = copyright
         self.desc = desc
         self.official = official
 
-        for card in chain(self.black_cards, self.white_cards):
+        for card in chain(self.blackcards, self.whitecards):
             card.deck = self
 
         maxdraw = 0
         maxplay = 0
-        for n in self.black_cards:
+        for n in self.blackcards:
             if n.drawcount > maxdraw: maxdraw = n.drawcount
             if n.playcount > maxplay: maxplay = n.playcount
 

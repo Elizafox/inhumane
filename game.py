@@ -23,38 +23,67 @@ class RuleError(BaseGameError):
     pass
 
 class Game(object):
+    """ The basic game object.
+
+    Basically this holds the entire state for a given game minus (at present)
+    player hands. A player can be attached to ONLY one game at a time. This is
+    subject to change.
+
+    Use the .add_player method to add Player instances to the game.
+
+    Decks must be added at instantiation time.
+
+    When errors with the game itself arise, GameError is thrown. When the rules
+    are broken, RuleError is raised. Note that all forms of cheating are not
+    caught (and you could cheat by setting attributes anyway, I won't add
+    __setattr__ limits).
+    """
+
     def __init__(self, name, **kwargs):
-        self.name = name
+        """ Create a game.
+
+        args:
+            name: name of the game
+            players: current players in the form of an Iterable. Can be empty.
+            decks: card decks (see the Deck class)
+            voting: HOUSE RULE: players vote instead of the tsar being used.
+            maxcards: HOUSE RULE: change the number of cards per hand (default
+                10)
+            apxchg: HOUSE RULE: an Iterable containing (ap, cards) for
+                trading. (default: forbidden)
+            maxrounds: maximum number of game rounds (default unlimited)
+            maxap: maximum number of AP to play to (default 10)
+        """
 
         # Current players
         self.players = OrderedSet(kwargs.get("players", list()))
 
         # Card decks
-        self.black_cards = deque()
-        self.white_cards = deque()
+        self.blackcards = deque()
+        self.whitecards = deque()
         maxdraw = 0
         # Get all the decks
         # (and check for max len in each)
         for deck in kwargs.get("decks"):
-            self.black_cards.extend(deck.black_cards)
-            self.white_cards.extend(deck.white_cards)
+            self.blackcards.extend(deck.blackcards)
+            self.whitecards.extend(deck.whitecards)
             if deck.maxdraw > maxdraw: maxdraw = deck.maxdraw
 
         # Maximum amount of cards ever drawn
         self.maxdraw = maxdraw
 
         # Shuffle the decks
-        shuffle(self.black_cards)
-        shuffle(self.white_cards)
+        shuffle(self.blackcards)
+        shuffle(self.whitecards)
 
         # Discard piles
-        self.discard_black = deque() 
-        self.discard_white = deque()
+        self.discardblack = deque() 
+        self.discardwhite = deque()
 
         # House rules
         self.voting = kwargs.get("voting", False)
         self.maxcards = kwargs.get("maxcards", 10)
-        self.trade_ap = kwargs.get("trade_ap", (0, 0))
+        self.apxchg = kwargs.get("apxchg", (0, 0))
         # TODO more house rules
 
         # game play limits
@@ -63,14 +92,14 @@ class Game(object):
 
         # Check to ensure we have enough cards for everyone
         # (After setting maxcards)
-        self.check_enough()
+        self._check_enough()
 
         # Current tsar
         self.tsar = self.players[0] if len(self.players) > 0 else None
-        self.tsar_index = 0
+        self.tsarindex = 0
 
         # Black card in play
-        self.black_play = None
+        self.blackplay = None
 
         # Votes and AP
         self.voters = set()
@@ -81,7 +110,7 @@ class Game(object):
         self.rounds = 0
 
         # Currently in a round
-        self.in_round = False
+        self.inround = False
 
         # Spent
         self.spent = False
@@ -92,9 +121,17 @@ class Game(object):
             gcounter += 1
 
     def vote_for(self, player, player2):
-        """ player votes for player2 """
-        assert player in self.players and player2 in self.players
+        """ Vote for a player if voting enabled.
+        
+        args:
+            player: player voting
+            player2: player voting for
+        """
 
+        if player not in self.players:
+            raise RuleError("No external players voting!")
+        if player2 not in self.players:
+            raise RuleError("No voting for players not in the game!")
         if player in self.voters:
             raise RuleError("No double voting!")
 
@@ -112,12 +149,14 @@ class Game(object):
         return None
 
     def trade_ap(self, player, cards):
+        """ Trade AP for cards for the given player """
+
         # Get the exchange rate
         # (see if exchange is permitted)
-        if self.trade_ap == (0, 0):
+        if self.apxchg == (0, 0):
             raise RuleError("Trading AP for cards is not permitted")
 
-        ap, ccount = self.trade_ap
+        ap, ccount = self.apxchg
 
         if self.ap[player] < ap:
             raise RuleError("Insufficient AP")
@@ -135,11 +174,12 @@ class Game(object):
         self.deal_white(player, self.maxcards - len(player.cards))
 
     def get_ap(self, player):
+        """ Get AP for a user """
         return self.ap[player]
 
-    def check_enough(self):
+    def _check_enough(self):
         maxhands = (self.maxdraw + self.maxcards) * len(self.players)
-        if maxhands > len(self.white_cards):
+        if maxhands > len(self.whitecards):
             raise GameError("Insufficient cards for all players!")
 
     def new_tsar(self, player=None):
@@ -147,22 +187,24 @@ class Game(object):
             # Game is spent.
             self.spent = True
             self.tsar = None
-            self.tsar_index = 0
+            self.tsarindex = 0
             raise GameError("Insufficient Players")
 
         if player is not None and player not in self.players:
             raise GameError("Invalid player")
 
         if not player:
-            player = self.players[(self.tsar_index + 1) % len(self.players)]
+            player = self.players[(self.tsarindex + 1) % len(self.players)]
 
-        self.tsar_index = self.players.index(player)
+        self.tsarindex = self.players.index(player)
         self.tsar = player
 
         return self.tsar
 
     def player_add(self, player):
-        self.check_enough()
+        """ Add a new player to the game """
+
+        self._check_enough()
 
         # Reviving a game if it was spent due to losing all players
         self.spent = False
@@ -174,83 +216,100 @@ class Game(object):
             self.new_tsar(player)
 
         # Give them cards if the round hasn't yet begun
-        if not self.in_round:
+        if not self.inround:
             self.deal_white(player, self.maxcards) 
 
-    def player_remove(self, player):
-        self.players.remove(player)
+    def player_clear(self, player):
+        """ Clear a player out """
 
-        # Return their cards to the discard pile
-        self.discard_white.extend(player.cards)
+        # Return all player cards to the deck
+        self.discardwhite.extend(player.cards)
+        self.discardwhite.extend(player.playcards)
 
-        # If they played any cards, return those too
-        self.discard_white.extend(player.play_cards)
+        player.cards.clear()
+        player.playcards.clear()
 
-        # Set to None so it doesn't get into a loop
-        player.game = None
-        player.game_end()
+        # Destroy their state
+        self.ap.pop(player, None)
+        self.votes.pop(player, None)
+        self.voters.discard(player)
 
-        # If they were tsar, reassign it
-        if player == self.tsar:
+        if player == self.tsar and not self.spent:
+            # Reassign tsar if need be
             self.new_tsar()
 
+    def player_remove(self, player):
+        """ Remove a player from the game """
+
+        self.player_clear(player)
+        self.players.remove(player)
+
+        player.game_end()
+
     def check_empty(self):
-        if len(self.discard_black) == len(self.black_cards) == 0:
+        """ Check if the decks are empty, and add cards from the discard pile if
+        needs be """
+
+        if len(self.discardblack) == len(self.blackcards) == 0:
             raise GameError("Empty decks!")
 
-        black_empty = white_empty = False
+        blackempty = whiteempty = False
 
-        if len(self.black_cards) == 0:
+        if len(self.blackcards) == 0:
             # Swap them
-            tmp = self.black_cards
-            self.black_cards = self.discard_black
-            self.discard_black = tmp
+            tmp = self.blackcards
+            self.blackcards = self.discardblack
+            self.discardblack = tmp
 
-            shuffle(self.black_cards)
+            shuffle(self.blackcards)
 
-            black_empty = True
+            blackempty = True
 
-        if len(self.white_cards) == 0:
-            tmp = self.white_cards
-            self.white_cards = self.discard_white
-            self.discard_white = tmp
+        if len(self.whitecards) == 0:
+            tmp = self.whitecards
+            self.whitecards = self.discardwhite
+            self.discardwhite = tmp
 
-            shuffle(self.white_cards)
+            shuffle(self.whitecards)
 
-            white_empty = True
+            whiteempty = True
 
-        return (black_empty, white_empty)
+        return (blackempty, whiteempty)
 
     def deal_white(self, player, count):
+        """ Deal count white cards to the player """
+
         deal = list()
         for i in range(count):
             self.check_empty() # XXX I hate constantly checking
-            deal.append(self.white_cards.popleft())
+            deal.append(self.whitecards.popleft())
 
         player.deal(deal)
 
     def round_start(self):
-        if self.in_round:
+        """ Start a round. """
+
+        if self.inround:
             raise GameError("Attempting to start a round with one existing!")
 
         # No players should have leftover played cards
         # (they should be purged at the end of a round)
-        assert [len(player.play_cards) == 0 for player in self.players].count(False) == 0
+        assert [len(player.playcards) == 0 for player in self.players].count(False) == 0
 
         # Black card should be the null sentinel
-        assert self.black_play is None
+        assert self.blackplay is None
 
-        self.in_round = True
+        self.inround = True
         self.rounds += 1
 
         # Recycle the decks if need be
         self.check_empty()
 
-        self.black_play = self.black_cards.popleft()
+        self.blackplay = self.blackcards.popleft()
 
         # Add cards to players' hands
         for player in self.players:
-            self.deal_white(player, self.black_play.drawcount)
+            self.deal_white(player, self.blackplay.drawcount)
 
     @staticmethod
     def _get_top(count, winnerfunc=None):
@@ -267,6 +326,9 @@ class Game(object):
         return (maxcount, top)
 
     def choose_winner(self, player=None):
+        """ Choose the winner of a round. If player is omitted, it will choose
+        it based on the rules. """
+
         assert len(self.players) > 1
 
         def give_ap(player): self.ap[player] += 1
@@ -291,20 +353,22 @@ class Game(object):
         return winning
 
     def round_end(self):
-        if not self.in_round:
+        """ End a round. """
+
+        if not self.inround:
             raise GameError("Attempting to end a nonexistent round!")
 
-        self.in_round = False
+        self.inround = False
 
         # Discard the black card
-        self.discard_black.append(self.black_play)
-        self.black_play = None
+        self.discardblack.append(self.blackplay)
+        self.blackplay = None
             
         # Return played white cards to the discard pile and clear their played
         # cards, then give them new cards.
         for player in self.players:
-            self.discard_white.extend(player.play_cards)
-            player.play_cards.clear()
+            self.discardwhite.extend(player.playcards)
+            player.playcards.clear()
 
             if len(player.cards) < self.maxcards:
                 self.deal_white(player, self.maxcards - len(player.cards))
@@ -326,16 +390,12 @@ class Game(object):
         # Choose the new tsar
         self.new_tsar()
 
-    def game_end(self):
-        # End the game
+    def game_end(self, forreal=False):
+        """ End the game. forreal will PURGE the game"""
         self.spent = True
 
-        if self.in_round:
+        if self.inround:
             self.round_end()
-
-        self.tsar = None
-        self.tsar_index = None
-
 
         if self.players <= 1:
             # Nobody wins. :|
@@ -348,5 +408,31 @@ class Game(object):
         self.votes.clear()
         self.ap.clear()
 
+        # Clear the tsar
+        self.tsar = None
+        self.tsarindex = None
 
+        self.rounds = 0
 
+        if forreal:
+            # Nuke the players
+            for player in self.players:
+                self.player_remove()
+
+            # Wipe the decks
+            self.blackcard.clear()
+            self.whitecard.clear()
+            self.discardblack.clear()
+            self.discardwhite.clear()
+        
+            self.maxdraw = None
+        else:
+            # Clean up the players
+            for player in self.players:
+                player.player_clear()
+
+            # Add the discard piles to the main decks
+            self.blackcard.extend(self.discardblack)
+            self.whitecard.extend(self.discardwhite)
+            self.discardblack.clear()
+            self.discardwhite.clear()

@@ -24,9 +24,9 @@ class Player(object):
             pcounter += 1
 
         self.cards = OrderedSet()
-        self.play_cards = list()
+        self.playcards = list()
 
-        self.reset()
+        self.last_played = 0
         self.game = game
 
     def deal(self, cards):
@@ -41,7 +41,7 @@ class Player(object):
         if not self.game:
             raise GameError("No game!")
 
-        if not self.game.in_round:
+        if not self.game.inround:
             raise GameError("Not in a round to play!")
 
         if not self.game.voting and self.game.tsar == self:
@@ -52,35 +52,25 @@ class Player(object):
         else:
             clen = 1
 
-        if clen != self.game.black_play.playcount:
+        if clen != self.game.blackplay.playcount:
             raise RuleError("Invalid number of cards played")
 
         self.last_played = self.game.rounds
 
         if isinstance(cards, Iterable):
             self.cards.difference_update(cards)
-            self.play_cards.extend(cards)
+            self.playcards.extend(cards)
         else:
             self.cards.remove(cards)
-            self.play_cards.append(cards)
+            self.playcards.append(cards)
 
     def game_start(self, game):
         assert self.game is None
-
-        self.reset()
         self.game = game
 
     def game_end(self):
-        if self.game:
-            self.game.remove_player(self)
-
-        self.reset()
-
-    def reset(self):
-        self.game = None
         self.last_played = 0
-        self.cards.clear()
-        self.play_cards.clear()
+        self.game = None
 
     def rename(self, name):
         self.name = name
