@@ -1,13 +1,7 @@
 # Copyright © 2013 Elizabeth Myers. All Rights reserved.
 # Licensed according to the terms specified in LICENSE.
 
-import six
-
-from collections import Iterable
 from threading import RLock
-
-from orderedset import OrderedSet
-from game import GameError, RuleError
 
 pcounter = 0
 _pc_lock = RLock()

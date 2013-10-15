@@ -1,8 +1,6 @@
 # Copyright © 2013 Elizabeth Myers. All Rights reserved.
 # Licensed according to the terms specified in LICENSE.
 
-import six
-
 from threading import RLock
 from itertools import chain
 
