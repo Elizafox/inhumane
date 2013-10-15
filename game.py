@@ -3,7 +3,7 @@
 
 from threading import RLock
 from random import shuffle
-from collections import deque, Counter
+from collections import deque, Counter, OrderedDict, defaultdict, Iterable
 
 from orderedset import OrderedSet
 
@@ -107,6 +107,13 @@ class Game(object):
         # Black card in play
         self.blackplay = None
 
+        # Players:decks/hands
+        self.playercards = defaultdict(OrderedSet)
+        self.playerplay = defaultdict(list)
+
+        # Players last played
+        self.playerlast = defaultdict(int)
+
         # Votes and AP
         self.voters = set()
         self.votes = Counter()
@@ -127,7 +134,7 @@ class Game(object):
             self.gid = gcounter
             gcounter += 1
 
-    def vote_for(self, player, player2):
+    def player_vote(self, player, player2):
         """ Vote for a player if voting enabled.
         
         args:
@@ -155,7 +162,7 @@ class Game(object):
 
         return None
 
-    def trade_ap(self, player, cards):
+    def player_trade_ap(self, player, cards):
         """ Trade AP for cards for the given player """
 
         if player not in self.players:
@@ -174,16 +181,16 @@ class Game(object):
         if isinstance(cards, Iterable):
             if len(cards) > ccount:
                 raise RuleError("Too many cards")
-            player.cards.difference_update(cards)
+            self.playercards[player].difference_update(cards)
         else:
-            player.cards.remove(cards)
+            self.playercards[player].remove(cards)
 
         self.ap[player] -= ap
 
         # Deal a new hand
-        self.deal_white(player, self.maxcards - len(player.cards))
+        self.player_deal()
 
-    def get_ap(self, player):
+    def player_get_ap(self, player):
         """ Get AP for a user """
 
         if player is not None and player not in self.players:
@@ -240,7 +247,7 @@ class Game(object):
 
         # Give them cards if the round hasn't yet begun
         if not self.inround:
-            self.deal_white(player, self.maxcards) 
+            self.player_deal(player, self.maxcards) 
 
     def player_clear(self, player):
         """ Clear a player out """
@@ -249,11 +256,11 @@ class Game(object):
             raise GameError("Player not in the game!")
 
         # Return all player cards to the deck
-        self.discardwhite.extend(player.cards)
-        self.discardwhite.extend(player.playcards)
+        self.discardwhite.extend(self.playercards[player])
+        self.discardwhite.extend(self.playerplay[player])
 
-        player.cards.clear()
-        player.playcards.clear()
+        del self.playercards[player]
+        del self.playerplay[player]
 
         # Destroy their state
         self.ap.pop(player, None)
@@ -281,6 +288,33 @@ class Game(object):
         elif len(self.players) == 0:
             # Punt. destroy the game.
             self.end_game(True)
+
+    def player_play(self, player, cards):
+        if player not in self.players:
+            raise GameError("Player not in the game!")
+
+        if not self.inround:
+            raise GameError("Not in a round to play!")
+
+        if not self.voting and self.tsar == player:
+            raise RuleError("The tsar can't play!")
+
+        if isinstance(cards, Iterable):
+            clen = len(cards)
+        else:
+            clen = 1
+
+        if clen != self.blackplay.playcount:
+            raise RuleError("Invalid number of cards played")
+
+        self.playerlast[player] = self.rounds
+
+        if isinstance(cards, Iterable):
+            self.playercards[player].difference_update(cards)
+            self.playerplay[player].extend(cards)
+        else:
+            self.playercards[player].remove(cards)
+            self.playerplay[player].append(cards)
 
     def check_empty(self):
         """ Check if the decks are empty, and add cards from the discard pile if
@@ -312,21 +346,50 @@ class Game(object):
 
         return (blackempty, whiteempty)
 
-    def deal_white(self, player, count):
+    def player_deal(self, player, count=0):
         """ Deal count white cards to the player """
 
         if player not in self.players:
             raise GameError("Player not in the game!")
 
-        if count < 1:
+        if count < 0:
             return
+        elif count == 0:
+            count = self.maxcards - len(self.playercards[player])
+            if count == 0: return
 
         deal = list()
         for i in range(count):
             self.check_empty() # XXX I hate constantly checking
             deal.append(self.whitecards.popleft())
 
-        player.deal(deal)
+        self.player_deal_raw(player, deal)
+
+    def player_deal_raw(self, player, cards):
+        """ raw version of player_deal where you specify your own cards. Only use
+        if you know what you're doing. """
+
+        if player not in self.players:
+            raise GameError("Player not in the game!")
+
+        if isinstance(cards, Iterable):
+            self.playercards[player].update(cards)
+        else:
+            self.playercards[player].add(cards)
+
+    def player_all_deal(self):
+        """Deal to all the players to fill their hands"""
+
+        for player in self.players:
+            self.player_deal(player)
+
+    def player_cards(self, player):
+        """ Return a player's cards """
+
+        if player not in self.players:
+            raise GameError("Player not in the game!")
+
+        return self.playercards[player]
 
     def round_start(self):
         """ Start a round. """
@@ -340,7 +403,7 @@ class Game(object):
 
         # No players should have leftover played cards
         # (they should be purged at the end of a round)
-        assert [len(player.playcards) == 0 for player in self.players].count(False) == 0
+        assert [len(self.playerplay[player]) == 0 for player in self.players].count(False) == 0
 
         # Black card should be the null sentinel
         assert self.blackplay is None
@@ -354,8 +417,9 @@ class Game(object):
         self.blackplay = self.blackcards.popleft()
 
         # Add cards to players' hands
-        for player in self.players:
-            self.deal_white(player, self.blackplay.drawcount)
+        if self.blackplay.drawcount:
+            for player in self.players:
+                self.player_deal(player, self.blackplay.drawcount)
 
     @staticmethod
     def _get_top(count, winnerfunc=None):
@@ -433,11 +497,10 @@ class Game(object):
         # Return played white cards to the discard pile and clear their played
         # cards, then give them new cards.
         for player in self.players:
-            self.discardwhite.extend(player.playcards)
-            player.playcards.clear()
+            self.discardwhite.extend(self.playerplay[player])
+            self.playerplay[player].clear()
 
-            if len(player.cards) < self.maxcards:
-                self.deal_white(player, self.maxcards - len(player.cards))
+            self.player_deal(player)
 
         # Reset votes
         self.voters.clear()

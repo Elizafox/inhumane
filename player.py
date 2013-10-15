@@ -23,46 +23,8 @@ class Player(object):
             self.uid = pcounter
             pcounter += 1
 
-        self.cards = OrderedSet()
-        self.playcards = list()
-
         self.last_played = 0
         self.game = game
-
-    def deal(self, cards):
-        if isinstance(cards, Iterable):
-            self.cards.update(cards)
-        else:
-            self.cards.add(cards)
-        
-    def play(self, cards):
-        assert self.game
-
-        if not self.game:
-            raise GameError("No game!")
-
-        if not self.game.inround:
-            raise GameError("Not in a round to play!")
-
-        if not self.game.voting and self.game.tsar == self:
-            raise RuleError("The tsar can't play!")
-
-        if isinstance(cards, Iterable):
-            clen = len(cards)
-        else:
-            clen = 1
-
-        if clen != self.game.blackplay.playcount:
-            raise RuleError("Invalid number of cards played")
-
-        self.last_played = self.game.rounds
-
-        if isinstance(cards, Iterable):
-            self.cards.difference_update(cards)
-            self.playcards.extend(cards)
-        else:
-            self.cards.remove(cards)
-            self.playcards.append(cards)
 
     def game_start(self, game):
         assert self.game is None

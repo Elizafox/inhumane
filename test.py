@@ -15,38 +15,38 @@ g.round_start()
 print("This round's black card:", g.blackplay.text)
 
 try:
-    p_missingno.play(p_missingno.cards[0:g.blackplay.playcount])
+    g.player_play(p_missingno, g.player_cards(p_missingno)[0:g.blackplay.playcount])
 except:
     print("CAUGHT - the tsar tried to play!")
 
 print(g.blackplay.playcount)
-print(p_awilfox.cards)
-card = p_awilfox.cards[0:g.blackplay.playcount]
+print(g.player_cards(p_awilfox))
+card = g.player_cards(p_awilfox)[0:g.blackplay.playcount]
 print("awilfox is playing", [c.text for c in card])
-p_awilfox.play(card)
+g.player_play(p_awilfox,card)
 g.round_end(p_awilfox)
 print("Chose winner!")
-print("awilfox AP:", g.get_ap(p_awilfox))
+print("awilfox AP:", g.player_get_ap(p_awilfox))
 
 g.round_start()
 print("Round", g.rounds)
 print("This round's black card:", g.blackplay.text)
-card = p_missingno.cards[0:g.blackplay.playcount]
+card = g.player_cards(p_missingno)[0:g.blackplay.playcount]
 print("Missingno is playing", [c.text for c in card])
-p_missingno.play(card)
+g.player_play(p_missingno,card)
 g.round_end(p_missingno)
 print("Chose winner!")
-print("Missingno AP:", g.get_ap(p_missingno))
+print("Missingno AP:", g.player_get_ap(p_missingno))
 
 g.round_start()
 print("Round", g.rounds)
 print("This round's black card:", g.blackplay.text)
-card = p_awilfox.cards[0:g.blackplay.playcount]
+card = g.player_cards(p_awilfox)[0:g.blackplay.playcount]
 print("awilfox is playing", [c.text for c in card])
-p_awilfox.play(card)
+g.player_play(p_awilfox,card)
 g.round_end(p_awilfox)
 print("Chose winner!")
-print("awilfox AP:", g.get_ap(p_awilfox))
+print("awilfox AP:", g.player_get_ap(p_awilfox))
 
 g.round_start()
 print("Round", g.rounds)
