@@ -10,7 +10,16 @@ from orderedset import OrderedSet
 gcounter = 0
 _gc_lock = RLock()
 
-class GameError(Exception):
+class BaseGameError(Exception):
+    """ The base for all game errors """
+    pass
+
+class GameError(BaseGameError):
+    """ Class for internal game errors """
+    pass
+
+class RuleError(BaseGameError):
+    """ Class for rule violation errors """
     pass
 
 class Game(object):
@@ -87,7 +96,7 @@ class Game(object):
         assert player in self.players and player2 in self.players
 
         if player in self.voters:
-            raise GameError("No double voting!")
+            raise RuleError("No double voting!")
 
         self.voters.add(player)
         self.votes[player2] += 1
@@ -106,16 +115,16 @@ class Game(object):
         # Get the exchange rate
         # (see if exchange is permitted)
         if self.trade_ap == (0, 0):
-            raise GameError("Trading AP for cards is not permitted")
+            raise RuleError("Trading AP for cards is not permitted")
 
         ap, ccount = self.trade_ap
 
         if self.ap[player] < ap:
-            raise GameError("Insufficient AP")
+            raise RuleError("Insufficient AP")
 
         if isinstance(cards, Iterable):
             if len(cards) > ccount:
-                raise GameError("Too many cards")
+                raise RuleError("Too many cards")
             player.cards.difference_update(cards)
         else:
             player.cards.remove(cards)
@@ -265,14 +274,15 @@ class Game(object):
         if player:
             # We have a winner - chosen via tsar or fiat.
             if player == self.tsar:
-                raise GameError("Tsar can't declare himself winner!")
+                raise RuleError("Tsar can't declare himself winner!")
             winning = [player]
             give_ap(player)
         elif self.voting:
             # A voting round without a fiat-declared winner.
             winning = self._get_top(self.votes, give_ap)
         else:
-            raise GameError("Player can't be None in a Tsar-based game")
+            # XXX - should this be a GameError? It seems to be a bit of both
+            raise RuleError("Player can't be None in a Tsar-based game")
 
         self.round_end()
 

@@ -7,7 +7,7 @@ from collections import Iterable
 from threading import RLock
 
 from orderedset import OrderedSet
-from game import GameError
+from game import GameError, RuleError
 
 pcounter = 0
 _pc_lock = RLock()
@@ -45,7 +45,7 @@ class Player(object):
             raise GameError("Not in a round to play!")
 
         if not self.game.voting and self.game.tsar == self:
-            raise GameError("The tsar can't play!")
+            raise RuleError("The tsar can't play!")
 
         if isinstance(cards, Iterable):
             clen = len(cards)
@@ -53,7 +53,7 @@ class Player(object):
             clen = 1
 
         if clen != self.game.black_play.playcount:
-            raise GameError("Invalid number of cards played")
+            raise RuleError("Invalid number of cards played")
 
         self.last_played = self.game.rounds
 
