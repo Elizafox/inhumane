@@ -5,7 +5,7 @@ from threading import RLock
 from random import shuffle
 from collections import deque, Counter, OrderedDict, defaultdict, Iterable
 
-from orderedset import OrderedSet
+from .orderedset import OrderedSet
 
 gcounter = 0
 _gc_lock = RLock()

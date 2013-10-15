@@ -4,7 +4,7 @@
 import json
 import os
 
-from card import Card, Deck
+from .card import Card, Deck
 
 blackseen = dict()
 whiteseen = dict()
