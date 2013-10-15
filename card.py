@@ -17,8 +17,8 @@ class Deck(object):
         assert len(blackcards) or len(whitecards)
 
         self.name = name
-        self.blackcards = blackcards
-        self.whitecards = whitecards
+        self.blackcards = OrderedSet(blackcards)
+        self.whitecards = OrderedSet(whitecards)
 
         self.license = license
         self.copyright = copyright
@@ -28,6 +28,7 @@ class Deck(object):
         for card in chain(self.blackcards, self.whitecards):
             card.deck = self
 
+        # Calculate the max draw/play cards for this deck
         maxdraw = 0
         maxplay = 0
         for n in self.blackcards:
