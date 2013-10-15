@@ -4,9 +4,10 @@
 
 import collections
 
+
 class OrderedSet(collections.MutableSet):
     def __init__(self, iterable=None):
-        self.end = end = [] 
+        self.end = end = []
         end += [None, end, end]         # sentinel node for doubly linked list
         self.map = {}                   # key --> [key, prev, next]
         if iterable is not None:
@@ -25,15 +26,18 @@ class OrderedSet(collections.MutableSet):
 
             # XXX - blah, ugly, but I'm lazy
             in_map = set()
-            for k in range(*iter): in_map.add(k)
+            for k in range(*iter):
+                in_map.add(k)
 
             for i, k in enumerate(self):
-                if i in in_map: retval.append(k)
+                if i in in_map:
+                    retval.append(k)
 
             return retval
         else:
             for i, k in enumerate(self):
-                if index == i: return k
+                if index == i:
+                    return k
 
         raise IndexError('Index out of range')
 
@@ -47,7 +51,8 @@ class OrderedSet(collections.MutableSet):
 
     def index(self, key):
         for i, k in enumerate(self):
-            if k == key: return i
+            if k == key:
+                return i
 
         raise KeyError('key not in set')
 
@@ -58,10 +63,11 @@ class OrderedSet(collections.MutableSet):
             curr[2] = end[1] = self.map[key] = [key, curr, end]
 
     def update(self, keys):
-        for key in keys: self.add(key)
+        for key in keys:
+            self.add(key)
 
     def discard(self, key):
-        if key in self.map:        
+        if key in self.map:
             key, prev, next = self.map.pop(key)
             prev[2] = next
             next[1] = prev
@@ -73,7 +79,8 @@ class OrderedSet(collections.MutableSet):
         self.discard(key)
 
     def difference_update(self, keys):
-        for key in keys: self.discard(key)
+        for key in keys:
+            self.discard(key)
 
     def __iter__(self):
         end = self.end
@@ -106,11 +113,10 @@ class OrderedSet(collections.MutableSet):
             return len(self) == len(other) and list(self) == list(other)
         return set(self) == set(other)
 
-            
+
 if __name__ == '__main__':
     s = OrderedSet('abracadaba')
     t = OrderedSet('simsalabim')
     print(s | t)
     print(s & t)
     print(s - t)
-

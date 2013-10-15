@@ -7,8 +7,10 @@ import os
 
 from .card import Card, Deck
 
+
 blackseen = dict()
 whiteseen = dict()
+
 
 def load_deck(pack):
     cur = os.getcwd()
@@ -49,13 +51,14 @@ def load_deck(pack):
                     # Add to the watermark
                     whiteseen[c.text].watermark += ', {w}'.format(w=cinfo[1])
 
-        info.update({'blackcards' : blackcards, 'whitecards' : whitecards})
+        info.update({'blackcards': blackcards, 'whitecards': whitecards})
 
         deck = Deck(**info)
     finally:
         os.chdir(cur)
 
     return deck
+
 
 def load_packs(dir):
     try:

@@ -31,4 +31,3 @@ class Player(object):
 
     def __repr__(self):
         return "Player({x}, cid={i})".format(x=self.name, i=self.uid)
-

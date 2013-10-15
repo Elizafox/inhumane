@@ -6,8 +6,10 @@ from itertools import chain
 
 from .orderedset import OrderedSet
 
+
 ccounter = 0
 _cc_lock = RLock()
+
 
 class Deck(object):
     def __init__(self, name, blackcards, whitecards, copyright='Unknown',
@@ -23,7 +25,7 @@ class Deck(object):
         self.desc = desc
         self.official = official
 
-        self.hash = None # Cached hash value
+        self.hash = None  # Cached hash value
 
         for card in chain(self.blackcards, self.whitecards):
             card.deck = self
@@ -32,8 +34,10 @@ class Deck(object):
         maxdraw = 0
         maxplay = 0
         for n in self.blackcards:
-            if n.drawcount > maxdraw: maxdraw = n.drawcount
-            if n.playcount > maxplay: maxplay = n.playcount
+            if n.drawcount > maxdraw:
+                maxdraw = n.drawcount
+            if n.playcount > maxplay:
+                maxplay = n.playcount
 
         self.maxdraw = maxdraw
         self.maxplay = maxplay
@@ -50,7 +54,7 @@ class Deck(object):
         hashval = hash(self.blackcards[0])
         for i, b in enumerate(self.blackcards[1:]):
             hashval ^= hash(b) << (i % 48)
-        
+
         for i, w in enumerate(self.whitecards):
             hashval ^= hash(w) << (i % 48)
 
@@ -64,7 +68,7 @@ class Card(object):
         self.deck = None
         self.text = text
         self.watermark = watermark
-        
+
         # These two aren't used for white cards
         if not iswhite:
             self.drawcount = drawcount
@@ -93,5 +97,3 @@ class Card(object):
 
     def __repr__(self):
         return "Card({c}, cid={i}, deck={d})".format(c=self.text, i=self.cid, d=self.deck)
-
-

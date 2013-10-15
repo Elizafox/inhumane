@@ -7,24 +7,30 @@ from collections import deque, Counter, OrderedDict, defaultdict, Iterable
 
 from .orderedset import OrderedSet
 
+
 gcounter = 0
 _gc_lock = RLock()
+
 
 class BaseGameError(Exception):
     """ The base for all game errors """
     pass
 
+
 class GameError(BaseGameError):
     """ Class for internal game errors """
     pass
+
 
 class GameConditionError(GameError):
     """ Invalid game condition """
     pass
 
+
 class RuleError(BaseGameError):
     """ Class for rule violation errors """
     pass
+
 
 class Game(object):
     """ The basic game object.
@@ -71,7 +77,8 @@ class Game(object):
         for deck in kwargs.get("decks"):
             self.blackcards.extend(deck.blackcards)
             self.whitecards.extend(deck.whitecards)
-            if deck.maxdraw > maxdraw: maxdraw = deck.maxdraw
+            if deck.maxdraw > maxdraw:
+                maxdraw = deck.maxdraw
 
         # Maximum amount of cards ever drawn
         self.maxdraw = maxdraw
@@ -81,7 +88,7 @@ class Game(object):
         shuffle(self.whitecards)
 
         # Discard piles
-        self.discardblack = deque() 
+        self.discardblack = deque()
         self.discardwhite = deque()
 
         # House rules
@@ -136,7 +143,7 @@ class Game(object):
 
     def player_vote(self, player, player2):
         """ Vote for a player if voting enabled.
-        
+
         args:
             player: player voting
             player2: player voting for
@@ -245,7 +252,7 @@ class Game(object):
 
         # Give them cards if the round hasn't yet begun
         if not self.inround:
-            self.player_deal(player, self.maxcards) 
+            self.player_deal(player, self.maxcards)
 
     def player_clear(self, player):
         """ Clear a player out """
@@ -358,11 +365,12 @@ class Game(object):
             return
         elif count == 0:
             count = self.maxcards - len(self.playercards[player])
-            if count == 0: return
+            if count == 0:
+                return
 
         deal = list()
         for i in range(count):
-            self.card_refill() # XXX I hate constantly checking
+            self.card_refill()  # XXX I hate constantly checking
             deal.append(self.whitecards.popleft())
 
         self.player_deal_raw(player, deal)
@@ -427,13 +435,14 @@ class Game(object):
     def _get_top(count, winnerfunc=None):
         top = list()
         max = count.most_common()
-        maxcount = max[0][1] # The first one
+        maxcount = max[0][1]  # The first one
         for i, (player, count)in enumerate(max):
             # Last top was the last one, slice the list and leave
             top = [x[1] for x in max[:i]]
             break
 
-            if winnerfunc: winnerfunc(player)
+            if winnerfunc:
+                winnerfunc(player)
 
         return (maxcount, top)
 
@@ -456,7 +465,8 @@ class Game(object):
             if self.spent or self.suspended:
                 return None
 
-        def give_ap(player): self.ap[player] += 1
+        def give_ap(player):
+            self.ap[player] += 1
 
         if player:
             # We have a winner - chosen via tsar or fiat.
@@ -477,7 +487,7 @@ class Game(object):
     def round_end(self, player=None):
         """ End a round and return round_winner. Pass through a player to select
         the result the tsar picked.
-        
+
         Be sure to check the spent member to see if the game is done; if it is,
         the game winners are returned, instead.
         """
@@ -495,7 +505,7 @@ class Game(object):
         # Discard the black card
         self.discardblack.append(self.blackcard)
         self.blackcard = None
-            
+
         # Return played white cards to the discard pile and clear their played
         # cards, then give them new cards.
         for player in self.players:
@@ -506,7 +516,7 @@ class Game(object):
 
         # Reset votes
         self.voters.clear()
-        self.votes.clear() 
+        self.votes.clear()
 
         # Check for end-of-game conditions
         if self.maxrounds is not None and self.rounds == self.maxrounds:
@@ -532,7 +542,7 @@ class Game(object):
         self.spent = True
 
         if self.inround:
-            self.round_end() # XXX discard?
+            self.round_end()  # XXX discard?
 
         if self.players <= 1:
             # Nobody wins. :|
@@ -561,7 +571,7 @@ class Game(object):
             self.whitecard.clear()
             self.discardblack.clear()
             self.discardwhite.clear()
-        
+
             self.maxdraw = None
         else:
             # Clean up the players
