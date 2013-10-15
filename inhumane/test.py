@@ -2,9 +2,9 @@
 from __future__ import print_function
 
 import game, player, card
-import packloader
+import deckloader
 
-g = game.Game('testblah', decks=packloader.default_packs)
+g = game.Game('testblah', decks=deckloader.default_decks)
 p_missingno = player.Player('Missingno')
 p_awilfox = player.Player('awilfox')
 g.player_add(p_missingno)

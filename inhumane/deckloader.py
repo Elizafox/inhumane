@@ -60,18 +60,18 @@ def load_deck(pack):
     return deck
 
 
-def load_packs(dir):
+def load_decks(dir):
     try:
         cur = os.getcwd()
         os.chdir(dir)
-        packs = [load_deck(x) for x in os.listdir('.') if os.path.isdir(x)]
+        decks = [load_deck(x) for x in os.listdir('.') if os.path.isdir(x)]
     finally:
         os.chdir(cur)
 
-    return packs
+    return decks
 
 try:
-    default_packs = load_packs('packs')
+    default_decks = load_decks('packs')
 except Exception as e:
     warn("Couldn't load default packs: {e}".format(e=str(e)))
 
