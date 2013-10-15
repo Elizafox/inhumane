@@ -105,7 +105,7 @@ class Game(object):
         self.tsarindex = 0
 
         # Black card in play
-        self.blackplay = None
+        self.blackcard = None
 
         # Players:decks/hands
         self.playercards = defaultdict(OrderedSet)
@@ -302,7 +302,7 @@ class Game(object):
         else:
             clen = 1
 
-        if clen != self.blackplay.playcount:
+        if clen != self.blackcard.playcount:
             raise RuleError("Invalid number of cards played")
 
         self.playerlast[player] = self.rounds
@@ -343,6 +343,10 @@ class Game(object):
             whiteempty = True
 
         return (blackempty, whiteempty)
+
+    def card_black(self):
+        """ Return the current black card """
+        return self.blackcard
 
     def player_deal(self, player, count=0):
         """ Deal count white cards to the player """
@@ -404,7 +408,7 @@ class Game(object):
         assert [len(self.playerplay[player]) == 0 for player in self.players].count(False) == 0
 
         # Black card should be the null sentinel
-        assert self.blackplay is None
+        assert self.blackcard is None
 
         self.inround = True
         self.rounds += 1
@@ -412,12 +416,12 @@ class Game(object):
         # Recycle the decks if need be
         self.card_refill()
 
-        self.blackplay = self.blackcards.popleft()
+        self.blackcard = self.blackcards.popleft()
 
         # Add cards to players' hands
-        if self.blackplay.drawcount:
+        if self.blackcard.drawcount:
             for player in self.players:
-                self.player_deal(player, self.blackplay.drawcount)
+                self.player_deal(player, self.blackcard.drawcount)
 
     @staticmethod
     def _get_top(count, winnerfunc=None):
@@ -489,8 +493,8 @@ class Game(object):
         winners = self.round_winner(player)
 
         # Discard the black card
-        self.discardblack.append(self.blackplay)
-        self.blackplay = None
+        self.discardblack.append(self.blackcard)
+        self.blackcard = None
             
         # Return played white cards to the discard pile and clear their played
         # cards, then give them new cards.
