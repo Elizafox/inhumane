@@ -118,7 +118,8 @@ class Game(object):
         # Currently in a round
         self.inround = False
 
-        # Spent
+        # Spent/suspended
+        self.suspended = False
         self.spent = False
 
         with _gc_lock:
@@ -157,6 +158,9 @@ class Game(object):
     def trade_ap(self, player, cards):
         """ Trade AP for cards for the given player """
 
+        if player not in self.players:
+            raise GameError("Player not in the game!")
+
         # Get the exchange rate
         # (see if exchange is permitted)
         if self.apxchg == (0, 0):
@@ -181,7 +185,9 @@ class Game(object):
 
     def get_ap(self, player):
         """ Get AP for a user """
-        assert player in self.players
+
+        if player is not None and player not in self.players:
+            raise GameError("Player not in the game!")
         return self.ap[player]
 
     def _check_enough(self):
@@ -190,9 +196,14 @@ class Game(object):
             raise GameConditionError("Insufficient cards for all players!")
 
     def new_tsar(self, player=None):
+        """ Select a new tsar (without player, automatically). """
+
+        if player is not None and player not in self.players:
+            raise GameError("Player not in the game!")
+
         if len(self.players) == 0:
             # Game is spent.
-            self.spent = True
+            self.suspended = True
             self.tsar = None
             self.tsarindex = 0
             raise GameConditionError("Insufficient Players")
@@ -211,12 +222,17 @@ class Game(object):
     def player_add(self, player):
         """ Add a new player to the game """
 
+        if player in self.players:
+            raise GameError("Adding an existing player!")
+
         self._check_enough()
 
-        # Reviving a game if it was spent due to losing all players
-        self.spent = False
-
         self.players.add(player)
+
+        # Reviving a game if it was suspended due to losing all but one player
+        if len(self.players) > 1:
+            self.suspended = False
+
         player.game_start(self)
 
         if len(self.players) == 1:
@@ -228,6 +244,9 @@ class Game(object):
 
     def player_clear(self, player):
         """ Clear a player out """
+
+        if player not in self.players:
+            raise GameError("Player not in the game!")
 
         # Return all player cards to the deck
         self.discardwhite.extend(player.cards)
@@ -241,17 +260,27 @@ class Game(object):
         self.votes.pop(player, None)
         self.voters.discard(player)
 
-        if player == self.tsar and not self.spent:
+        if player == self.tsar and not self.spent and not self.suspended:
             # Reassign tsar if need be
             self.new_tsar()
 
     def player_remove(self, player):
         """ Remove a player from the game """
 
+        if player is not None and player not in self.players:
+            raise GameError("Player not in the game!")
+
         self.player_clear(player)
         self.players.remove(player)
 
         player.game_end()
+
+        if len(self.players) == 1:
+            # Game can't continue!
+            self.suspended = True
+        elif len(self.players) == 0:
+            # Punt. destroy the game.
+            self.end_game(True)
 
     def check_empty(self):
         """ Check if the decks are empty, and add cards from the discard pile if
@@ -286,6 +315,12 @@ class Game(object):
     def deal_white(self, player, count):
         """ Deal count white cards to the player """
 
+        if player not in self.players:
+            raise GameError("Player not in the game!")
+
+        if count < 1:
+            return
+
         deal = list()
         for i in range(count):
             self.check_empty() # XXX I hate constantly checking
@@ -298,6 +333,10 @@ class Game(object):
 
         if self.inround:
             raise GameError("Attempting to start a round with one existing!")
+        elif self.spent:
+            raise GameError("Can't start a spent game!")
+        elif self.suspended:
+            raise GameConditionError("Game is suspended pending more players.")
 
         # No players should have leftover played cards
         # (they should be purged at the end of a round)
@@ -344,7 +383,12 @@ class Game(object):
                 second is a list of the winners.
         """
 
-        assert len(self.players) > 1
+        if player is not None and player not in self.players:
+            raise GameError("Player not in the game!")
+
+        if len(self.players) <= 1:
+            if self.spent or self.suspended:
+                return None
 
         def give_ap(player): self.ap[player] += 1
 
@@ -372,6 +416,8 @@ class Game(object):
         the game winners are returned, instead.
         """
 
+        if player is not None and player not in self.players:
+            raise GameError("Player not in the game!")
         if not self.inround:
             raise GameError("Attempting to end a nonexistent round!")
 
@@ -415,6 +461,8 @@ class Game(object):
     def game_end(self, forreal=False):
         """ End the game. forreal will PURGE the game. Also return the winners
         of the game (None if <= 1 player)."""
+
+        self.suspended = True
         self.spent = True
 
         if self.inround:
