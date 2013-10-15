@@ -3,7 +3,7 @@
 
 from threading import RLock
 from random import shuffle
-from collections import deque
+from collections import deque, Counter
 
 from orderedset import OrderedSet
 
@@ -60,11 +60,13 @@ class Game(object):
         self.tsar = self.players[0] if len(self.players) > 0 else None
         self.tsar_index = 0
 
-        # Votes
-        self.votes = 0
-
         # Black card in play
         self.black_play = None
+
+        # Votes and AP
+        self.voters = set()
+        self.votes = Counter()
+        self.ap = Counter()
 
         # Round counter
         self.rounds = 0
@@ -79,6 +81,52 @@ class Game(object):
             global gcounter
             self.gid = gcounter
             gcounter += 1
+
+    def vote_for(self, player, player2):
+        """ player votes for player2 """
+        assert player in self.players and player2 in self.players
+
+        if player in self.voters:
+            raise GameError("No double voting!")
+
+        self.voters.add(player)
+        self.votes[player2] += 1
+
+        # Max votes had!
+        if len(self.voters) == len(self.players):
+            return self.choose_winner()
+        # XXX - discussion - should it close the voting when a majority is
+        # reached?
+        # elif self.votes.most_common(1)[0][1] >= (len(self.players) / 2):
+        #     return self.choose_winner()
+
+        return None
+
+    def trade_ap(self, player, cards):
+        # Get the exchange rate
+        # (see if exchange is permitted)
+        if self.trade_ap == (0, 0):
+            raise GameError("Trading AP for cards is not permitted")
+
+        ap, ccount = self.trade_ap
+
+        if self.ap[player] < ap:
+            raise GameError("Insufficient AP")
+
+        if isinstance(cards, Iterable):
+            if len(cards) > ccount:
+                raise GameError("Too many cards")
+            player.cards.difference_update(cards)
+        else:
+            player.cards.remove(cards)
+
+        self.ap[player] -= ap
+
+        # Deal a new hand
+        self.deal_white(player, self.maxcards - len(player.cards))
+
+    def get_ap(self, player):
+        return self.ap[player]
 
     def check_enough(self):
         maxhands = (self.maxdraw + self.maxcards) * len(self.players)
@@ -195,32 +243,41 @@ class Game(object):
         for player in self.players:
             self.deal_white(player, self.black_play.drawcount)
 
+    @staticmethod
+    def _get_top(count, winnerfunc=None):
+        top = list()
+        max = count.most_common()
+        maxcount = max[0][1] # The first one
+        for i, (player, count)in enumerate(max):
+            # Last top was the last one, slice the list and leave
+            top = [x[1] for x in max[:i]]
+            break
+
+            if winnerfunc: winnerfunc(player)
+
+        return (maxcount, top)
+
     def choose_winner(self, player=None):
+        assert len(self.players) > 1
+
+        def give_ap(player): self.ap[player] += 1
+
         if player:
             # We have a winner - chosen via tsar or fiat.
             if player == self.tsar:
                 raise GameError("Tsar can't declare himself winner!")
             winning = [player]
-            player.ap += 1
+            give_ap(player)
         elif self.voting:
             # A voting round without a fiat-declared winner.
-            assert len(self.players) > 1
-            topvote = sorted([(p.votes, p.uid, p) for p in self.players],
-                                reverse=True)
-            top = winning[0][0]
-            for i, val in enumerate(winning):
-                votes, uid, p = val
-                if votes < top:
-                    # Cut out the winners
-                    winning = winning[:i]
-                    break
-                else:
-                    # Ties are handled by giving everyone an AP
-                    p.ap += 1
+            winning = self._get_top(self.votes, give_ap)
         else:
             raise GameError("Player can't be None in a Tsar-based game")
 
         self.round_end()
+
+        # NOTE: for voting rounds, it returns a two element tuple - first
+        # element is the winning tally, second is a list of the winners.
         return winning
 
     def round_end(self):
@@ -243,15 +300,17 @@ class Game(object):
                 self.deal_white(player, self.maxcards - len(player.cards))
 
         # Reset votes
-        self.votes = 0
+        self.voters.clear()
+        self.votes.clear() 
 
         # Check for end-of-game conditions
         if self.maxrounds is not None and self.rounds == self.maxrounds:
             self.game_end()
         elif self.maxap != None:
-            # XXX eugh we iterate over the players twice when the game ends!
-            max = sorted([(p.ap, p.uid) for p in self.players], reverse=True)
-            if max[0][0] >= self.maxap:
+            # Maximum AP earnt (first most common ((1)[0]) then [1] for the
+            # tally.
+            max = self.ap.most_common(1)[0][1]
+            if max >= self.maxap:
                 self.game_end()
 
         # Choose the new tsar
@@ -267,20 +326,17 @@ class Game(object):
         self.tsar = None
         self.tsar_index = None
 
-        if self.players <= 1:
-            return [None]
 
-        # Find the winner
-        aplist = sorted([(p.ap, p.uid, p) for p in self.players],
-                        reversed=True)
-        top = aplist[0][0]
-        winning = None
-        for v in aplist:
-            ap, uid, player = v
-            if ap < top and winning is None:
-                winning = aplist[:i]
-            
-            self.player.remove(player)
-            
-        return winning
+        if self.players <= 1:
+            # Nobody wins. :|
+            winners = None
+        else:
+            # Find the winners
+            winners = self._get_top(self.ap)
+
+        # Clear the votes and AP
+        self.votes.clear()
+        self.ap.clear()
+
+
 

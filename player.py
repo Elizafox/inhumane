@@ -64,48 +64,6 @@ class Player(object):
             self.cards.remove(cards)
             self.play_cards.append(cards)
 
-    def vote_for(self, player):
-        if not self.game:
-            raise GameError("No game!")
-
-        if not self.game.voting:
-            raise GameError("Not a voting game.")
-
-        if self == player:
-            raise GameError("Cannot vote for yourself!")
-
-        if player.voted:
-            raise GameError("No double voting!")
-
-        self.votes += 1
-        self.game.votes += 1
-        player.voted = True
-        if self.game.votes == len(self.players):
-            self.game.choose_winner()
-
-    def trade_ap(self, cards):
-        # Get the exchange rate
-        # (see if exchange is permitted)
-        if self.game.trade_ap == (0, 0):
-            raise GameError("Trading AP for cards is not permitted")
-
-        ap, ccount = self.game.trade_ap
-
-        if self.ap < ap:
-            raise GameError("Insufficient AP")
-
-        if isinstance(cards, Iterable):
-            if len(cards) > ccount:
-                raise GameError("Too many cards")
-            self.cards.difference_update(cards)
-        else:
-            self.cards.remove(cards)
-
-        self.ap -= ap
-
-        # Deal a new hand
-        self.game.deal_white(self, game.maxcards - len(self.cards))
-
     def game_start(self, game):
         assert self.game is None
 
@@ -123,9 +81,6 @@ class Player(object):
         self.last_played = 0
         self.cards.clear()
         self.play_cards.clear()
-        self.ap = 0
-        self.votes = 0
-        self.voted = False
 
     def rename(self, name):
         self.name = name
