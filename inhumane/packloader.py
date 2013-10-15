@@ -1,6 +1,7 @@
 # Copyright © 2013 Elizabeth Myers. All Rights reserved.
 # Licensed according to the terms specified in LICENSE.
 
+from warnings import warn
 import json
 import os
 
@@ -66,7 +67,10 @@ def load_packs(dir):
 
     return packs
 
-default_packs = load_packs('packs')
+try:
+    default_packs = load_packs('packs')
+except Exception as e:
+    warn("Couldn't load default packs: {e}".format(e=str(e)))
 
 del blackseen
 del whiteseen
