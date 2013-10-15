@@ -18,6 +18,10 @@ class GameError(BaseGameError):
     """ Class for internal game errors """
     pass
 
+class GameConditionError(GameError):
+    """ Invalid game condition """
+    pass
+
 class RuleError(BaseGameError):
     """ Class for rule violation errors """
     pass
@@ -89,6 +93,8 @@ class Game(object):
         # game play limits
         self.maxrounds = kwargs.get("maxrounds", None)
         self.maxap = kwargs.get("maxap", 10)
+        if self.maxrounds is None and self.maxap is None:
+            raise GameConditionError("Never-ending game")
 
         # Check to ensure we have enough cards for everyone
         # (After setting maxcards)
@@ -180,7 +186,7 @@ class Game(object):
     def _check_enough(self):
         maxhands = (self.maxdraw + self.maxcards) * len(self.players)
         if maxhands > len(self.whitecards):
-            raise GameError("Insufficient cards for all players!")
+            raise GameConditionError("Insufficient cards for all players!")
 
     def new_tsar(self, player=None):
         if len(self.players) == 0:
@@ -188,7 +194,7 @@ class Game(object):
             self.spent = True
             self.tsar = None
             self.tsarindex = 0
-            raise GameError("Insufficient Players")
+            raise GameConditionError("Insufficient Players")
 
         if player is not None and player not in self.players:
             raise GameError("Invalid player")
@@ -251,7 +257,7 @@ class Game(object):
         needs be """
 
         if len(self.discardblack) == len(self.blackcards) == 0:
-            raise GameError("Empty decks!")
+            raise GameConditionError("Empty decks!")
 
         blackempty = whiteempty = False
 
@@ -351,8 +357,7 @@ class Game(object):
             # A voting round without a fiat-declared winner.
             winning = self._get_top(self.votes, give_ap)
         else:
-            # XXX - should this be a GameError? It seems to be a bit of both
-            raise RuleError("Player can't be None in a Tsar-based game")
+            raise GameConditionError("Player can't be None in a Tsar-based game")
 
         # NOTE: for voting rounds, it returns a two element tuple - first
         # element is the winning tally, second is a list of the winners.
