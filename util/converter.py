@@ -8,7 +8,10 @@ black = []
 white = []
 ref = black
 
-template = "{text}\t{draw}\t{pick}\n"
+b_template = "{text}\t{draw}\t{pick}\n{watermark}"
+w_template = "{text}\n{watermark}"
+
+watermark = sys.argv[2] if len(sys.argv) > 2 else 'FIXME'
 
 with open(sys.argv[1], 'r') as f:
     for line in f.readlines():
@@ -28,9 +31,9 @@ with open(sys.argv[1], 'r') as f:
             draw, pick = (a, b)
 
         if ref == black:
-            ref.append(template.format(**locals()))
+            ref.append(b_template.format(**locals()))
         else:
-            ref.append(text + '\n')
+            ref.append(w_template.format(**locals()))
 
 with open('white.txt', 'w') as f:
     f.writelines(white)
