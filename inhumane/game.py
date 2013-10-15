@@ -511,7 +511,8 @@ class Game(object):
         # Check for end-of-game conditions
         if self.maxrounds is not None and self.rounds == self.maxrounds:
             return self.game_end()
-        elif self.maxap != None:
+
+        if self.maxap is not None:
             # Maximum AP earnt (first most common ((1)[0]) then [1] for the
             # tally.
             max = self.ap.most_common(1)[0][1]
