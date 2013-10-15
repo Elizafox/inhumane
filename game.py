@@ -240,8 +240,6 @@ class Game(object):
         if len(self.players) > 1:
             self.suspended = False
 
-        player.game_start(self)
-
         if len(self.players) == 1:
             self.new_tsar(player)
 
@@ -259,8 +257,10 @@ class Game(object):
         self.discardwhite.extend(self.playercards[player])
         self.discardwhite.extend(self.playerplay[player])
 
-        del self.playercards[player]
-        del self.playerplay[player]
+        # Clear state
+        self.playercards.pop(player, None)
+        self.playerplay.pop(player, None)
+        self.playerlast.pop(player, None)
 
         # Destroy their state
         self.ap.pop(player, None)
@@ -279,8 +279,6 @@ class Game(object):
 
         self.player_clear(player)
         self.players.remove(player)
-
-        player.game_end()
 
         if len(self.players) == 1:
             # Game can't continue!
@@ -316,7 +314,7 @@ class Game(object):
             self.playercards[player].remove(cards)
             self.playerplay[player].append(cards)
 
-    def check_empty(self):
+    def card_refill(self):
         """ Check if the decks are empty, and add cards from the discard pile if
         needs be """
 
@@ -360,7 +358,7 @@ class Game(object):
 
         deal = list()
         for i in range(count):
-            self.check_empty() # XXX I hate constantly checking
+            self.card_refill() # XXX I hate constantly checking
             deal.append(self.whitecards.popleft())
 
         self.player_deal_raw(player, deal)
@@ -412,7 +410,7 @@ class Game(object):
         self.rounds += 1
 
         # Recycle the decks if need be
-        self.check_empty()
+        self.card_refill()
 
         self.blackplay = self.blackcards.popleft()
 

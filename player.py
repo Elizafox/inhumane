@@ -14,7 +14,7 @@ _pc_lock = RLock()
 
 
 class Player(object):
-    def __init__(self, name, game=None):
+    def __init__(self, name):
         self.name = name
 
         # Unique ID
@@ -22,17 +22,6 @@ class Player(object):
             global pcounter
             self.uid = pcounter
             pcounter += 1
-
-        self.last_played = 0
-        self.game = game
-
-    def game_start(self, game):
-        assert self.game is None
-        self.game = game
-
-    def game_end(self):
-        self.last_played = 0
-        self.game = None
 
     def rename(self, name):
         self.name = name
