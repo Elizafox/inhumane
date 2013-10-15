@@ -140,11 +140,11 @@ class Game(object):
 
         # Max votes had!
         if len(self.voters) == len(self.players):
-            return self.choose_winner()
+            return self.round_end()
         # XXX - discussion - should it close the voting when a majority is
         # reached?
         # elif self.votes.most_common(1)[0][1] >= (len(self.players) / 2):
-        #     return self.choose_winner()
+        #     return self.round_end()
 
         return None
 
@@ -325,9 +325,17 @@ class Game(object):
 
         return (maxcount, top)
 
-    def choose_winner(self, player=None):
+    def round_winner(self, player=None):
         """ Choose the winner of a round. If player is omitted, it will choose
-        it based on the rules. """
+        it based on the rules.
+
+        Please use round_end instead unless you know what you're doing.
+
+        return:
+            winners: what it says on the tin (NOTE: for voting rounds, it
+                returns a two element tuple - first element is the winning tally,
+                second is a list of the winners.
+        """
 
         assert len(self.players) > 1
 
@@ -346,19 +354,25 @@ class Game(object):
             # XXX - should this be a GameError? It seems to be a bit of both
             raise RuleError("Player can't be None in a Tsar-based game")
 
-        self.round_end()
-
         # NOTE: for voting rounds, it returns a two element tuple - first
         # element is the winning tally, second is a list of the winners.
         return winning
 
-    def round_end(self):
-        """ End a round. """
+    def round_end(self, player=None):
+        """ End a round and return round_winner. Pass through a player to select
+        the result the tsar picked.
+        
+        Be sure to check the spent member to see if the game is done; if it is,
+        the game winners are returned, instead.
+        """
 
         if not self.inround:
             raise GameError("Attempting to end a nonexistent round!")
 
         self.inround = False
+
+        # Get the winners
+        winners = self.round_winner(player)
 
         # Discard the black card
         self.discardblack.append(self.blackplay)
@@ -379,23 +393,26 @@ class Game(object):
 
         # Check for end-of-game conditions
         if self.maxrounds is not None and self.rounds == self.maxrounds:
-            self.game_end()
+            return self.game_end()
         elif self.maxap != None:
             # Maximum AP earnt (first most common ((1)[0]) then [1] for the
             # tally.
             max = self.ap.most_common(1)[0][1]
             if max >= self.maxap:
-                self.game_end()
+                return self.game_end()
 
         # Choose the new tsar
         self.new_tsar()
 
+        return winners
+
     def game_end(self, forreal=False):
-        """ End the game. forreal will PURGE the game"""
+        """ End the game. forreal will PURGE the game. Also return the winners
+        of the game (None if <= 1 player)."""
         self.spent = True
 
         if self.inround:
-            self.round_end()
+            self.round_end() # XXX discard?
 
         if self.players <= 1:
             # Nobody wins. :|
@@ -436,3 +453,5 @@ class Game(object):
             self.whitecard.extend(self.discardwhite)
             self.discardblack.clear()
             self.discardwhite.clear()
+
+        return winners
