@@ -1,6 +1,7 @@
 # Originally derived from http://code.activestate.com/recipes/576694/
 # Some major additions were made, namely __*item__ methods and
 # difference_update and update.
+# Licensed under the MIT license.
 
 import collections
 
