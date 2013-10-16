@@ -78,5 +78,3 @@ try:
 except Exception as e:
     warn("Couldn't load default packs: {e}".format(e=str(e)))
 
-del blackseen
-del whiteseen
