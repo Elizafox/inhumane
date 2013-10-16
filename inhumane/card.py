@@ -4,7 +4,7 @@
 from threading import RLock
 from itertools import chain
 
-from .orderedset import OrderedSet
+from .contrib.orderedset import OrderedSet
 
 
 ccounter = 0
