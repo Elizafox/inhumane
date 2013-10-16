@@ -65,9 +65,6 @@ class Game(object):
             maxap: maximum number of AP to play to (default 10)
         """
 
-        # Current players
-        self.players = OrderedSet(kwargs.get("players", list()))
-
         # Card decks
         self.blackcards = deque()
         self.whitecards = deque()
@@ -103,8 +100,12 @@ class Game(object):
         if self.maxrounds is None and self.maxap is None:
             raise GameConditionError("Never-ending game")
 
+        # Current players
+        self.players = OrderedSet()
+        for player in kwargs.get('players', list()):
+            self.player_add(player)
+
         # Check to ensure we have enough cards for everyone
-        # (After setting maxcards)
         self._check_enough()
 
         # Current tsar
