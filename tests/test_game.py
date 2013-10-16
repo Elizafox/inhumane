@@ -22,7 +22,6 @@ class TradeCardsTestCase(unittest.TestCase):
 
     def setUp(self):
         """ Initialise the game for each test. """
-
         assert self._decks and len(self._decks) > 0
         self.fox = Player('awilfox')
         self.better_fox = Player('Missingno')
@@ -35,6 +34,7 @@ class TradeCardsTestCase(unittest.TestCase):
     def test_more_than_limit(self):
         """ Ensure I can't trade more cards than allowed. """
         # just trade the whole damn hand
+        print(self.game.playercards[self.better_fox])
         with self.assertRaises(RuleError):
             self.game.player_trade_ap(self.better_fox,
                                       self.game.playercards[self.better_fox])
