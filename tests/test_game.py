@@ -34,7 +34,6 @@ class TradeCardsTestCase(unittest.TestCase):
     def test_more_than_limit(self):
         """ Ensure I can't trade more cards than allowed. """
         # just trade the whole damn hand
-        print(self.game.playercards[self.better_fox])
         with self.assertRaises(RuleError):
             self.game.player_trade_ap(self.better_fox,
                                       self.game.playercards[self.better_fox])
@@ -49,7 +48,8 @@ class TradeCardsTestCase(unittest.TestCase):
         """ Ensure I can trade when parameters are okay. """
         cards_to_trade = self.game.playercards[self.better_fox][:2]
         self.game.player_trade_ap(self.better_fox, cards_to_trade)
-        self.assertNotIn(self.game.playercards[self.better_fox], cards_to_trade)
+        for card in cards_to_trade:
+            self.assertNotIn(card, self.game.playercards[self.better_fox])
 
     def test_deck_exhaustion(self):
         """ Ensure I can't trade more cards than the deck has remaining. """
