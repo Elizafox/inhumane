@@ -3,8 +3,15 @@
 from inhumane.game import Game, GameError, RuleError
 from inhumane.player import Player
 from inhumane import deckloader
+from math import ceil
 import os.path
+import random
 import unittest
+
+
+def create_players_helper():
+    return [Player('Missingno'), Player('awilfox'), Player('MidnightCommando'),
+            Player('SilverWoof'), Player('appledash')]
 
 
 class GameParametersTestCase(unittest.TestCase):
@@ -12,6 +19,44 @@ class GameParametersTestCase(unittest.TestCase):
         """ Ensure we can't start a game that won't end """
         with self.assertRaises(GameError):
             g = Game(name = 'Foo', maxrounds = None, maxap = None, decks = [])
+
+
+class FinishGameByAPTestCase(unittest.TestCase):
+    def test(self):
+        """ Ensures that we can finish a game using maxap. """
+        decks = deckloader.default_decks
+        better_fox, fox, stallion, derpy_dog, derpy_pony = player_list = create_players_helper()
+        ap_to_test = 40
+        game = Game(name = 'Max AP Test Game', decks = decks,
+                    maxap = ap_to_test, players = player_list)
+
+        for next_round in range(0, ap_to_test + 1 + int(ceil(ap_to_test / 5))):
+            game.round_start()
+            if (next_round + 1) % 5 == 0:
+                game.player_play(derpy_dog, game.playercards[derpy_dog][0:game.card_black().playcount])
+                game.round_end(derpy_dog)
+            else:
+                game.player_play(better_fox, game.playercards[better_fox][0:game.card_black().playcount])
+                game.round_end(better_fox)
+
+        self.assertTrue(game.spent)
+
+
+class FinishGameByRoundsTestCase(unittest.TestCase):
+    def test(self):
+        """ Ensures that we can finish a game using maxrounds. """
+        decks = deckloader.default_decks
+        better_fox, fox, stallion, derpy_dog, derpy_pony = create_players_helper()
+        player_list = set([better_fox, fox, stallion, derpy_dog, derpy_pony])
+        rounds_to_test = 20
+        game = Game(name = 'Max Rounds Test Game', decks = decks,
+                    maxrounds = rounds_to_test, players = player_list)
+        for next_round in range(0, rounds_to_test):
+            game.round_start()
+            winner = random.choice(list(player_list.difference([game.tsar])))
+            game.player_play(winner, game.playercards[winner][0:game.card_black().playcount])
+            game.round_end(winner)
+        self.assertTrue(game.spent)
 
 
 class TradeCardsTestCase(unittest.TestCase):
