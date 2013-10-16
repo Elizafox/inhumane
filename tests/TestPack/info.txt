@@ -1,7 +1,7 @@
 {
     "copyright": "Public Domain",
-    "desc": "Sporks Against Humanity pack",
+    "desc": "Test pack",
     "license": "Public Domain",
-    "name": "Sporks Against Humanity",
+    "name": "Stuff and nonsense",
     "official": false
 }

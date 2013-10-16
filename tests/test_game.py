@@ -22,6 +22,8 @@ class TradeCardsTestCase(unittest.TestCase):
 
     def setUp(self):
         """ Initialise the game for each test. """
+
+        assert self._decks and len(self._decks) > 0
         self.fox = Player('awilfox')
         self.better_fox = Player('Missingno')
         self.game = Game(name = 'Trading Cards Test Game', decks = self._decks,

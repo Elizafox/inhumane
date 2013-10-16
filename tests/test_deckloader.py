@@ -10,6 +10,7 @@ import os.path
 class DeckLoaderTestCase(unittest.TestCase):
     def test_loading_a_deck(self):
         """ Load a deck we know exists """
+        print(os.path.join(os.path.dirname(__file__), 'TestPack'))
         a_deck = deckloader.load_deck(os.path.join(os.path.dirname(__file__), 'TestPack'))
         self.assertIsInstance(a_deck, Deck)
 
