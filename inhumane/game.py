@@ -274,7 +274,6 @@ class Game(object):
         self.playerplay.pop(player, None)
         self.playerlast.pop(player, None)
 
-        # Destroy their state
         self.ap.pop(player, None)
         self.votes.pop(player, None)
         self.voters.discard(player)
@@ -549,7 +548,7 @@ class Game(object):
         if self.inround:
             self.round_end()  # XXX discard?
 
-        if self.players <= 1:
+        if len(self.players) <= 1:
             # Nobody wins. :|
             winners = None
         else:
@@ -569,7 +568,7 @@ class Game(object):
         if forreal:
             # Nuke the players
             for player in self.players:
-                self.player_remove()
+                self.player_remove(player)
 
             # Wipe the decks
             self.blackcard.clear()
@@ -581,7 +580,7 @@ class Game(object):
         else:
             # Clean up the players
             for player in self.players:
-                player.player_clear()
+                player.player_clear(player)
 
             # Add the discard piles to the main decks
             self.blackcard.extend(self.discardblack)
