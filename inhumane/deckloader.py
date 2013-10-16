@@ -70,8 +70,10 @@ def load_decks(dir):
 
     return decks
 
+basedir = os.path.realpath(os.path.dirname(__file__))
+packsdir = os.path.join(basedir, "packs")
 try:
-    default_decks = load_decks('packs')
+    default_decks = load_decks(packsdir)
 except Exception as e:
     warn("Couldn't load default packs: {e}".format(e=str(e)))
 
