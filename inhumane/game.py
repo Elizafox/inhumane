@@ -65,9 +65,6 @@ class Game(object):
             maxap: maximum number of AP to play to (default 10)
         """
 
-        # Current players
-        self.players = OrderedSet(kwargs.get("players", list()))
-
         # Card decks
         self.blackcards = deque()
         self.whitecards = deque()
@@ -91,6 +88,9 @@ class Game(object):
         self.discardblack = deque()
         self.discardwhite = deque()
 
+        # Black card in play
+        self.blackcard = None
+
         # House rules
         self.voting = kwargs.get("voting", False)
         self.maxcards = kwargs.get("maxcards", 10)
@@ -102,17 +102,6 @@ class Game(object):
         self.maxap = kwargs.get("maxap", 10)
         if self.maxrounds is None and self.maxap is None:
             raise GameConditionError("Never-ending game")
-
-        # Check to ensure we have enough cards for everyone
-        # (After setting maxcards)
-        self._check_enough()
-
-        # Current tsar
-        self.tsar = self.players[0] if len(self.players) > 0 else None
-        self.tsarindex = 0
-
-        # Black card in play
-        self.blackcard = None
 
         # Players:decks/hands
         self.playercards = defaultdict(OrderedSet)
@@ -135,6 +124,18 @@ class Game(object):
         # Spent/suspended
         self.suspended = False
         self.spent = False
+
+        # Current players
+        self.players = OrderedSet()
+        for player in kwargs.get('players', list()):
+            self.player_add(player)
+
+        # Check to ensure we have enough cards for everyone
+        self._check_enough()
+
+        # Current tsar
+        self.tsar = self.players[0] if len(self.players) > 0 else None
+        self.tsarindex = 0
 
         with _gc_lock:
             global gcounter
