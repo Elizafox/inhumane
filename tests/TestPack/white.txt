@@ -3,7 +3,7 @@ Elizacat.	TEST
 sonicsoma.	TEST
 lstarnes.	TEST
 Oh murr.	TEST
-Fleur's outstretched vagina.	TEST
+Flour's outstretched vagina.	TEST
 Elizacat's hatred of technology.	TEST
 madeloon.	TEST
 silverbark.	TEST
@@ -107,7 +107,7 @@ Another phone dropped by Elizacat.	TEST
 [[sroracle]]'s right nipple.	TEST
 What remains of madeloon's sanity.	TEST
 (I'm yiffing someone else in PM)	TEST
-One of Fleur's alternate fursonas.	TEST
+One of Flour's alternate fursonas.	TEST
 (we ran out of good cards hours ago, dammit)	TEST
 (I'm fucking starving! Hurry the fuck up)	TEST
 (I've really gotta go have a shit soon...)	TEST
@@ -140,7 +140,7 @@ Dance to the beat of someone else's heart by force.	TEST
 Refried beans.	TEST
 CAPAB \r\n	TEST
 meat spinlock	TEST
-Fleur.	TEST
+Flour.	TEST
 Rob "lilo" Levin.	TEST
 Christel Dahlskjaer.	TEST
 christel's dildo.	TEST
