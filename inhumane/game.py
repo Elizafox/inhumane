@@ -103,6 +103,18 @@ class Game(object):
         if self.maxrounds is None and self.maxap is None:
             raise GameConditionError("Never-ending game")
 
+        # Current players
+        self.players = OrderedSet()
+        for player in kwargs.get('players', list()):
+            self.player_add(player)
+
+        # Check to ensure we have enough cards for everyone
+        self._check_enough()
+
+        # Current tsar
+        self.tsar = self.players[0] if len(self.players) > 0 else None
+        self.tsarindex = 0
+
         # Players:decks/hands
         self.playercards = defaultdict(OrderedSet)
         self.playerplay = defaultdict(list)
