@@ -278,7 +278,7 @@ class Game(object):
         self.votes.pop(player, None)
         self.voters.discard(player)
 
-        if player == self.tsar and not self.spent and not self.suspended:
+        if self.tsar is not None and player == self.tsar and not self.spent and not self.suspended:
             # Reassign tsar if need be
             self.new_tsar()
 
@@ -580,7 +580,7 @@ class Game(object):
         else:
             # Clean up the players
             for player in self.players:
-                player.player_clear(player)
+                self.player_clear(player)
 
             # Add the discard piles to the main decks
             self.blackcard.extend(self.discardblack)
