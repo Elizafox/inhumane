@@ -39,7 +39,7 @@ class OrderedSet(collections.MutableSet):
                 if index == i:
                     return k
 
-        raise IndexError('Index out of range')
+        raise IndexError("Index out of range")
 
     def __setitem__(self, index, key):
         node = self.map.pop(self[index])
@@ -54,7 +54,7 @@ class OrderedSet(collections.MutableSet):
             if k == key:
                 return i
 
-        raise KeyError('key not in set')
+        raise KeyError("key not in set")
 
     def add(self, key):
         if key not in self.map:
@@ -98,15 +98,15 @@ class OrderedSet(collections.MutableSet):
 
     def pop(self, last=True):
         if not self:
-            raise KeyError('set is empty')
+            raise KeyError("set is empty")
         key = self.end[1][0] if last else self.end[2][0]
         self.discard(key)
         return key
 
     def __repr__(self):
         if not self:
-            return '%s()' % (self.__class__.__name__,)
-        return '%s(%r)' % (self.__class__.__name__, list(self))
+            return "%s()" % (self.__class__.__name__,)
+        return "%s(%r)" % (self.__class__.__name__, list(self))
 
     def __eq__(self, other):
         if isinstance(other, OrderedSet):
@@ -114,9 +114,9 @@ class OrderedSet(collections.MutableSet):
         return set(self) == set(other)
 
 
-if __name__ == '__main__':
-    s = OrderedSet('abracadaba')
-    t = OrderedSet('simsalabim')
+if __name__ == "__main__":
+    s = OrderedSet("abracadaba")
+    t = OrderedSet("simsalabim")
     print(s | t)
     print(s & t)
     print(s - t)

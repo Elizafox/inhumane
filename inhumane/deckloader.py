@@ -16,13 +16,13 @@ def load_deck(pack):
     cur = os.getcwd()
     os.chdir(pack)
     try:
-        with open('info.txt', 'r') as f:
+        with open("info.txt", 'r') as f:
             info = json.load(f)
 
         blackcards = list()
         whitecards = list()
 
-        with open('black.txt', 'r') as f:
+        with open("black.txt", 'r') as f:
             for cinfo in f.readlines():
                 cinfo = cinfo.rstrip('\n')
                 cinfo = cinfo.split('\t')
@@ -35,9 +35,9 @@ def load_deck(pack):
                     blackseen[c.text] = c
                 else:
                     # Add to the watermark
-                    blackseen[c.text].watermark += ', {w}'.format(w=cinfo[3])
+                    blackseen[c.text].watermark += ", {w}".format(w=cinfo[3])
 
-        with open('white.txt', 'r') as f:
+        with open("white.txt", 'r') as f:
             for cinfo in f.readlines():
                 cinfo = cinfo.rstrip('\n')
                 cinfo = cinfo.split('\t')
@@ -49,9 +49,9 @@ def load_deck(pack):
                     whiteseen[c.text] = c
                 else:
                     # Add to the watermark
-                    whiteseen[c.text].watermark += ', {w}'.format(w=cinfo[1])
+                    whiteseen[c.text].watermark += ", {w}".format(w=cinfo[1])
 
-        info.update({'blackcards': blackcards, 'whitecards': whitecards})
+        info.update({"blackcards": blackcards, "whitecards": whitecards})
 
         deck = Deck(**info)
     finally:
@@ -64,11 +64,12 @@ def load_decks(dir):
     try:
         cur = os.getcwd()
         os.chdir(dir)
-        decks = [load_deck(x) for x in os.listdir('.') if os.path.isdir(x)]
+        decks = [load_deck(x) for x in os.listdir(".") if os.path.isdir(x)]
     finally:
         os.chdir(cur)
 
     return decks
+
 
 basedir = os.path.realpath(os.path.dirname(__file__))
 packsdir = os.path.join(basedir, "packs")

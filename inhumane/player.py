@@ -8,7 +8,13 @@ _pc_lock = RLock()
 
 
 class Player(object):
+    """ A player object for use in the game. """
+
     def __init__(self, name):
+        """ Initalise a player
+
+        args:
+            name: name of the player"""
         self.name = name
 
         # Unique ID
@@ -18,6 +24,7 @@ class Player(object):
             pcounter += 1
 
     def rename(self, name):
+        """ Rename a player """
         self.name = name
 
     def __eq__(self, other):

@@ -12,8 +12,24 @@ _cc_lock = RLock()
 
 
 class Deck(object):
-    def __init__(self, name, blackcards, whitecards, copyright='Unknown',
-                 license='Unknown', desc='', official=False):
+    """ This object stores all the given cards (white and black) and metadata
+    for a given deck. It can be passed to the Game instance. """
+
+    def __init__(self, name, blackcards, whitecards, copyright="Unknown",
+                 license="Unknown", desc='', official=False):
+        """ Initalise a deck object, containing white and black cards and
+        metadata,
+
+        args:
+            name: name of the deck
+            blackcards: black cards (Card objects) (must be an iterable)
+            whitecards: white cards (Card objects) (must be an iterable)
+            copyright: who created/owns the copyright on this deck
+            license: what is the license of the deck
+            desc: description of the deck
+            official: is it an official Cards Against Humanity™ deck?
+        """
+
         assert len(blackcards) or len(whitecards)
 
         self.name = name
@@ -64,7 +80,24 @@ class Deck(object):
 
 
 class Card(object):
+    """ This contains a single card (white or black). It contains what deck it's
+    in (initalised to None until added to a deck), the text of the card,
+    the watermark, and whether or not it's white. It also stores play count and
+    draw count for white cards.
+    
+    Note without a deck, a card is useless.
+    """
+
     def __init__(self, text, drawcount=0, playcount=1, watermark='', iswhite=True):
+        """ Create a card.
+
+        args:
+            text: text for the card
+            drawcount: number of cards to draw when played (black only)
+            playcount: number of cards to play when played (black only)
+            watermark: watermark for the given card
+            iswhite: whether or not the card is white (default True)
+        """
         self.deck = None
         self.text = text
         self.watermark = watermark
