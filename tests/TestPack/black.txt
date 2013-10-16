@@ -83,7 +83,7 @@ _____ the shmoobs.	0	1	TEST
 fishbutt will _____.	0	1	TEST
 I once crashed _____ with _____.	0	2	TEST
 _____ turned the police on when the _____ rapist came to Forks.	0	1	TEST
-i shaging hate _____. i bet he cnt evil lift many miligram of cocain with penis	0	1	TEST
+i shagging hate _____. i bet he cnt evil lift many miligram of cocain with penis	0	1	TEST
 MY _____ IS FULL POWER!	0	1	TEST
 The _____ is too damn high.	0	1	TEST
 We moved from _____ to _____ because of _____.	2	3	TEST
@@ -104,8 +104,8 @@ We built _____ in Minceraft.	0	1	TEST
 _____? I've seen bigger, blacker _____ than that! (pick one)	0	1	TEST
 Not even rug had any power against the enormous _____ of doom.	0	1	TEST
 Only rug could destroy the _____-singularity.	0	1	TEST
-Quora's sixth personality is _____.	0	1	TEST
-Niichan got a little ridiculous after he added a _____ as a personality.	0	1	TEST
+Plural's sixth personality is _____.	0	1	TEST
+Weeaboo got a little ridiculous after he added a _____ as a personality.	0	1	TEST
 _____ by Numbers with Poopee.	0	1	TEST
 Poopee went too far with the murders after zie _____ to the poor _____.	0	1	TEST
 Don't _____ the flags!	0	1	TEST
