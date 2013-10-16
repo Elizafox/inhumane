@@ -65,6 +65,9 @@ class Game(object):
             maxap: maximum number of AP to play to (default 10)
         """
 
+        # Current players
+        self.players = OrderedSet()
+
         # Card decks
         self.blackcards = deque()
         self.whitecards = deque()
@@ -91,30 +94,6 @@ class Game(object):
         # Black card in play
         self.blackcard = None
 
-        # House rules
-        self.voting = kwargs.get("voting", False)
-        self.maxcards = kwargs.get("maxcards", 10)
-        self.apxchg = kwargs.get("apxchg", (0, 0))
-        # TODO more house rules
-
-        # game play limits
-        self.maxrounds = kwargs.get("maxrounds", None)
-        self.maxap = kwargs.get("maxap", 10)
-        if self.maxrounds is None and self.maxap is None:
-            raise GameConditionError("Never-ending game")
-
-        # Current players
-        self.players = OrderedSet()
-        for player in kwargs.get('players', list()):
-            self.player_add(player)
-
-        # Check to ensure we have enough cards for everyone
-        self._check_enough()
-
-        # Current tsar
-        self.tsar = self.players[0] if len(self.players) > 0 else None
-        self.tsarindex = 0
-
         # Players:decks/hands
         self.playercards = defaultdict(OrderedSet)
         self.playerplay = defaultdict(list)
@@ -137,17 +116,29 @@ class Game(object):
         self.suspended = False
         self.spent = False
 
-        # Current players
-        self.players = OrderedSet()
-        for player in kwargs.get('players', list()):
-            self.player_add(player)
+        # House rules
+        self.voting = kwargs.get("voting", False)
+        self.maxcards = kwargs.get("maxcards", 10)
+        self.apxchg = kwargs.get("apxchg", (0, 0))
+        # TODO more house rules
+
+        # game play limits
+        self.maxrounds = kwargs.get("maxrounds", None)
+        self.maxap = kwargs.get("maxap", 10)
+        if self.maxrounds is None and self.maxap is None:
+            raise GameConditionError("Never-ending game")
 
         # Check to ensure we have enough cards for everyone
+        # (After setting maxcards)
         self._check_enough()
 
         # Current tsar
-        self.tsar = self.players[0] if len(self.players) > 0 else None
+        self.tsar = None
         self.tsarindex = 0
+
+        # Add the players if we have any
+        for player in kwargs.get('players', list()):
+            self.player_add(player)
 
         with _gc_lock:
             global gcounter
@@ -228,12 +219,13 @@ class Game(object):
         if player is not None and player not in self.players:
             raise GameError("Player not in the game!")
 
-        if len(self.players) == 0:
+        if len(self.players) <= 1:
             # Game is spent.
             self.suspended = True
             self.tsar = None
             self.tsarindex = 0
-            raise GameConditionError("Insufficient Players")
+            return None
+            #raise GameConditionError("Insufficient Players")
 
         if player is not None and player not in self.players:
             raise GameError("Invalid player")
