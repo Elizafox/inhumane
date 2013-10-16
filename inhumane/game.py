@@ -224,8 +224,7 @@ class Game(object):
             self.suspended = True
             self.tsar = None
             self.tsarindex = 0
-            return None
-            #raise GameConditionError("Insufficient Players")
+            raise GameConditionError("Insufficient Players")
 
         if player is not None and player not in self.players:
             raise GameError("Invalid player")
@@ -252,7 +251,8 @@ class Game(object):
         if len(self.players) > 1:
             self.suspended = False
 
-        if len(self.players) == 1:
+        if len(self.players) == 2:
+            # Choose a new tsar now that we have enough players
             self.new_tsar(player)
 
         # Give them cards if the round hasn't yet begun
