@@ -571,8 +571,8 @@ class Game(object):
                 self.player_remove(player)
 
             # Wipe the decks
-            self.blackcard.clear()
-            self.whitecard.clear()
+            self.blackcards.clear()
+            self.whitecards.clear()
             self.discardblack.clear()
             self.discardwhite.clear()
 
@@ -583,8 +583,8 @@ class Game(object):
                 self.player_clear(player)
 
             # Add the discard piles to the main decks
-            self.blackcard.extend(self.discardblack)
-            self.whitecard.extend(self.discardwhite)
+            self.blackcards.extend(self.discardblack)
+            self.whitecards.extend(self.discardwhite)
             self.discardblack.clear()
             self.discardwhite.clear()
 
