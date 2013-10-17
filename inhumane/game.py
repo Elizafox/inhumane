@@ -2,11 +2,13 @@
 # Licensed according to the terms specified in LICENSE.
 
 from threading import RLock
-from random import shuffle
+from random import shuffle, SystemRandom
 from collections import deque, Counter, OrderedDict, defaultdict, Iterable
 
 from .contrib.orderedset import OrderedSet
 
+
+rng = SystemRandom()
 
 gcounter = 0
 _gc_lock = RLock()
@@ -84,8 +86,8 @@ class Game(object):
         self.maxdraw = maxdraw
 
         # Shuffle the decks
-        shuffle(self.blackcards)
-        shuffle(self.whitecards)
+        shuffle(self.blackcards, rng.random)
+        shuffle(self.whitecards, rng.random)
 
         # Discard piles
         self.discardblack = deque()
@@ -105,6 +107,8 @@ class Game(object):
         self.voters = set()
         self.votes = Counter()
         self.ap = Counter()
+        self.gamblers = set()
+        self.ap_grant = 1
 
         # Round counter
         self.rounds = 0
@@ -117,6 +121,7 @@ class Game(object):
         self.spent = False
 
         # House rules
+        self.gambling = kwargs.get("gambling", True) # Technically official...
         self.voting = kwargs.get("voting", False)
         self.maxcards = kwargs.get("maxcards", 10)
         self.apxchg = kwargs.get("apxchg", (0, 0))
@@ -192,50 +197,59 @@ class Game(object):
         if isinstance(cards, Iterable):
             if len(cards) > ccount:
                 raise RuleError("Too many cards")
-            self.playercards[player].difference_update(cards)
-        else:
-            self.playercards[player].remove(cards)
+
+        self.player_discard(player, cards)
 
         self.ap[player] -= ap
 
         # Deal a new hand
         self.player_deal(player)
 
+    def player_gamble(self, player, card):
+        """ Gamble an AP on an additional white card. Only usable when a black
+        card is pick one... """
+
+        if player not in self.players:
+            raise GameError("Player not in the game!")
+
+        if not self.gambling:
+            raise RuleError("Gambling is not permitted")
+
+        if player in self.gamblers:
+            raise RuleError("No double gambling!")
+
+        if self.blackcard.playcount > 1:
+            # NOTE: the official rules seem to imply that you can't do this.
+            # Since the precise semantics of doing otherwise are pretty
+            # ill-defined, I'm going to go with this rule.
+            raise RuleError("Can't gamble on pick > 1 cards")
+
+        if self.ap[player] <= 1:
+            raise RuleError("Player can't gamble - not enough AP")
+
+        if isinstance(card, Iterable):
+            raise RuleError("Cannot gamble more than one card!")
+
+        if card not in self.playerhand[player]:
+            raise GameError("Can't gamble a card the player doesn't have!")
+
+        self.ap[player] -= 1
+        self.ap_grant += 1
+        self.player_discard(player, card)
+        self.gamblers.add(player)
+
     def player_get_ap(self, player):
         """ Get AP for a user """
 
         if player is not None and player not in self.players:
             raise GameError("Player not in the game!")
+
         return self.ap[player]
 
     def _check_enough(self):
         maxhands = (self.maxdraw + self.maxcards) * len(self.players)
         if maxhands > len(self.whitecards):
             raise GameConditionError("Insufficient cards for all players!")
-
-    def new_tsar(self, player=None):
-        """ Select a new tsar (without player, automatically). """
-
-        if player is not None and player not in self.players:
-            raise GameError("Player not in the game!")
-
-        if len(self.players) <= 1:
-            # Game is spent.
-            self.suspended = True
-            self.tsar = None
-            self.tsarindex = 0
-            raise GameConditionError("Insufficient Players")
-
-        if player is not None and player not in self.players:
-            raise GameError("Invalid player")
-
-        if not player:
-            player = self.players[(self.tsarindex + 1) % len(self.players)]
-
-        self.tsarindex = self.players.index(player)
-        self.tsar = player
-
-        return self.tsar
 
     def player_add(self, player):
         """ Add a new player to the game """
@@ -253,7 +267,7 @@ class Game(object):
 
         if len(self.players) == 2:
             # Choose a new tsar now that we have enough players
-            self.new_tsar(player)
+            self.game_new_tsar(player)
 
         # Give them cards if the round hasn't yet begun
         if not self.inround:
@@ -280,7 +294,7 @@ class Game(object):
 
         if self.tsar is not None and player == self.tsar and not self.spent and not self.suspended:
             # Reassign tsar if need be
-            self.new_tsar()
+            self.game_new_tsar()
 
     def player_remove(self, player):
         """ Remove a player from the game """
@@ -340,7 +354,7 @@ class Game(object):
             self.blackcards = self.discardblack
             self.discardblack = tmp
 
-            shuffle(self.blackcards)
+            shuffle(self.blackcards, rng.random)
 
             blackempty = True
 
@@ -349,7 +363,7 @@ class Game(object):
             self.whitecards = self.discardwhite
             self.discardwhite = tmp
 
-            shuffle(self.whitecards)
+            shuffle(self.whitecards, rng.random)
 
             whiteempty = True
 
@@ -405,6 +419,24 @@ class Game(object):
 
         return self.playercards[player]
 
+    def player_discard(self, player, cards):
+        """ Discard cards from a player's hands into the discard pile.
+        
+        if cards is None, discard the entire hand (excluding cards in play) """
+        
+        if player not in self.players:
+            raise GameError("Player not in game!")
+
+        if cards is None:
+            self.discardwhite.extend(self.playercards[player])
+            self.playercards.clear()
+        elif isinstance(cards, Iterable):
+            self.discardwhite.extend(cards)
+            self.playercards[player].difference_update(cards)
+        else:
+            self.discardwhite.append(cards)
+            self.playercards[player].remove(cards)
+
     def round_start(self):
         """ Start a round. """
 
@@ -434,6 +466,30 @@ class Game(object):
         if self.blackcard.drawcount:
             for player in self.players:
                 self.player_deal(player, self.blackcard.drawcount)
+
+    def game_new_tsar(self, player=None):
+        """ Select a new tsar (without player, automatically). """
+
+        if player is not None and player not in self.players:
+            raise GameError("Player not in the game!")
+
+        if len(self.players) <= 1:
+            # Game is spent.
+            self.suspended = True
+            self.tsar = None
+            self.tsarindex = 0
+            raise GameConditionError("Insufficient Players")
+
+        if player is not None and player not in self.players:
+            raise GameError("Invalid player")
+
+        if not player:
+            player = self.players[(self.tsarindex + 1) % len(self.players)]
+
+        self.tsarindex = self.players.index(player)
+        self.tsar = player
+
+        return self.tsar
 
     @staticmethod
     def _get_top(count, winnerfunc=None):
@@ -470,7 +526,7 @@ class Game(object):
                 return None
 
         def give_ap(player):
-            self.ap[player] += 1
+            self.ap[player] += self.ap_grant
 
         if player:
             # We have a winner - chosen via tsar or fiat.
@@ -522,6 +578,10 @@ class Game(object):
         self.voters.clear()
         self.votes.clear()
 
+        # Reset the AP grant and gamblers
+        self.ap_grant = 1
+        self.gamblers.clear()
+
         # Check for end-of-game conditions
         if self.maxrounds is not None and self.rounds == self.maxrounds:
             return self.game_end()
@@ -534,7 +594,7 @@ class Game(object):
                 return self.game_end()
 
         # Choose the new tsar
-        self.new_tsar()
+        self.game_new_tsar()
 
         return winners
 
@@ -558,6 +618,8 @@ class Game(object):
         # Clear the votes and AP
         self.votes.clear()
         self.ap.clear()
+        self.ap_grant = 1
+        self.gamblers.clear()
 
         # Clear the tsar
         self.tsar = None
