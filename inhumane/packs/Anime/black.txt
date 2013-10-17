@@ -94,8 +94,8 @@ In the name of the moon, I will punish _____!	0	1	AN
 Make a love triangle.	2	3	AN
 Dr. Black Jack, please hurry! The patient is suffering from a terminal case of _____!	0	1	AN
 I'M-A FIRIN' MAH _____!	0	1	AN
-So just who is this Henry Goto fellow, anyway?	0	1	AN
-When Henry Goto is alone and thinks that no one's looking, he secretly enjoys _____.	0	1	AN
+So just who is this Henry Goto fellow, anyway?	0	1	AN:HG
+When Henry Goto is alone and thinks that no one's looking, he secretly enjoys _____.	0	1	AN:HG
 Make a harem.	3	5	AN
 Make a dub cast. _____ as _____, _____ as _____, & _____ as _____.	4	6	AN
 He might just save the universe, if he only had some _____!	0	1	AN
