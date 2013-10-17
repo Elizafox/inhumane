@@ -2,7 +2,7 @@ How did I lose my virginity?	0	1	UK
 Why can't I sleep at night?	0	1	UK
 What's that smell?	0	1	UK
 I got 99 problems but _____ ain't one.	0	1	UK
-Maybe she's borth with it. Maybe it's _____.	0	1	UK
+Maybe she's born with it. Maybe it's _____.	0	1	UK
 What's the next Happy Meal® toy?	0	1	UK
 Here is the church \ Here is the steeple \ Open the doors \ And there is _____.	0	1	UK
 It's a pity that kids these days are getting involved with _____.	0	1	UK
@@ -68,9 +68,9 @@ _____: Good to the last drop.	0	1	UK
 Why am I sticky?	0	1	UK
 What gets better with age?	0	1	UK
 _____: kid-tested, mother-approved.	0	1	UK
-Channel 5's new reality show feature seight washed-up celebrities living with _____.	0	1	UK
+Channel 5's new reality show features eight washed-up celebrities living with _____.	0	1	UK
 Instead of coal, Father Christmas now gives the bad children _____.	0	1	UK
-Studies show lab rats navitgate mazes 50% faster after being exposed to _____.	0	1	UK
+Studies show lab rats navigate mazes 50% faster after being exposed to _____.	0	1	UK
 Life for American Indians was forever changed when the White Man introduced them to _____.	0	1	UK
 Make a haiku.	2	3	UK
 I do not know with what weapons World War III will be fought with, but World War IV will be fought with _____.	0	1	UK
