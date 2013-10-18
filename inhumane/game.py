@@ -236,6 +236,7 @@ class Game(object):
         self.ap[player] -= 1
         self.ap_grant += 1
         self.player_discard(player, card)
+        self.playerplay[player].append(card)
         self.gamblers.add(player)
 
     def player_get_ap(self, player):
