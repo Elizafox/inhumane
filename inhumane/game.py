@@ -104,7 +104,7 @@ class Game(object):
         self.playerlast = defaultdict(int)
 
         # Votes and AP
-        self.voters = set()
+        self.voters = dict()
         self.votes = Counter()
         self.ap = Counter()
         self.gamblers = set()
@@ -156,27 +156,69 @@ class Game(object):
         args:
             player: player voting
             player2: player voting for
+        return:
+            (False, turnout) for no decisiveness yet
+            (True, turnout) for plurality reached
         """
+
+        if not self.voting:
+            raise RuleError("Voting is prohibited in this game")
 
         if player not in self.players:
             raise RuleError("No external players voting!")
+
         if player2 not in self.players:
             raise RuleError("No voting for players not in the game!")
+
         if player in self.voters:
             raise RuleError("No double voting!")
 
-        self.voters.add(player)
+        self.voters[player] = player2
         self.votes[player2] += 1
 
-        # Max votes had!
-        if len(self.voters) == len(self.players):
-            return self.round_end()
-        # XXX - discussion - should it close the voting when a majority is
-        # reached?
-        # elif self.votes.most_common(1)[0][1] >= (len(self.players) / 2):
-        #     return self.round_end()
+        turnout = len(self.voters) / len(self.players)
 
-        return None
+        # Majority reached
+        if self.votes.most_common(1)[0][1] >= (len(self.players) / 2):
+            return (True, turnout)
+
+        return (False, turnout)
+
+    def player_get_vote_sel(self, player):
+        """ Get the vote for a given player """
+
+        if not self.voting:
+            raise RuleError("Voting is prohibited in this game.")
+
+        if player not in self.players:
+            raise RuleError("No external players voting!")
+
+        return self.voters.get(player, None)
+
+    def player_all_get_vote_sel(self):
+        """ Get the votes for all players """
+
+        if not self.voting:
+            raise RuleError("Voting is prohibited in this game")
+
+        votes = [(player, self.player_get_vote_sel(player)) for player in
+                 self.players]
+
+        return votes
+
+    def player_get_vote_count(self, player):
+        """ Get the vote count for a given user """
+        return self.votes[player]
+
+    def player_all_get_vote_count(self, sort_vote=True):
+        """ Get the vote count for all users """
+
+        count = [(player, self.player_get_vote_count(player)) for player in
+                  self.players]
+        if sort_vote:
+            count = sorted(count, key=operator.itemgetter(1))
+
+        return count
 
     def player_trade_ap(self, player, cards):
         """ Trade AP for cards for the given player """
@@ -247,6 +289,15 @@ class Game(object):
 
         return self.ap[player]
 
+    def player_all_get_ap(self, sort_score=True):
+        """ Get AP for all users """
+
+        ap = [(player, self.player_get_ap(player)) for player in self.players]
+        if sort_score:
+            ap = sorted(ap, key=operator.itemgetter(1))
+
+        return ap
+
     def _check_enough(self):
         maxhands = (self.maxdraw + self.maxcards) * len(self.players)
         if maxhands > len(self.whitecards):
@@ -291,7 +342,7 @@ class Game(object):
 
         self.ap.pop(player, None)
         self.votes.pop(player, None)
-        self.voters.discard(player)
+        self.voters.pop(player, None)
 
         if self.tsar is not None and player == self.tsar and not self.spent and not self.suspended:
             # Reassign tsar if need be
@@ -422,9 +473,9 @@ class Game(object):
 
     def player_discard(self, player, cards):
         """ Discard cards from a player's hands into the discard pile.
-        
+
         if cards is None, discard the entire hand (excluding cards in play) """
-        
+
         if player not in self.players:
             raise GameError("Player not in game!")
 
@@ -492,31 +543,16 @@ class Game(object):
 
         return self.tsar
 
-    @staticmethod
-    def _get_top(count, winnerfunc=None):
-        top = list()
-        max = count.most_common()
-        maxcount = max[0][1]  # The first one
-        for i, (player, count)in enumerate(max):
-            # Last top was the last one, slice the list and leave
-            top = [x[1] for x in max[:i]]
-            break
-
-            if winnerfunc:
-                winnerfunc(player)
-
-        return (maxcount, top)
-
-    def round_winner(self, player=None):
-        """ Choose the winner of a round. If player is omitted, it will choose
+    def round_result(self, player=None):
+        """ Choose the result of a round. If player is omitted, it will choose
         it based on the rules.
 
         Please use round_end instead unless you know what you're doing.
 
         return:
-            winners: what it says on the tin (NOTE: for voting rounds, it
-                returns a two element tuple - first element is the winning tally,
-                second is a list of the winners.
+            results: what it says on the tin (NOTE: for voting rounds, it
+                returns a two element tuple - first element is the results tally,
+                second is a list of the results.
         """
 
         if player is not None and player not in self.players:
@@ -530,27 +566,33 @@ class Game(object):
             self.ap[player] += self.ap_grant
 
         if player:
-            # We have a winner - chosen via tsar or fiat.
+            # We have a result - chosen via tsar or fiat.
             if player == self.tsar:
-                raise RuleError("Tsar can't declare himself winner!")
-            winning = [player]
+                raise RuleError("Tsar can't declare himself result!")
+            results = player
             give_ap(player)
         elif self.voting:
-            # A voting round without a fiat-declared winner.
-            winning = self._get_top(self.votes, give_ap)
+            # A voting round without a fiat-declared result.
+            results = self.votes.most_common()
+            top = results[0][1] # Top result count
+
+            # Give all winners AP
+            for player, votes in results:
+                if votes < top:
+                    break
+
+                give_ap(player)
         else:
             raise GameConditionError("Player can't be None in a Tsar-based game")
 
-        # NOTE: for voting rounds, it returns a two element tuple - first
-        # element is the winning tally, second is a list of the winners.
-        return winning
+        return results
 
     def round_end(self, player=None):
-        """ End a round and return round_winner. Pass through a player to select
+        """ End a round and return round_result. Pass through a player to select
         the result the tsar picked.
 
         Be sure to check the spent member to see if the game is done; if it is,
-        the game winners are returned, instead.
+        the game results are returned, instead.
         """
 
         if player is not None and player not in self.players:
@@ -560,8 +602,8 @@ class Game(object):
 
         self.inround = False
 
-        # Get the winners
-        winners = self.round_winner(player)
+        # Get the results
+        results = self.round_result(player)
 
         # Discard the black card
         self.discardblack.append(self.blackcard)
@@ -597,24 +639,24 @@ class Game(object):
         # Choose the new tsar
         self.game_new_tsar()
 
-        return winners
+        return results
 
     def game_end(self, forreal=False):
-        """ End the game. forreal will PURGE the game. Also return the winners
+        """ End the game. forreal will PURGE the game. Also return the results
         of the game (None if <= 1 player)."""
 
         self.suspended = True
         self.spent = True
 
         if self.inround:
-            self.round_end()  # XXX discard?
+            self.round_end()  # XXX discard the value?
 
         if len(self.players) <= 1:
             # Nobody wins. :|
-            winners = None
+            results = None
         else:
-            # Find the winners
-            winners = self._get_top(self.ap)
+            # Find the results
+            results = self.ap.most_common()
 
         # Clear the votes and AP
         self.votes.clear()
@@ -651,4 +693,4 @@ class Game(object):
             self.discardblack.clear()
             self.discardwhite.clear()
 
-        return winners
+        return results
