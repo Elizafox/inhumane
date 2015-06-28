@@ -363,7 +363,7 @@ class Game(object):
             self.suspended = True
         elif len(self.players) == 0:
             # Punt. destroy the game.
-            self.end_game(True)
+            self.game_end(True)
 
     def player_play(self, player, cards):
         if player not in self.players:
