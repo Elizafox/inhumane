@@ -9,17 +9,16 @@ from setuptools import setup, find_packages
 
 PKGNAME='inhumane'
 
-setup(name=PKGNAME,
+setup(name='inhumane',
       description='A game engine for the popular card game, Cards Against Humanity',
       author='Elizabeth Myers',
       author_email='elizabeth@interlinked.me',
       url='http://github.com/Elizacat/inhumane',
       license='BSD',
-      version='0.01-alpha',
+      version='0.1a',
       keywords=['cards against humanity', 'game', 'game engine'],
       packages=find_packages(),
       include_package_data = True,
-      setup_requires = [ "setuptools_git >= 0.3", ],
       classifiers=[
           'Development Status :: 3 - Alpha',
           'Intended Audience :: Developers',
