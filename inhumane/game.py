@@ -66,6 +66,7 @@ class Game(object):
             maxrounds: maximum number of game rounds (default unlimited)
             maxap: maximum number of AP to play to (default 10)
         """
+        self.name = name
 
         # Current players
         self.players = OrderedSet()
