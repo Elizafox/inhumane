@@ -117,6 +117,21 @@ class Card(object):
     def __eq__(self, other):
         return self.text == other.text
 
+    def __gt__(self, other):
+        return self.text > other.text
+
+    def __lt__(self, other):
+        return self.text < other.text
+
+    def __ge__(self, other):
+        return self.text >= other.text
+
+    def __le__(self, other):
+        return self.text <= other.text
+
+    def __ne__(self, other):
+        return self.text != other.text
+
     def __hash__(self):
         h = hash(self.text) ^ hash(self.iswhite)
         if not self.iswhite:
