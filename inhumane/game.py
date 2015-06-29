@@ -322,8 +322,7 @@ class Game(object):
         self.players.add(player)
 
         # Reviving a game if it was suspended due to losing all but one player
-        if len(self.players) > 1:
-            self.suspended = False
+        self.suspended = len(self.players) < 1
 
         if len(self.players) == 2:
             # Choose a new tsar now that we have enough players
