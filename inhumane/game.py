@@ -109,7 +109,7 @@ class Game(object):
         self.playerlast = defaultdict(int)
 
         # Number of players who have played
-        self.played = 1
+        self.played = 0 
 
         # Votes and AP
         self.voters = dict()
@@ -541,6 +541,9 @@ class Game(object):
         self.inround = True
         self.rounds += 1
 
+        # Because the tsar.
+        self.played = 1
+
         # Recycle the decks if need be
         self.card_refill()
 
@@ -657,7 +660,7 @@ class Game(object):
         self.ap_grant = 1
         self.gamblers.clear()
 
-        self.played = 1
+        self.played = 0
 
         # Check for end-of-game conditions
         if self.maxrounds is not None and self.rounds == self.maxrounds:
@@ -703,6 +706,8 @@ class Game(object):
         self.tsarindex = None
 
         self.rounds = 0
+
+        self.played = 0
 
         if forreal:
             # Nuke the players
