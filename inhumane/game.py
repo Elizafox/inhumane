@@ -406,7 +406,7 @@ class Game(object):
         self.playerlast[player] = self.rounds
         self.played += 1
 
-        if player not in playerplay:
+        if player not in self.playerplay:
             self.playerplay[player] = list()
 
         if isinstance(cards, Iterable):
