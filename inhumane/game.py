@@ -379,6 +379,9 @@ class Game(object):
         if not self.voting and self.tsar == player:
             raise RuleError("The tsar can't play!")
 
+        if self.playerlast[player] == self.rounds:
+            raise RuleError("Can't double play!")
+
         if isinstance(cards, Iterable):
             clen = len(cards)
         else:
