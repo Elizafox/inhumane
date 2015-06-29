@@ -34,6 +34,10 @@ class RuleError(BaseGameError):
     pass
 
 
+# Avoid chicken/egg problem
+from .deckloader import default_decks
+
+
 class Game(object):
     """ The basic game object.
 
@@ -77,7 +81,7 @@ class Game(object):
         maxdraw = 0
         # Get all the decks
         # (and check for max len in each)
-        for deck in kwargs.get("decks"):
+        for deck in kwargs.get("decks", default_decks):
             self.blackcards.extend(deck.blackcards)
             self.whitecards.extend(deck.whitecards)
             if deck.maxdraw > maxdraw:
