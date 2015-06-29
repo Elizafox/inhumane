@@ -6,7 +6,7 @@ AppleDash's boatnet is now targetting _____.	0	1	SAH
 What is aji suddenly interested in?	0	1	SAH
 _____ was nominated Interlinked _____ of the Year for best _____.	2	3	SAH
 Utensil _____ front.	0	1	SAH
-Okay, who let _____ combine with Joree's vagina?	0	1	SAH
+Okay, who let _____ combine with Eren's vagina?	0	1	SAH
 Interlinked is pleased to announce a new server in _____, with _____ as admin.	0	2	SAH
 Interlinked's newest service.	0	1	SAH
 somasonic is pleased to announce _____, his latest RServ plugin.	0	1	SAH
@@ -73,7 +73,7 @@ _____? I KNEW THEY WERE GAY!	0	1	SAH
 Sporks was kicked off of freenode because _____.	0	1	SAH
 When _____ kicked us off Staticbox, we looked for a new home on _____.	0	2	SAH
 When _____ tried to contribute to aji's project, he promptly _____.	0	2	SAH
-Joree just killed _____.	0	1	SAH
+Eren just killed _____.	0	1	SAH
 madeline _____ed _____.	0	2	SAH
 Who the fuck puts a _____ in the Sporks garden!	0	1	SAH
 madeline's future sex offender registry entry.	0	1	SAH
@@ -95,10 +95,10 @@ somasonic would be more stable if it weren't for _____.	0	1	SAH
 appledash's obsession with _____ is so vile, we wound up _____.	0	1	SAH
 The Ishimura was decomissioned temporarily due to _____.	0	1	SAH
 smofe _____ errday	0	1	SAH
-_____'s obnoxious death-_____ was only discovered by _____.	0	1	SAH
+_____'s obnoxious death-_____ was only discovered by _____.	2	3	SAH
 Don't discuss the politics of _____ with Spellcheck.	0	1	SAH
 _____'s decaying body turned out to be the source of that awful smell.	0	1	SAH
-* somasonic _____ _____	0	1	SAH
+* somasonic _____ _____	0	2	SAH
 Lord Vorpal's obnoxious _____ in Minecraft.	0	1	SAH
 We built _____ in Minecraft.	0	1	SAH
 _____? I've seen bigger, blacker _____ than that! (pick one)	0	1	SAH
@@ -106,8 +106,8 @@ Not even rwg had any power against the enormous _____ of doom.	0	1	SAH
 Only rwg could destroy the _____-singularity.	0	1	SAH
 Quora's sixth personality is _____.	0	1	SAH
 Niichan got a little ridiculous after he added a _____ as a personality.	0	1	SAH
-_____ by Numbers with Joree.	0	1	SAH
-Joree went too far with the murders after zie _____ to the poor _____.	0	1	SAH
+_____ by Numbers with Eren.	0	1	SAH
+Eren went too far with the murders after he _____ to the poor _____.	0	1	SAH
 Don't _____ the flags!	0	1	SAH
 In Sporks, you don't get even, you get _____.	0	1	SAH
 What does it take to make lstarnes display emotion?	0	1	SAH
