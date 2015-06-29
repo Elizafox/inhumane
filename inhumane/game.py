@@ -474,7 +474,7 @@ class Game(object):
         if player not in self.players:
             raise GameError("Player not in the game!")
 
-        return self.playercards[player]
+        return sorted(self.playercards[player])
 
     def player_discard(self, player, cards):
         """ Discard cards from a player's hands into the discard pile.
