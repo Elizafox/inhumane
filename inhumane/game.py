@@ -423,6 +423,9 @@ class Game(object):
         self.playerlast[player] = self.rounds
         self.played += 1
 
+    def player_played(self):
+        return sorted(self.playerplay.items())
+
     def card_refill(self):
         """ Check if the decks are empty, and add cards from the discard pile if
         needs be """
