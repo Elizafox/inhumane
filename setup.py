@@ -18,6 +18,7 @@ setup(name='inhumane',
       version='0.1a0',
       keywords=['cards against humanity', 'game', 'game engine'],
       packages=find_packages(),
+      setup_requires=["setuptools_git"],
       include_package_data = True,
       classifiers=[
           'Development Status :: 3 - Alpha',

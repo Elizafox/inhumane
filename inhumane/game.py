@@ -109,7 +109,7 @@ class Game(object):
         self.playerlast = defaultdict(int)
 
         # Number of players who have played
-        self.played = 0
+        self.played = 1
 
         # Votes and AP
         self.voters = dict()
@@ -657,7 +657,7 @@ class Game(object):
         self.ap_grant = 1
         self.gamblers.clear()
 
-        self.played = 0
+        self.played = 1
 
         # Check for end-of-game conditions
         if self.maxrounds is not None and self.rounds == self.maxrounds:
