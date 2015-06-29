@@ -112,7 +112,7 @@ def load_deck(path, bundled=False):
                     # Add to the watermark
                     whiteseen[c.text].watermark += ", {w}".format(w=cinfo[1])
 
-    if not (blackcards and whitecards):
+    if not (blackcards or whitecards):
         raise DeckLoadError("Deck has insufficient cards: {}".format(path))
 
     info.update({"blackcards": blackcards, "whitecards": whitecards})
