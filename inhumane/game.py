@@ -108,6 +108,9 @@ class Game(object):
         # Players last played
         self.playerlast = defaultdict(int)
 
+        # Number of players who have played
+        self.played = 0
+
         # Votes and AP
         self.voters = dict()
         self.votes = Counter()
@@ -349,6 +352,10 @@ class Game(object):
         self.votes.pop(player, None)
         self.voters.pop(player, None)
 
+        if self.inround and self.playerlast[player] == self.rounds:
+            self.played -= 1
+            del self.playerlast[player]
+
         if self.tsar is not None and player == self.tsar and not self.spent and not self.suspended:
             # Reassign tsar if need be
             self.game_new_tsar()
@@ -391,6 +398,7 @@ class Game(object):
             raise RuleError("Invalid number of cards played")
 
         self.playerlast[player] = self.rounds
+        self.played += 1
 
         if isinstance(cards, Iterable):
             self.playercards[player].difference_update(cards)
@@ -398,6 +406,23 @@ class Game(object):
         else:
             self.playercards[player].remove(cards)
             self.playerplay[player].append(cards)
+
+    def player_pass(self, player):
+        """A player is skipping their turn"""
+        if player not in self.players:
+            raise GameError("Player not in the game!")
+
+        if not self.inround:
+            raise GameError("Not in a round to play!")
+
+        if not self.voting and self.tsar == player:
+            raise RuleError("The tsar can't play!")
+
+        if self.playerlast[player] == self.rounds:
+            raise GameError("You have already played!")
+
+        self.playerlast[player] = self.rounds
+        self.played += 1
 
     def card_refill(self):
         """ Check if the decks are empty, and add cards from the discard pile if
@@ -632,6 +657,8 @@ class Game(object):
         # Reset the AP grant and gamblers
         self.ap_grant = 1
         self.gamblers.clear()
+
+        self.played = 0
 
         # Check for end-of-game conditions
         if self.maxrounds is not None and self.rounds == self.maxrounds:
