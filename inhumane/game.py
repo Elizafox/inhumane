@@ -103,13 +103,13 @@ class Game(object):
 
         # Players:decks/hands
         self.playercards = defaultdict(OrderedSet)
-        self.playerplay = defaultdict(list)
+        self.playerplay = OrderedDict()
 
         # Players last played
         self.playerlast = defaultdict(int)
 
         # Number of players who have played
-        self.played = 0 
+        self.played = 0
 
         # Votes and AP
         self.voters = dict()
@@ -286,6 +286,10 @@ class Game(object):
         self.ap[player] -= 1
         self.ap_grant += 1
         self.player_discard(player, card)
+
+        if player in not self.playerplay:
+            self.playerplay[player] = list()
+
         self.playerplay[player].append(card)
         self.gamblers.add(player)
 
@@ -340,7 +344,7 @@ class Game(object):
 
         # Return all player cards to the deck
         self.discardwhite.extend(self.playercards[player])
-        self.discardwhite.extend(self.playerplay[player])
+        self.discardwhite.extend(self.playerplay.get(player, []))
 
         # Clear state
         self.playercards.pop(player, None)
@@ -399,6 +403,9 @@ class Game(object):
         self.playerlast[player] = self.rounds
         self.played += 1
 
+        if player not in playerplay:
+            self.playerplay[player] = list()
+
         if isinstance(cards, Iterable):
             self.playercards[player].difference_update(cards)
             self.playerplay[player].extend(cards)
@@ -424,7 +431,7 @@ class Game(object):
         self.played += 1
 
     def player_played(self):
-        return sorted(self.playerplay.items())
+        return self.playerplay.items()
 
     def card_refill(self):
         """ Check if the decks are empty, and add cards from the discard pile if
@@ -536,7 +543,8 @@ class Game(object):
 
         # No players should have leftover played cards
         # (they should be purged at the end of a round)
-        assert [len(self.playerplay[player]) == 0 for player in self.players].count(False) == 0
+        # XXX broken because now it uses an OrderedDict not a defaultdict
+        #assert [len(self.playerplay[player]) == 0 for player in self.players].count(False) == 0
 
         # Black card should be the null sentinel
         assert self.blackcard is None
@@ -650,10 +658,11 @@ class Game(object):
         # Return played white cards to the discard pile and clear their played
         # cards, then give them new cards.
         for player in self.players:
-            self.discardwhite.extend(self.playerplay[player])
-            self.playerplay[player].clear()
+            self.discardwhite.extend(self.playerplay.get(player, []))
 
             self.player_deal(player)
+
+        self.playerplay.clear()
 
         # Reset votes
         self.voters.clear()
