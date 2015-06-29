@@ -37,238 +37,238 @@ An uppercut.	1.3
 Shiny objects.	1.3
 An ugly face.	1.3
 Menstrual rage.	1.3
-Roofies.	None
-Women in yogurt commercials.	None
-A windmill full of corpses.	None
-Old-people smell.	None
-Being on fire.	None
-A micropenis.	None
-Sexting.	None
-Classist undertones.	None
-Not giving a shit about the Third World.	None
-The gays.	None
-Racism.	None
-Free samples.	None
-Sexual tension.	None
-Figgy pudding.	None
+Roofies.	1.3
+Women in yogurt commercials.	1.3
+A windmill full of corpses.	1.3
+Old-people smell.	1.3
+Being on fire.	1.3
+A micropenis.	1.3
+Sexting.	1.3
+Classist undertones.	1.3
+Not giving a shit about the Third World.	1.3
+The gays.	1.3
+Racism.	1.3
+Free samples.	1.3
+Sexual tension.	1.3
+Figgy pudding.	1.3
 An oversized lollipop.	1.3
-Five-Dollar Footlongs™.	None
-Barack Obama.	None
-Genital piercings.	None
-A tiny horse.	None
-Elderly Japanese men.	None
-A stray pube.	None
-The Tempur-Pedic® Swedish Sleep System™.	None
-Bingeing and purging.	None
-A bag of magic beans.	None
-An asymmetric boob job.	None
-Famine.	None
-African children.	None
-Heartwarming orphans.	None
+Five-Dollar Footlongs™.	1.3
+Barack Obama.	1.3
+Genital piercings.	1.3
+A tiny horse.	1.3
+Elderly Japanese men.	1.3
+A stray pube.	1.3
+The Tempur-Pedic® Swedish Sleep System™.	1.3
+Bingeing and purging.	1.3
+A bag of magic beans.	1.3
+An asymmetric boob job.	1.3
+Famine.	1.3
+African children.	1.3
+Heartwarming orphans.	1.3
 Boogers.	1.2
-Men.	None
-Dry heaving.	None
-My humps.	None
-The hardworking Mexican.	None
-An Oedipus complex.	None
-Darth Vader.	None
-Skeletor.	None
-Scientology.	None
-Estrogen.	None
-Penis envy.	None
-Pictures of boobs.	None
-Pedophiles.	None
-Pabst Blue Ribbon.	None
-The Pope.	None
-Prancing.	None
-Repression.	None
-Overcompensation.	None
-Being fabulous.	None
-My relationship status.	None
-Eating all of the cookies before the AIDS bake-sale.	None
-Dick Cheney.	None
-Lance Armstrong's missing testicle.	None
-The Amish.	None
-Pooping back and forth. Forever.	None
+Men.	1.3
+Dry heaving.	1.3
+My humps.	1.3
+The hardworking Mexican.	1.3
+An Oedipus complex.	1.3
+Darth Vader.	1.3
+Skeletor.	1.3
+Scientology.	1.3
+Estrogen.	1.3
+Penis envy.	1.3
+Pictures of boobs.	1.3
+Pedophiles.	1.3
+Pabst Blue Ribbon.	1.3
+The Pope.	1.3
+Prancing.	1.3
+Repression.	1.3
+Overcompensation.	1.3
+Being fabulous.	1.3
+My relationship status.	1.3
+Eating all of the cookies before the AIDS bake-sale.	1.3
+Dick Cheney.	1.3
+Lance Armstrong's missing testicle.	1.3
+The Amish.	1.3
+Pooping back and forth. Forever.	1.3
 MechaHitler.	1.2
-Peeing a little bit.	None
-The World of Warcraft.	None
-Testicular torsion.	None
+Peeing a little bit.	1.3
+The World of Warcraft.	1.3
+Testicular torsion.	1.3
 A gentle caress of the inner thigh.	1.2
-Explosions.	None
-Sarah Palin.	None
-Amputees.	None
-Being marginalized.	None
-The Blood of Christ.	None
-Bitches.	None
-Italians.	None
-Dead parents.	None
-Dying of dysentery.	None
-Sexy pillow fights.	None
-Civilian casualties.	None
+Explosions.	1.3
+Sarah Palin.	1.3
+Amputees.	1.3
+Being marginalized.	1.3
+The Blood of Christ.	1.3
+Bitches.	1.3
+Italians.	1.3
+Dead parents.	1.3
+Dying of dysentery.	1.3
+Sexy pillow fights.	1.3
+Civilian casualties.	1.3
 The female orgasm.	B
-Auschwitz.	None
-Agriculture.	None
+Auschwitz.	1.3
+Agriculture.	1.3
 The Boy Scouts of America.	B
 Throwing a virgin into a volcano.	B
-The Jews.	None
-Judge Judy.	None
-Surprise sex!	None
-The Virginia Tech Massacre.	None
-Scrubbing under the folds.	None
-An M. Night Shyamalan plot twist.	None
-Mr. Clean, right behind you.	None
-Cybernetic enhancements.	None
-Feeding Rosie O'Donnell.	None
-The Trail of Tears.	None
-Finger painting.	None
+The Jews.	1.3
+Judge Judy.	1.3
+Surprise sex!	1.3
+The Virginia Tech Massacre.	1.3
+Scrubbing under the folds.	1.3
+An M. Night Shyamalan plot twist.	1.3
+Mr. Clean, right behind you.	1.3
+Cybernetic enhancements.	1.3
+Feeding Rosie O'Donnell.	1.3
+The Trail of Tears.	1.3
+Finger painting.	1.3
 The Care Bear Stare.	1.2
-Jewish fraternities.	None
-The homosexual agenda.	None
+Jewish fraternities.	1.3
+The homosexual agenda.	1.3
 Flying sex snakes.	1.2
-Natalie Portman.	None
-Another goddamn vampire movie.	None
-Hot Pockets®.	None
-Robert Downey, Jr.	None
-A good sniff.	None
-My soul.	None
-Fingering.	None
-Horse meat.	None
-Crippling debt.	None
-Praying the gay away.	None
-German dungeon porn.	None
-Heteronormativity.	None
-Dying.	None
+Natalie Portman.	1.3
+Another goddamn vampire movie.	1.3
+Hot Pockets®.	1.3
+Robert Downey, Jr.	1.3
+A good sniff.	1.3
+My soul.	1.3
+Fingering.	1.3
+Horse meat.	1.3
+Crippling debt.	1.3
+Praying the gay away.	1.3
+German dungeon porn.	1.3
+Heteronormativity.	1.3
+Dying.	1.3
 One trillion dollars.	B
-The invisible hand.	None
-A really cool hat.	None
-Justin Bieber.	None
-YOU MUST CONSTRUCT ADDITIONAL PYLONS.	None
-A sausage festival.	None
-Michael Jackson.	None
-Police brutality.	None
-Teaching a robot to love.	None
-Catapults.	None
-A disappointing birthday party.	None
-Balls.	None
-Dental dams.	None
-Powerful thighs.	None
-Serfdom.	None
-Children on leashes.	None
-Friends with benefits.	None
-RoboCop.	None
-Copping a feel.	None
+The invisible hand.	1.3
+A really cool hat.	1.3
+Justin Bieber.	1.3
+YOU MUST CONSTRUCT ADDITIONAL PYLONS.	1.3
+A sausage festival.	1.3
+Michael Jackson.	1.3
+Police brutality.	1.3
+Teaching a robot to love.	1.3
+Catapults.	1.3
+A disappointing birthday party.	1.3
+Balls.	1.3
+Dental dams.	1.3
+Powerful thighs.	1.3
+Serfdom.	1.3
+Children on leashes.	1.3
+Friends with benefits.	1.3
+RoboCop.	1.3
+Copping a feel.	1.3
 Shapeshifters.	1.2
 Teenage pregnancy.	1.2
-All-you-can-eat shrimp for $4.99.	None
+All-you-can-eat shrimp for $4.99.	1.3
 Getting naked and watching Nickelodeon.	1.2
-The Holy Bible.	None
-Kamikaze pilots.	None
+The Holy Bible.	1.3
+Kamikaze pilots.	1.3
 My inner demons.	1.2
 Crystal meth.	1.2
-Eugenics.	None
+Eugenics.	1.3
 The chronic.	1.2
-Man meat.	None
-The violation of our most basic human rights.	None
-Smegma.	None
-A bleached asshole.	None
-Stranger danger.	None
-The terrorists.	None
-Same-sex ice dancing.	None
-Making a pouty face.	None
-Object permanence.	None
-The Three-Fifths compromise.	None
-Sunshine and rainbows.	None
-Emotions.	None
-Necrophilia.	None
-Panda sex.	None
-Whipping it out.	None
-The token minority.	None
-That thing that electrocutes your abs.	None
-Fiery poops.	None
-Picking up girls at the abortion clinic.	None
-Vehicular manslaughter.	None
-Lockjaw.	None
-Attitude.	None
-A snapping turtle biting the tip of your penis.	None
-Public ridicule.	None
-Stephen Hawking talking dirty.	None
-Tangled Slinkys.	None
-Grave robbing.	None
-GoGurt®.	None
-Passable transvestites.	None
-Muhammed (Praise Be Unto Him).	None
-Getting so angry that you pop a boner.	None
-Multiple stab wounds.	None
-The Dance of the Sugar Plum Fairy.	None
-A monkey smoking a cigar.	None
+Man meat.	1.3
+The violation of our most basic human rights.	1.3
+Smegma.	1.3
+A bleached asshole.	1.3
+Stranger danger.	1.3
+The terrorists.	1.3
+Same-sex ice dancing.	1.3
+Making a pouty face.	1.3
+Object permanence.	1.3
+The Three-Fifths compromise.	1.3
+Sunshine and rainbows.	1.3
+Emotions.	1.3
+Necrophilia.	1.3
+Panda sex.	1.3
+Whipping it out.	1.3
+The token minority.	1.3
+That thing that electrocutes your abs.	1.3
+Fiery poops.	1.3
+Picking up girls at the abortion clinic.	1.3
+Vehicular manslaughter.	1.3
+Lockjaw.	1.3
+Attitude.	1.3
+A snapping turtle biting the tip of your penis.	1.3
+Public ridicule.	1.3
+Stephen Hawking talking dirty.	1.3
+Tangled Slinkys.	1.3
+Grave robbing.	1.3
+GoGurt®.	1.3
+Passable transvestites.	1.3
+Muhammed (Praise Be Unto Him).	1.3
+Getting so angry that you pop a boner.	1.3
+Multiple stab wounds.	1.3
+The Dance of the Sugar Plum Fairy.	1.3
+A monkey smoking a cigar.	1.3
 Unfathomable stupidity.	1.2
 Firing a rifle into the air while balls deep in a squealing hog.	1.2
-Self-loathing.	None
-Geese.	None
-A thermonuclear detonation.	None
-The American Dream.	None
-God.	None
-Hurricane Katrina.	None
-A brain tumor.	None
-Lactation.	None
-Kids with ass cancer.	None
-New Age music.	None
-Lumberjack fantasies.	None
-Puberty.	None
-Kanye West.	None
-Harry Potter erotica.	None
-Dead babies.	None
+Self-loathing.	1.3
+Geese.	1.3
+A thermonuclear detonation.	1.3
+The American Dream.	1.3
+God.	1.3
+Hurricane Katrina.	1.3
+A brain tumor.	1.3
+Lactation.	1.3
+Kids with ass cancer.	1.3
+New Age music.	1.3
+Lumberjack fantasies.	1.3
+Puberty.	1.3
+Kanye West.	1.3
+Harry Potter erotica.	1.3
+Dead babies.	1.3
 The true meaning of Christmas.	1.2
-Nickelback.	None
-The South.	None
-Opposable thumbs.	None
-Preteens.	None
-Land mines.	None
-Authentic Mexican cuisine.	None
-Sweet, sweet vengeance.	None
-Me time.	None
-Saxophone solos.	None
-Guys who don't call.	None
-The taint; the grundle; the fleshy fun-bridge.	None
-Winking at old people.	None
-Oompa-Loompas.	None
-Parting the Red Sea.	None
-Ghosts.	None
+Nickelback.	1.3
+The South.	1.3
+Opposable thumbs.	1.3
+Preteens.	1.3
+Land mines.	1.3
+Authentic Mexican cuisine.	1.3
+Sweet, sweet vengeance.	1.3
+Me time.	1.3
+Saxophone solos.	1.3
+Guys who don't call.	1.3
+The taint; the grundle; the fleshy fun-bridge.	1.3
+Winking at old people.	1.3
+Oompa-Loompas.	1.3
+Parting the Red Sea.	1.3
+Ghosts.	1.3
 The Little Engine That Could.	1.2
 Vigilante justice.	1.2
 Erectile dysfunction.	1.2
-Fear itself.	None
-William Shatner.	None
-A falcon with a cap on its head.	None
+Fear itself.	1.3
+William Shatner.	1.3
+A falcon with a cap on its head.	1.3
 Chunks of dead prostitute.	B
-Vikings.	None
-Farting and walking away.	None
-The Chinese gymnastics team.	None
-Yeast.	None
-Leaving an awkward voicemail.	None
-White people.	None
-Sperm whales.	None
-A sassy black woman.	None
-Friction.	None
-A can of whoop-ass.	None
-A murder most foul.	None
-The inevitable heat death of the universe.	None
-Being a motherfucking sorcerer.	None
-Daddy issues.	None
-Gloryholes.	None
-A time travel paradox.	None
-Poorly-timed Holocaust jokes.	None
-Licking things to claim them as your own.	None
-Republicans.	None
-A mating display.	None
-A mime having a stroke.	None
-Asians who aren't good at math.	None
-Alcoholism.	None
-The Kool-Aid Man.	None
-Tentacle porn.	None
-Lunchables™.	None
-AXE Body Spray.	None
+Vikings.	1.3
+Farting and walking away.	1.3
+The Chinese gymnastics team.	1.3
+Yeast.	1.3
+Leaving an awkward voicemail.	1.3
+White people.	1.3
+Sperm whales.	1.3
+A sassy black woman.	1.3
+Friction.	1.3
+A can of whoop-ass.	1.3
+A murder most foul.	1.3
+The inevitable heat death of the universe.	1.3
+Being a motherfucking sorcerer.	1.3
+Daddy issues.	1.3
+Gloryholes.	1.3
+A time travel paradox.	1.3
+Poorly-timed Holocaust jokes.	1.3
+Licking things to claim them as your own.	1.3
+Republicans.	1.3
+A mating display.	1.3
+A mime having a stroke.	1.3
+Asians who aren't good at math.	1.3
+Alcoholism.	1.3
+The Kool-Aid Man.	1.3
+Tentacle porn.	1.3
+Lunchables™.	1.3
+AXE Body Spray.	1.3
 Hot cheese.	1.2
 A mopey zoo lion.	1.2
 A defective condom.	1.2
@@ -277,184 +277,184 @@ Exactly what you'd expect.	1.2
 Inappropriate yodeling.	1.2
 Lady Gaga.	1.2
 Nicolas Cage.	1.2
-The Big Bang.	None
-Aaron Burr.	None
-Cheating in the Special Olympics.	None
-Foreskin.	None
-Hormone injections.	None
-A sad handjob.	None
-Bling.	None
-Count Chocula.	None
-A sea of troubles.	None
-Christopher Walken.	None
-Waiting 'til marriage.	None
-A cooler full of organs.	None
-Giving 110%.	None
-Pulling out.	None
-Assless chaps.	None
-Dropping a chandelier on your enemies and riding the rope up.	None
-Wearing underwear inside-out to avoid doing laundry.	None
-The glass ceiling.	None
-Adderall™.	None
-Puppies!	None
-Not reciprocating oral sex.	None
-Doin' it in the butt.	None
-A lifetime of sadness.	None
-The Hamburglar.	None
-Obesity.	None
-Tasteful sideboob.	None
-Hot people.	None
-Porn stars.	None
-Two midgets shitting into a bucket.	None
-Nazis.	None
-Getting drunk on mouthwash.	None
-John Wilkes Booth.	None
-The miracle of childbirth.	None
+The Big Bang.	1.3
+Aaron Burr.	1.3
+Cheating in the Special Olympics.	1.3
+Foreskin.	1.3
+Hormone injections.	1.3
+A sad handjob.	1.3
+Bling.	1.3
+Count Chocula.	1.3
+A sea of troubles.	1.3
+Christopher Walken.	1.3
+Waiting 'til marriage.	1.3
+A cooler full of organs.	1.3
+Giving 110%.	1.3
+Pulling out.	1.3
+Assless chaps.	1.3
+Dropping a chandelier on your enemies and riding the rope up.	1.3
+Wearing underwear inside-out to avoid doing laundry.	1.3
+The glass ceiling.	1.3
+Adderall™.	1.3
+Puppies!	1.3
+Not reciprocating oral sex.	1.3
+Doin' it in the butt.	1.3
+A lifetime of sadness.	1.3
+The Hamburglar.	1.3
+Obesity.	1.3
+Tasteful sideboob.	1.3
+Hot people.	1.3
+Porn stars.	1.3
+Two midgets shitting into a bucket.	1.3
+Nazis.	1.3
+Getting drunk on mouthwash.	1.3
+John Wilkes Booth.	1.3
+The miracle of childbirth.	1.3
 Soup that is too hot.	1.2
-The Hustle.	None
+The Hustle.	1.3
 A homoerotic volleyball montage.	1.2
 Natural male enhancement.	1.2
 Switching to Geico®.	1.2
-The Rev. Dr. Martin Luther King, Jr.	None
-Ethnic cleansing.	None
+The Rev. Dr. Martin Luther King, Jr.	1.3
+Ethnic cleansing.	1.3
 Extremely tight pants.	B
-The Underground Railroad.	None
-Natural selection.	None
-Taking off your shirt.	None
-Waking up half-naked in a Denny's parking lot.	None
-Smallpox blankets.	None
-Getting really high.	None
-My sex life.	None
-Hope.	None
-A gassy antelope.	None
-Third base.	None
-A Super Soaker™ full of cat pee.	None
-White privilege.	None
-Queefing.	None
-Golden showers.	None
+The Underground Railroad.	1.3
+Natural selection.	1.3
+Taking off your shirt.	1.3
+Waking up half-naked in a Denny's parking lot.	1.3
+Smallpox blankets.	1.3
+Getting really high.	1.3
+My sex life.	1.3
+Hope.	1.3
+A gassy antelope.	1.3
+Third base.	1.3
+A Super Soaker™ full of cat pee.	1.3
+White privilege.	1.3
+Queefing.	1.3
+Golden showers.	1.3
 Breaking out into song and dance.	1.2
 Home video of Oprah sobbing into a Lean Cuisine®.	1.2
-Autocannibalism.	None
+Autocannibalism.	1.3
 Helplessly giggling at the mention of Hutus and Tutsis.	1.3
-Laying an egg.	None
-Chainsaws for hands.	None
-Arnold Schwarzenegger.	None
-An icepick lobotomy.	None
-Goblins.	None
-Pretending to care.	None
+Laying an egg.	1.3
+Chainsaws for hands.	1.3
+Arnold Schwarzenegger.	1.3
+An icepick lobotomy.	1.3
+Goblins.	1.3
+Pretending to care.	1.3
 Stormtroopers.	B
-Being rich.	None
-Seppuku.	None
-Toni Morrison's vagina.	None
-Pixelated bukkake.	None
-The folly of man.	None
-Britney Spears at 55.	None
-Ronald Reagan.	None
-Homeless people.	None
-Eating the last known bison.	None
-World peace.	None
-A salty surprise.	None
-72 virgins.	None
-Passing a kidney stone.	None
-Leprosy.	None
-Riding off into the sunset.	None
-My genitals.	None
-Shaquille O'Neal's acting career.	None
-Dick fingers.	None
-A fetus.	None
-BATMAN!!!	None
-Racially-biased SAT questions.	None
-Centaurs.	None
-Grandma.	None
+Being rich.	1.3
+Seppuku.	1.3
+Toni Morrison's vagina.	1.3
+Pixelated bukkake.	1.3
+The folly of man.	1.3
+Britney Spears at 55.	1.3
+Ronald Reagan.	1.3
+Homeless people.	1.3
+Eating the last known bison.	1.3
+World peace.	1.3
+A salty surprise.	1.3
+72 virgins.	1.3
+Passing a kidney stone.	1.3
+Leprosy.	1.3
+Riding off into the sunset.	1.3
+My genitals.	1.3
+Shaquille O'Neal's acting career.	1.3
+Dick fingers.	1.3
+A fetus.	1.3
+BATMAN!!!	1.3
+Racially-biased SAT questions.	1.3
+Centaurs.	1.3
+Grandma.	1.3
 A Bop It™.	1.2
 Horrifying laser hair removal accidents.	1.2
-The Make-A-Wish® Foundation.	None
+The Make-A-Wish® Foundation.	1.3
 A death ray.	1.2
 Embryonic stem cells.	1.2
-The profoundly handicapped.	None
-The placenta.	None
-The clitoris.	None
-Sniffing glue.	None
-Spontaneous human combustion.	None
-The KKK.	None
-Flesh-eating bacteria.	None
-Poor people.	None
-The Übermensch.	None
-Altar boys.	None
-Black people.	None
-Active listening.	None
+The profoundly handicapped.	1.3
+The placenta.	1.3
+The clitoris.	1.3
+Sniffing glue.	1.3
+Spontaneous human combustion.	1.3
+The KKK.	1.3
+Flesh-eating bacteria.	1.3
+Poor people.	1.3
+The Übermensch.	1.3
+Altar boys.	1.3
+Black people.	1.3
+Active listening.	1.3
 Pac-Man uncontrollably guzzling cum.	1.2
 My vagina.	1.2
 Poor life choices.	1.2
-Coat hanger abortions.	None
-Viagra®.	None
-Spectacular abs.	None
-A balanced breakfast.	None
+Coat hanger abortions.	1.3
+Viagra®.	1.3
+Spectacular abs.	1.3
+A balanced breakfast.	1.3
 Not wearing pants.	1.3
 Consensual sex.	1.3
-Former President George W. Bush.	None
-Cuddling.	None
-Science.	None
-Tom Cruise.	None
+Former President George W. Bush.	1.3
+Cuddling.	1.3
+Science.	1.3
+Tom Cruise.	1.3
 The entire Mormon Tabernacle Choir.	B
-Sean Penn.	None
-Historically black colleges.	None
-Sharing needles.	None
-Masturbation.	None
-AIDS.	None
-Gandhi.	None
-A zesty breakfast burrito.	None
-Genghis Khan.	None
-Take-backsies.	None
-Keanu Reeves.	None
-Drinking alone.	None
-Cards Against Humanity.	None
-Edible underpants.	None
-Fancy Feast®.	None
-Passive-agression.	None
-Hulk Hogan.	None
-Sean Connery.	None
-Scalping.	None
-The milk man.	None
-The heart of a child.	None
-Friendly fire.	None
-Jerking off into a pool of children's tears.	None
-Domino's™ Oreo™ Dessert Pizza.	None
-Half-assed foreplay.	None
-My collection of high-tech sex toys.	None
-A middle-aged man on roller skates.	None
-Bill Nye the Science Guy.	None
-Bees?	None
-8 oz. of sweet Mexican black-tar heroin.	None
-A hot mess.	None
-An erection that lasts longer than four hours.	None
-Wifely duties.	None
-Wiping her butt.	None
-Women's suffrage.	None
-Child beauty pageants.	None
+Sean Penn.	1.3
+Historically black colleges.	1.3
+Sharing needles.	1.3
+Masturbation.	1.3
+AIDS.	1.3
+Gandhi.	1.3
+A zesty breakfast burrito.	1.3
+Genghis Khan.	1.3
+Take-backsies.	1.3
+Keanu Reeves.	1.3
+Drinking alone.	1.3
+Cards Against Humanity.	1.3
+Edible underpants.	1.3
+Fancy Feast®.	1.3
+Passive-agression.	1.3
+Hulk Hogan.	1.3
+Sean Connery.	1.3
+Scalping.	1.3
+The milk man.	1.3
+The heart of a child.	1.3
+Friendly fire.	1.3
+Jerking off into a pool of children's tears.	1.3
+Domino's™ Oreo™ Dessert Pizza.	1.3
+Half-assed foreplay.	1.3
+My collection of high-tech sex toys.	1.3
+A middle-aged man on roller skates.	1.3
+Bill Nye the Science Guy.	1.3
+Bees?	1.3
+8 oz. of sweet Mexican black-tar heroin.	1.3
+A hot mess.	1.3
+An erection that lasts longer than four hours.	1.3
+Wifely duties.	1.3
+Wiping her butt.	1.3
+Women's suffrage.	1.3
+Child beauty pageants.	1.3
 Expecting a burp and vomiting on the floor.	1.2
 Morgan Freeman's voice.	1.2
-Anal beads.	None
-The Force.	None
+Anal beads.	1.3
+The Force.	1.3
 Her Majesty, Queen Elizabeth II.	1.3
-Vigorous jazz hands.	None
-Flightless birds.	None
-Doing the right thing.	None
-Concealing a boner.	None
+Vigorous jazz hands.	1.3
+Flightless birds.	1.3
+Doing the right thing.	1.3
+Concealing a boner.	1.3
 A bitch slap.	B
-Raptor attacks.	None
-Being a dick to children.	None
-Mutually-assured destruction.	None
-Nipple blades.	None
-Full frontal nudity.	None
-A foul mouth.	None
-Michelle Obama's arms.	None
-Frolicking.	None
-Mouth herpes.	None
-Incest.	None
-Swooping.	None
-When you fart and a little bit comes out.	None
-A robust mongoloid.	None
-The Rapture.	None
-Road head.	None
+Raptor attacks.	1.3
+Being a dick to children.	1.3
+Mutually-assured destruction.	1.3
+Nipple blades.	1.3
+Full frontal nudity.	1.3
+A foul mouth.	1.3
+Michelle Obama's arms.	1.3
+Frolicking.	1.3
+Mouth herpes.	1.3
+Incest.	1.3
+Swooping.	1.3
+When you fart and a little bit comes out.	1.3
+A robust mongoloid.	1.3
+The Rapture.	1.3
+Road head.	1.3
 Passive-aggressive Post-it notes.	1.2
