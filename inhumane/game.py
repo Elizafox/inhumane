@@ -344,12 +344,15 @@ class Game(object):
 
         # Return all player cards to the deck
         self.discardwhite.extend(self.playercards[player])
-        self.discardwhite.extend(self.playerplay.get(player, []))
 
         # Clear state
         self.playercards.pop(player, None)
-        self.playerplay.pop(player, None)
         self.playerlast.pop(player, None)
+
+        # This is so indexes don't get fucked up
+        if player in self.playerplay:
+            self.discardwhite.extend(self.playerplay[player])
+            self.playerplay[player] = []
 
         self.ap.pop(player, None)
         self.votes.pop(player, None)
