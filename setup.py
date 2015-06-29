@@ -7,8 +7,6 @@
 
 from setuptools import setup, find_packages
 
-PKGNAME='inhumane'
-
 setup(name='inhumane',
       description='A game engine for the popular card game, Cards Against Humanity',
       author='Elizabeth Myers',
@@ -18,8 +16,10 @@ setup(name='inhumane',
       version='0.1a0',
       keywords=['cards against humanity', 'game', 'game engine'],
       packages=find_packages(),
-      setup_requires=["setuptools_git"],
-      include_package_data = True,
+      package_data = {
+            'inhumane': ['packs/*/*.txt'],
+      },
+      include_package_data=True,
       classifiers=[
           'Development Status :: 3 - Alpha',
           'Intended Audience :: Developers',

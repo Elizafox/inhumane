@@ -30,7 +30,7 @@ class Deck(object):
             official: is it an official Cards Against Humanity™ deck?
         """
 
-        assert len(blackcards) or len(whitecards)
+        assert blackcards or whitecards, "No cards!"
 
         self.name = name
         self.blackcards = OrderedSet(blackcards)

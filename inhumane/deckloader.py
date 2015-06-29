@@ -5,6 +5,7 @@ from pkg_resources import resource_listdir, resource_isdir, resource_exists
 from pkg_resources import resource_stream, resource_string
 from warnings import warn
 from contextlib import contextmanager
+import traceback
 import json
 import os
 
@@ -14,11 +15,6 @@ from .game import BaseGameError
 blackseen = dict()
 whiteseen = dict()
 
-# Fix __name__
-if __name__ == '__main__':
-    use_bundled = False
-else:
-    use_bundled = True
 
 class BaseDeckError(BaseGameError):
     pass
@@ -34,25 +30,25 @@ def __fix_path(path):
 
 def __exists(path, bundled=False):
     if bundled:
-        return resource_exists(__name__, path)
+        return resource_exists('inhumane', path)
     else:
         return os.path.exists(__fix_path(path))
 
 def __isdir(path, bundled=False):
     if bundled:
-        return resource_isdir(__name__, path)
+        return resource_isdir('inhumane', path)
     else:
         return os.path.isdir(__fix_path(path))
 
 def __listdir(path, bundled=False):
     if bundled:
-        return resource_listdir(__name__, path)
+        return resource_listdir('inhumane', path)
     else:
-        return os.path.listdir(__fix_path(path))
+        return os.listdir(__fix_path(path))
 
 def __load_str(path, bundled=False):
     if bundled:
-        return resource_string(__name__, path).decode('utf-8')
+        return resource_string('inhumane', path).decode('utf-8')
     else:
         with open(__fix_path(path), 'r') as f:
             load = f.read()
@@ -61,7 +57,7 @@ def __load_str(path, bundled=False):
 @contextmanager
 def __load_stream(path, bundled=False):
     if bundled:
-        with resource_stream(__name__, path) as f:
+        with resource_stream('inhumane', path) as f:
             yield f
     else:
         with open(__fix_path(path)) as f:
@@ -76,7 +72,7 @@ def load_deck(path, bundled=False):
     pwhite = "{p}/white.txt".format(p=path)
 
     if not __exists(pinfo, bundled):
-        raise DeckLoadError("Pack contains no control information")
+        raise DeckLoadError("{}: pack contains no control information".format(path))
 
     blackcards = list()
     whitecards = list()
@@ -116,6 +112,9 @@ def load_deck(path, bundled=False):
                     # Add to the watermark
                     whiteseen[c.text].watermark += ", {w}".format(w=cinfo[1])
 
+    if not (blackcards and whitecards):
+        raise DeckLoadError("Deck has insufficient cards: {}".format(path))
+
     info.update({"blackcards": blackcards, "whitecards": whitecards})
     deck = Deck(**info)
     return deck
@@ -130,7 +129,8 @@ def load_decks(dir, bundled=False):
 
     return decks
 try:
-    default_decks = load_decks("packs", use_bundled)
+    default_decks = load_decks("packs", __name__ != '__main__')
 except Exception as e:
+    traceback.print_last()
     warn("Couldn't load default packs: {e}".format(e=str(e)))
 
