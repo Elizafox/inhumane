@@ -287,7 +287,7 @@ class Game(object):
         self.ap_grant += 1
         self.player_discard(player, card)
 
-        if player in not self.playerplay:
+        if player not in self.playerplay:
             self.playerplay[player] = list()
 
         self.playerplay[player].append(card)
