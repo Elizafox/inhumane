@@ -14,11 +14,12 @@ import json
 
 whitespace = re.compile(r'\s+')
 
-fmt = {'b' : '*',
-       'i' : '/',
-       'u' : '_',
-       'underline' : '_',
-       'br' : ' / '}
+fmt = {'b': '*',
+       'i': '/',
+       'u': '_',
+       'underline': '_',
+       'br': ' / '}
+
 
 def dehtmlify(string):
     soup = bs4.BeautifulSoup(string)
@@ -69,7 +70,7 @@ card_set = dict()
 orig_dir = os.getcwd()
 # Load all the card sets
 for item in card_sets:
-    (id, active, name, base, desc) = item 
+    (id, active, name, base, desc) = item
 
     # Cruft elimination
     name = name.replace('/', '-')
@@ -84,12 +85,12 @@ for item in card_sets:
     os.chdir(name)
 
     with open('info.txt', 'w') as f:
-        info = {'copyright' : 'Unknown',
-                'license' : 'Creative Commons',
-                'desc' : desc,
-                'name' : name,
-                'official' : base,
-               }
+        info = {'copyright': 'Unknown',
+                'license': 'Creative Commons',
+                'desc': desc,
+                'name': name,
+                'official': base,
+                }
         json.dump(info, f, sort_keys=True, indent=4)
 
     os.chdir(orig_dir)
@@ -107,7 +108,12 @@ for item in black_cards:
     text = dehtmlify(text)
 
     with open('black.txt', 'a') as f:
-        f.write('{t}\t{d}\t{p}\t{w}\n'.format(t=text, d=draw, p=pick, w=watermark))
+        f.write(
+            '{t}\t{d}\t{p}\t{w}\n'.format(
+                t=text,
+                d=draw,
+                p=pick,
+                w=watermark))
 
     os.chdir(orig_dir)
 
@@ -124,4 +130,3 @@ for item in white_cards:
         f.write('{t}\t{w}\n'.format(t=text, w=watermark))
 
     os.chdir(orig_dir)
-

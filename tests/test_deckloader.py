@@ -9,6 +9,7 @@ import os.path
 
 
 class DeckLoaderTestCase(unittest.TestCase):
+
     def test_loading_a_deck(self):
         """ Load a deck we know exists """
         deckpath = os.path.join(os.path.dirname(__file__), 'TestPack')
@@ -18,4 +19,3 @@ class DeckLoaderTestCase(unittest.TestCase):
     def test_loading_a_nonexistant_deck(self):
         """ Load a deck we know doesn't exist """
         self.assertRaises(DeckLoadError, deckloader.load_deck, "shittydeck")
-

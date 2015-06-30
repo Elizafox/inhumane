@@ -15,21 +15,25 @@ _gc_lock = RLock()
 
 
 class BaseGameError(Exception):
+
     """ The base for all game errors """
     pass
 
 
 class GameError(BaseGameError):
+
     """ Class for internal game errors """
     pass
 
 
 class GameConditionError(GameError):
+
     """ Invalid game condition """
     pass
 
 
 class RuleError(BaseGameError):
+
     """ Class for rule violation errors """
     pass
 
@@ -39,6 +43,7 @@ from .deckloader import default_decks
 
 
 class Game(object):
+
     """ The basic game object.
 
     Basically this holds the entire state for a given game minus (at present)
@@ -129,7 +134,7 @@ class Game(object):
         self.spent = False
 
         # House rules
-        self.gambling = kwargs.get("gambling", True) # Technically official...
+        self.gambling = kwargs.get("gambling", True)  # Technically official...
         self.voting = kwargs.get("voting", False)
         self.maxcards = kwargs.get("maxcards", 10)
         self.apxchg = kwargs.get("apxchg", (0, 0))
@@ -222,7 +227,7 @@ class Game(object):
         """ Get the vote count for all users """
 
         count = [(player, self.player_get_vote_count(player)) for player in
-                  self.players]
+                 self.players]
         if sort_vote:
             count = sorted(count, key=operator.itemgetter(1))
 
@@ -623,7 +628,7 @@ class Game(object):
         elif self.voting:
             # A voting round without a fiat-declared result.
             results = self.votes.most_common()
-            top = results[0][1] # Top result count
+            top = results[0][1]  # Top result count
 
             # Give all winners AP
             for player, votes in results:
@@ -632,7 +637,8 @@ class Game(object):
 
                 give_ap(player)
         else:
-            raise GameConditionError("Player can't be None in a Tsar-based game")
+            raise GameConditionError(
+                "Player can't be None in a Tsar-based game")
 
         return results
 

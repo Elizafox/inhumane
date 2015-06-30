@@ -12,6 +12,7 @@ _cc_lock = RLock()
 
 
 class Deck(object):
+
     """ This object stores all the given cards (white and black) and metadata
     for a given deck. It can be passed to the Game instance. """
 
@@ -59,9 +60,11 @@ class Deck(object):
         self.maxplay = maxplay
 
     def __repr__(self):
-        return "Deck(name={n}, black cards={b}, white cards={w}, copyright={c}, license={l}, desc={d}, official={o})".format(
-            n=self.name, b=len(self.blackcards), w=len(self.whitecards),
-            c=self.copyright, l=self.license, d=self.desc, o=str(self.official))
+        return ("Deck(name={n}, black cards={b}, white cards={w}, "
+                "copyright={c}, license={l}, desc={d}, official={o})").format(
+                    n=self.name, b=len(self.blackcards),
+                    w=len(self.whitecards), c=self.copyright, l=self.license,
+                    d=self.desc, o=str(self.official))
 
     def __hash__(self):
         if self.hash is not None:
@@ -80,15 +83,17 @@ class Deck(object):
 
 
 class Card(object):
+
     """ This contains a single card (white or black). It contains what deck it's
     in (initalised to None until added to a deck), the text of the card,
     the watermark, and whether or not it's white. It also stores play count and
     draw count for white cards.
-    
+
     Note without a deck, a card is useless.
     """
 
-    def __init__(self, text, drawcount=0, playcount=1, watermark='', iswhite=True):
+    def __init__(
+            self, text, drawcount=0, playcount=1, watermark='', iswhite=True):
         """ Create a card.
 
         args:
@@ -144,4 +149,5 @@ class Card(object):
         return self.text
 
     def __repr__(self):
-        return "Card({c}, cid={i}, deck={d})".format(c=self.text, i=self.cid, d=self.deck)
+        return "Card({c}, cid={i}, deck={d})".format(
+            c=self.text, i=self.cid, d=self.deck)

@@ -19,8 +19,10 @@ whiteseen = dict()
 class BaseDeckError(BaseGameError):
     pass
 
+
 class DeckLoadError(BaseDeckError):
     pass
+
 
 def __fix_path(path):
     if os.sep != '/':
@@ -28,11 +30,13 @@ def __fix_path(path):
     else:
         return path
 
+
 def __exists(path, bundled=False):
     if bundled:
         return resource_exists('inhumane', path)
     else:
         return os.path.exists(__fix_path(path))
+
 
 def __isdir(path, bundled=False):
     if bundled:
@@ -40,11 +44,13 @@ def __isdir(path, bundled=False):
     else:
         return os.path.isdir(__fix_path(path))
 
+
 def __listdir(path, bundled=False):
     if bundled:
         return resource_listdir('inhumane', path)
     else:
         return os.listdir(__fix_path(path))
+
 
 def __load_str(path, bundled=False):
     if bundled:
@@ -53,6 +59,7 @@ def __load_str(path, bundled=False):
         with open(__fix_path(path), 'r') as f:
             load = f.read()
             return load
+
 
 @contextmanager
 def __load_stream(path, bundled=False):
@@ -63,6 +70,7 @@ def __load_stream(path, bundled=False):
         with open(__fix_path(path)) as f:
             yield f
 
+
 def load_deck(path, bundled=False):
     if not __exists(path, bundled):
         raise DeckLoadError("Deck '{d}' does not exist".format(d=path))
@@ -72,7 +80,8 @@ def load_deck(path, bundled=False):
     pwhite = "{p}/white.txt".format(p=path)
 
     if not __exists(pinfo, bundled):
-        raise DeckLoadError("{}: pack contains no control information".format(path))
+        raise DeckLoadError(
+            "{}: pack contains no control information".format(path))
 
     blackcards = list()
     whitecards = list()
@@ -133,4 +142,3 @@ try:
 except Exception as e:
     traceback.print_last()
     warn("Couldn't load default packs: {e}".format(e=str(e)))
-

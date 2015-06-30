@@ -8,6 +8,7 @@ _pc_lock = RLock()
 
 
 class Player(object):
+
     """ A player object for use in the game. """
 
     def __init__(self, name, data=None):
