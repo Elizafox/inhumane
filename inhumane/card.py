@@ -92,8 +92,8 @@ class Card(object):
     Note without a deck, a card is useless.
     """
 
-    def __init__(
-            self, text, drawcount=0, playcount=1, watermark='', iswhite=True):
+    def __init__(self, text, drawcount=0, playcount=1, watermark='',
+                 iswhite=True):
         """ Create a card.
 
         args:
