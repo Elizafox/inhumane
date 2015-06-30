@@ -17,7 +17,7 @@ def create_players_helper():
 class GameParametersTestCase(unittest.TestCase):
 
     def test_unending_game(self):
-        """ Ensure we can't start a game that won't end """
+        """Ensure we can't start a game that won't end."""
         with self.assertRaises(GameError):
             g = Game(name='Foo', maxrounds=None, maxap=None, decks=[])
 
@@ -25,7 +25,7 @@ class GameParametersTestCase(unittest.TestCase):
 class FinishGameByAPTestCase(unittest.TestCase):
 
     def test(self):
-        """ Ensures that we can finish a game using maxap. """
+        """Ensures that we can finish a game using maxap."""
         decks = deckloader.default_decks
         better_fox, fox, stallion, derpy_dog, derpy_pony = player_list = create_players_helper()
         ap_to_test = 40
@@ -53,7 +53,7 @@ class FinishGameByAPTestCase(unittest.TestCase):
 class FinishGameByRoundsTestCase(unittest.TestCase):
 
     def test(self):
-        """ Ensures that we can finish a game using maxrounds. """
+        """Ensures that we can finish a game using maxrounds."""
         decks = deckloader.default_decks
         better_fox, fox, stallion, derpy_dog, derpy_pony = create_players_helper()
         player_list = set([better_fox, fox, stallion, derpy_dog, derpy_pony])
@@ -75,12 +75,12 @@ class TradeCardsTestCase(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
-        """ Only load the decks for each game once. """
+        """Only load the decks for each game once."""
         # below was load_deck(os.path.join(os.path.dirname(__file__), 'TestPack'))
         cls._decks = deckloader.default_decks
 
     def setUp(self):
-        """ Initialise the game for each test. """
+        """Initialise the game for each test."""
         assert self._decks and len(self._decks) > 0
         self.fox = Player('awilfox')
         self.better_fox = Player('Missingno')
@@ -91,26 +91,26 @@ class TradeCardsTestCase(unittest.TestCase):
         self.game.round_start()
 
     def test_more_than_limit(self):
-        """ Ensure I can't trade more cards than allowed. """
+        """Ensure I can't trade more cards than allowed."""
         # just trade the whole damn hand
         with self.assertRaises(RuleError):
             self.game.player_trade_ap(self.better_fox,
                                       self.game.playercards[self.better_fox])
 
     def test_more_than_my_ap(self):
-        """ Ensure I can't trade when I don't have the AP for it. """
+        """Ensure I can't trade when I don't have the AP for it."""
         with self.assertRaises(RuleError):
             self.game.player_trade_ap(self.fox,
                                       self.game.playercards[self.fox][:2])
 
     def test_working_trade(self):
-        """ Ensure I can trade when parameters are okay. """
+        """Ensure I can trade when parameters are okay."""
         cards_to_trade = self.game.playercards[self.better_fox][:2]
         self.game.player_trade_ap(self.better_fox, cards_to_trade)
         for card in cards_to_trade:
             self.assertNotIn(card, self.game.playercards[self.better_fox])
 
     def test_deck_exhaustion(self):
-        """ Ensure I can't trade more cards than the deck has remaining. """
+        """Ensure I can't trade more cards than the deck has remaining."""
         # XXX TODO
         self.assertEqual(True, True)

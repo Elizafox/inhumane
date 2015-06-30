@@ -16,25 +16,25 @@ _gc_lock = RLock()
 
 class BaseGameError(Exception):
 
-    """ The base for all game errors """
+    """The base for all game errors."""
     pass
 
 
 class GameError(BaseGameError):
 
-    """ Class for internal game errors """
+    """Class for internal game errors."""
     pass
 
 
 class GameConditionError(GameError):
 
-    """ Invalid game condition """
+    """Invalid game condition."""
     pass
 
 
 class RuleError(BaseGameError):
 
-    """ Class for rule violation errors """
+    """Class for rule violation errors."""
     pass
 
 
@@ -44,7 +44,7 @@ from .deckloader import default_decks
 
 class Game(object):
 
-    """ The basic game object.
+    """The basic game object.
 
     Basically this holds the entire state for a given game minus (at present)
     player hands. A player can be attached to ONLY one game at a time. This is
@@ -58,10 +58,11 @@ class Game(object):
     are broken, RuleError is raised. Note that all forms of cheating are not
     caught (and you could cheat by setting attributes anyway, I won't add
     __setattr__ limits).
+
     """
 
     def __init__(self, name, **kwargs):
-        """ Create a game.
+        """Create a game.
 
         args:
             name: name of the game
@@ -74,6 +75,7 @@ class Game(object):
                 trading. (default: forbidden)
             maxrounds: maximum number of game rounds (default unlimited)
             maxap: maximum number of AP to play to (default 10)
+
         """
         self.name = name
 
@@ -164,7 +166,7 @@ class Game(object):
             gcounter += 1
 
     def player_vote(self, player, player2):
-        """ Vote for a player if voting enabled.
+        """Vote for a player if voting enabled.
 
         args:
             player: player voting
@@ -172,6 +174,7 @@ class Game(object):
         return:
             (False, turnout) for no decisiveness yet
             (True, turnout) for plurality reached
+
         """
 
         if not self.voting:
@@ -198,7 +201,7 @@ class Game(object):
         return (False, turnout)
 
     def player_get_vote_sel(self, player):
-        """ Get the vote for a given player """
+        """Get the vote for a given player."""
 
         if not self.voting:
             raise RuleError("Voting is prohibited in this game.")
@@ -209,7 +212,7 @@ class Game(object):
         return self.voters.get(player, None)
 
     def player_all_get_vote_sel(self):
-        """ Get the votes for all players """
+        """Get the votes for all players."""
 
         if not self.voting:
             raise RuleError("Voting is prohibited in this game")
@@ -220,11 +223,11 @@ class Game(object):
         return votes
 
     def player_get_vote_count(self, player):
-        """ Get the vote count for a given user """
+        """Get the vote count for a given user."""
         return self.votes[player]
 
     def player_all_get_vote_count(self, sort_vote=True):
-        """ Get the vote count for all users """
+        """Get the vote count for all users."""
 
         count = [(player, self.player_get_vote_count(player)) for player in
                  self.players]
@@ -234,7 +237,7 @@ class Game(object):
         return count
 
     def player_trade_ap(self, player, cards):
-        """ Trade AP for cards for the given player """
+        """Trade AP for cards for the given player."""
 
         if player not in self.players:
             raise GameError("Player not in the game!")
@@ -261,8 +264,11 @@ class Game(object):
         self.player_deal(player)
 
     def player_gamble(self, player, card):
-        """ Gamble an AP on an additional white card. Only usable when a black
-        card is pick one... """
+        """Gamble an AP on an additional white card.
+
+        Only usable when a black card is pick one...
+
+        """
 
         if player not in self.players:
             raise GameError("Player not in the game!")
@@ -299,7 +305,7 @@ class Game(object):
         self.gamblers.add(player)
 
     def player_get_ap(self, player):
-        """ Get AP for a user """
+        """Get AP for a user."""
 
         if player is not None and player not in self.players:
             raise GameError("Player not in the game!")
@@ -307,7 +313,7 @@ class Game(object):
         return self.ap[player]
 
     def player_all_get_ap(self, sort_score=True):
-        """ Get AP for all users """
+        """Get AP for all users."""
 
         ap = [(player, self.player_get_ap(player)) for player in self.players]
         if sort_score:
@@ -321,7 +327,7 @@ class Game(object):
             raise GameConditionError("Insufficient cards for all players!")
 
     def player_add(self, player):
-        """ Add a new player to the game """
+        """Add a new player to the game."""
 
         if player in self.players:
             raise GameError("Adding an existing player!")
@@ -342,7 +348,7 @@ class Game(object):
             self.player_deal(player, self.maxcards)
 
     def player_clear(self, player):
-        """ Clear a player out """
+        """Clear a player out."""
 
         if player not in self.players:
             raise GameError("Player not in the game!")
@@ -372,7 +378,7 @@ class Game(object):
             self.game_new_tsar()
 
     def player_remove(self, player):
-        """ Remove a player from the game """
+        """Remove a player from the game."""
 
         if player is not None and player not in self.players:
             raise GameError("Player not in the game!")
@@ -422,7 +428,7 @@ class Game(object):
             self.playerplay[player].append(cards)
 
     def player_pass(self, player):
-        """A player is skipping their turn"""
+        """A player is skipping their turn."""
         if player not in self.players:
             raise GameError("Player not in the game!")
 
@@ -442,8 +448,8 @@ class Game(object):
         return self.playerplay.items()
 
     def card_refill(self):
-        """ Check if the decks are empty, and add cards from the discard pile if
-        needs be """
+        """Check if the decks are empty, and add cards from the discard pile if
+        needs be."""
 
         if len(self.discardblack) == len(self.blackcards) == 0:
             raise GameConditionError("Empty decks!")
@@ -472,11 +478,11 @@ class Game(object):
         return (blackempty, whiteempty)
 
     def card_black(self):
-        """ Return the current black card """
+        """Return the current black card."""
         return self.blackcard
 
     def player_deal(self, player, count=0):
-        """ Deal count white cards to the player """
+        """Deal count white cards to the player."""
 
         if player not in self.players:
             raise GameError("Player not in the game!")
@@ -496,8 +502,11 @@ class Game(object):
         self.player_deal_raw(player, deal)
 
     def player_deal_raw(self, player, cards):
-        """ raw version of player_deal where you specify your own cards. Only use
-        if you know what you're doing. """
+        """raw version of player_deal where you specify your own cards.
+
+        Only use if you know what you're doing.
+
+        """
 
         if player not in self.players:
             raise GameError("Player not in the game!")
@@ -508,13 +517,13 @@ class Game(object):
             self.playercards[player].add(cards)
 
     def player_all_deal(self):
-        """Deal to all the players to fill their hands"""
+        """Deal to all the players to fill their hands."""
 
         for player in self.players:
             self.player_deal(player)
 
     def player_cards(self, player):
-        """ Return a player's cards """
+        """Return a player's cards."""
 
         if player not in self.players:
             raise GameError("Player not in the game!")
@@ -522,9 +531,12 @@ class Game(object):
         return sorted(self.playercards[player])
 
     def player_discard(self, player, cards):
-        """ Discard cards from a player's hands into the discard pile.
+        """Discard cards from a player's hands into the discard pile.
 
-        if cards is None, discard the entire hand (excluding cards in play) """
+        if cards is None, discard the entire hand (excluding cards in
+        play)
+
+        """
 
         if player not in self.players:
             raise GameError("Player not in game!")
@@ -540,7 +552,7 @@ class Game(object):
             self.playercards[player].remove(cards)
 
     def round_start(self):
-        """ Start a round. """
+        """Start a round."""
 
         if self.inround:
             raise GameError("Attempting to start a round with one existing!")
@@ -574,7 +586,7 @@ class Game(object):
                 self.player_deal(player, self.blackcard.drawcount)
 
     def game_new_tsar(self, player=None):
-        """ Select a new tsar (without player, automatically). """
+        """Select a new tsar (without player, automatically)."""
 
         if player is not None and player not in self.players:
             raise GameError("Player not in the game!")
@@ -598,7 +610,7 @@ class Game(object):
         return self.tsar
 
     def round_result(self, player=None):
-        """ Choose the result of a round. If player is omitted, it will choose
+        """Choose the result of a round. If player is omitted, it will choose
         it based on the rules.
 
         Please use round_end instead unless you know what you're doing.
@@ -607,6 +619,7 @@ class Game(object):
             results: what it says on the tin (NOTE: for voting rounds, it
                 returns a two element tuple - first element is the results tally,
                 second is a list of the results.
+
         """
 
         if player is not None and player not in self.players:
@@ -643,11 +656,12 @@ class Game(object):
         return results
 
     def round_end(self, player=None):
-        """ End a round and return round_result. Pass through a player to select
+        """End a round and return round_result. Pass through a player to select
         the result the tsar picked.
 
-        Be sure to check the spent member to see if the game is done; if it is,
-        the game results are returned, instead.
+        Be sure to check the spent member to see if the game is done; if
+        it is, the game results are returned, instead.
+
         """
 
         if player is not None and player not in self.players:
@@ -700,8 +714,12 @@ class Game(object):
         return results
 
     def game_end(self, forreal=False):
-        """ End the game. forreal will PURGE the game. Also return the results
-        of the game (None if <= 1 player)."""
+        """End the game.
+
+        forreal will PURGE the game. Also return the results
+        of the game (None if <= 1 player).
+
+        """
 
         self.suspended = True
         self.spent = True

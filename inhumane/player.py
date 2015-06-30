@@ -9,14 +9,16 @@ _pc_lock = RLock()
 
 class Player(object):
 
-    """ A player object for use in the game. """
+    """A player object for use in the game."""
 
     def __init__(self, name, data=None):
-        """ Initalise a player
+        """Initalise a player.
 
         args:
             name: name of the player
-            data: private data"""
+            data: private data
+
+        """
         self.name = name
         self.data = data
 
@@ -27,7 +29,7 @@ class Player(object):
             pcounter += 1
 
     def rename(self, name):
-        """ Rename a player """
+        """Rename a player."""
         self.name = name
 
     def __eq__(self, other):
