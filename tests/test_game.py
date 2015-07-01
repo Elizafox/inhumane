@@ -4,7 +4,7 @@ from inhumane.game import Game, GameError, RuleError
 from inhumane.player import Player
 from inhumane import deckloader
 from math import ceil
-import os.path
+#import os.path
 import random
 import unittest
 
@@ -19,7 +19,7 @@ class GameParametersTestCase(unittest.TestCase):
     def test_unending_game(self):
         """Ensure we can't start a game that won't end."""
         with self.assertRaises(GameError):
-            g = Game(name='Foo', maxrounds=None, maxap=None, decks=[])
+            Game(name='Foo', maxrounds=None, maxap=None, decks=[])
 
 
 class FinishGameByAPTestCase(unittest.TestCase):

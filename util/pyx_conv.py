@@ -3,7 +3,6 @@
 # Copyright © 2013 Elizabeth Myers. All rights reserved.
 # License terms can be found in LICENSE.
 
-from collections import defaultdict
 import psycopg2
 import bs4
 import re

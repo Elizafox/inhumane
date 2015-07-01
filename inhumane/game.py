@@ -4,6 +4,7 @@
 from threading import RLock
 from random import shuffle, SystemRandom
 from collections import deque, Counter, OrderedDict, defaultdict, Iterable
+from operator import itemgetter
 
 from .contrib.orderedset import OrderedSet
 
@@ -232,7 +233,7 @@ class Game(object):
         count = [(player, self.player_get_vote_count(player)) for player in
                  self.players]
         if sort_vote:
-            count = sorted(count, key=operator.itemgetter(1))
+            count = sorted(count, key=itemgetter(1))
 
         return count
 
@@ -317,7 +318,7 @@ class Game(object):
 
         ap = [(player, self.player_get_ap(player)) for player in self.players]
         if sort_score:
-            ap = sorted(ap, key=operator.itemgetter(1))
+            ap = sorted(ap, key=itemgetter(1))
 
         return ap
 
