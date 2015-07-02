@@ -1,0 +1,7 @@
+{
+    "copyright": "Unknown", 
+    "desc": "Australia cards against humanity.", 
+    "license": "Creative Commons", 
+    "name": "Aus", 
+    "official": true
+}
