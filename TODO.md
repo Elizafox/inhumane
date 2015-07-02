@@ -11,7 +11,6 @@ code. Hindsight is 20/20.
 
 - [ ] Revisit the way decks are loaded (it's kind of a mess).
 - [ ] Revisit the player object (it's bloody half-mutable!)
-- [ ] Relative imports are bad for you, mmkay? Axe them.
 - [ ] Card should be subclassed into BlackCard and WhiteCard.
 - [ ] Nomenclature/mere existence of many functions is really dumb! (What /was/
     I thinking with card\_black()?)
