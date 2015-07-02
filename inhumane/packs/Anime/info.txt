@@ -3,5 +3,5 @@
     "desc": "http://www.desudesbrigade.com/", 
     "license": "Creative Commons", 
     "name": "Anime", 
-    "official": true
+    "official": false 
 }
