@@ -3,5 +3,5 @@
     "desc": "The official First Expansion.", 
     "license": "Creative Commons", 
     "name": "The First Expansion", 
-    "official": false
+    "official": true
 }
