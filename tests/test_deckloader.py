@@ -1,6 +1,8 @@
 # Copyright © 2013 Andrew Wilcox. All Rights Reserved
 # Licensed according to the terms specified in LICENSE.
 
+# NB - this test is known broken!
+
 from inhumane.card import Deck
 from inhumane import deckloader
 from inhumane.deckloader import DeckLoadError

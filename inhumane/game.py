@@ -7,12 +7,10 @@ from collections import deque, Counter, OrderedDict, defaultdict, Iterable
 from operator import itemgetter
 
 from .contrib.orderedset import OrderedSet
+from .deck import Deck, basepacks
 
 
 rng = SystemRandom()
-
-gcounter = 0
-_gc_lock = RLock()
 
 
 class BaseGameError(Exception):
@@ -39,10 +37,6 @@ class RuleError(BaseGameError):
     pass
 
 
-# Avoid chicken/egg problem
-from .deckloader import default_decks
-
-
 class Game(object):
 
     """The basic game object.
@@ -61,6 +55,10 @@ class Game(object):
     __setattr__ limits).
 
     """
+
+    gcounter = 0
+    _gc_lock = RLock()
+
 
     def __init__(self, name, **kwargs):
         """Create a game.
@@ -89,7 +87,7 @@ class Game(object):
         maxdraw = 0
         # Get all the decks
         # (and check for max len in each)
-        for deck in kwargs.get("decks", default_decks):
+        for deck in kwargs.get("decks", [Deck(basepacks)]):
             self.blackcards.extend(deck.blackcards)
             self.whitecards.extend(deck.whitecards)
             if deck.maxdraw > maxdraw:
@@ -161,10 +159,9 @@ class Game(object):
         for player in kwargs.get('players', list()):
             self.player_add(player)
 
-        with _gc_lock:
-            global gcounter
-            self.gid = gcounter
-            gcounter += 1
+        with self._gc_lock:
+            self.gid = self.gcounter
+            self.gcounter += 1
 
     def player_vote(self, player, player2):
         """Vote for a player if voting enabled.

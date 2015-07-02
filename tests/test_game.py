@@ -2,9 +2,8 @@
 
 from inhumane.game import Game, GameError, RuleError
 from inhumane.player import Player
-from inhumane import deckloader
+from inhumane import deck
 from math import ceil
-#import os.path
 import random
 import unittest
 
@@ -26,7 +25,7 @@ class FinishGameByAPTestCase(unittest.TestCase):
 
     def test(self):
         """Ensures that we can finish a game using maxap."""
-        decks = deckloader.default_decks
+        decks = [deck.Deck(deck.basepacks)]
         better_fox, fox, stallion, derpy_dog, derpy_pony = player_list = create_players_helper()
         ap_to_test = 40
         game = Game(name='Max AP Test Game', decks=decks,
@@ -54,7 +53,7 @@ class FinishGameByRoundsTestCase(unittest.TestCase):
 
     def test(self):
         """Ensures that we can finish a game using maxrounds."""
-        decks = deckloader.default_decks
+        decks = [deck.Deck(deck.basepacks)]
         better_fox, fox, stallion, derpy_dog, derpy_pony = create_players_helper()
         player_list = set([better_fox, fox, stallion, derpy_dog, derpy_pony])
         rounds_to_test = 20
@@ -76,8 +75,7 @@ class TradeCardsTestCase(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         """Only load the decks for each game once."""
-        # below was load_deck(os.path.join(os.path.dirname(__file__), 'TestPack'))
-        cls._decks = deckloader.default_decks
+        cls._decks = [deck.Deck(deck.basepacks)]
 
     def setUp(self):
         """Initialise the game for each test."""
