@@ -1,0 +1,7 @@
+{
+    "copyright": "Unknown",
+    "desc": "/tg/",
+    "license": "Creative Commons",
+    "name": "[C] -tg-",
+    "official": false
+}

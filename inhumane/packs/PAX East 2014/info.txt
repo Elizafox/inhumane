@@ -1,0 +1,7 @@
+{
+    "copyright": "Unknown",
+    "desc": "The \"oatmeal\" cards from PAX East 2014.",
+    "license": "Creative Commons",
+    "name": "PAX East 2014",
+    "official": false
+}

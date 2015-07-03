@@ -1,0 +1,7 @@
+{
+    "copyright": "Unknown",
+    "desc": "PAX Prime 2013",
+    "license": "Creative Commons",
+    "name": "PAX Prime 2013",
+    "official": false
+}

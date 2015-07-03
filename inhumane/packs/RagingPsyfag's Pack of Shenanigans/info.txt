@@ -1,0 +1,7 @@
+{
+    "copyright": "Unknown",
+    "desc": "",
+    "license": "Creative Commons",
+    "name": "[C] RagingPsyfag's Pack of Shenanigans",
+    "official": false
+}

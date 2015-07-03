@@ -1,0 +1,7 @@
+{
+    "copyright": "Unknown",
+    "desc": "House of Cards pack. http://www.houseofcardsagainsthumanity.com/",
+    "license": "Creative Commons",
+    "name": "House of Cards Against Humanity",
+    "official": false
+}

@@ -1,0 +1,7 @@
+{
+    "copyright": "Unknown",
+    "desc": "The Expansion Box Box Expansion.",
+    "license": "Creative Commons",
+    "name": "Box Expansion",
+    "official": false
+}

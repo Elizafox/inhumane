@@ -1,0 +1,9 @@
+Our relationship is strictly professional. Let's not complicate things with ____.	0	1	HOCAH
+A wise man said, "Everything is about sex. Except sex. Sex is about ____."	0	1	HOCAH
+Because you enjoyed ____, we thought you'd like ____.	0	2	HOCAH
+Corruption. Betrayal. ____. Coming soon to Netflix, "House of ____."	0	2	HOCAH
+We're not like other news organizations. Here at Slugline, we welcome ____ in the office. 	0	1	HOCAH
+I can't believe Netflix is using ____ to promote House of Cards.	0	1	HOCAH
+Cancel all my meetings. We've got a situation with ____ that requires my immediate attention.	0	1	HOCAH
+I'm not going to lie. I despise ____. There, I said it.	0	1	HOCAH
+If you need him to, Remy Danton can pull some strings and get you ____, but it'll cost you.	0	1	HOCAH

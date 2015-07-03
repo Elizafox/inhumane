@@ -1,0 +1,7 @@
+{
+    "copyright": "Unknown",
+    "desc": "",
+    "license": "Creative Commons",
+    "name": "[C] Cards Against Homestuck",
+    "official": false
+}

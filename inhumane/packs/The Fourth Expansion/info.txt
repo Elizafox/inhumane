@@ -1,0 +1,7 @@
+{
+    "copyright": "Unknown",
+    "desc": "The official Fourth Expansion.",
+    "license": "Creative Commons",
+    "name": "The Fourth Expansion",
+    "official": false
+}

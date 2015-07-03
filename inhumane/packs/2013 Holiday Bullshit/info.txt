@@ -1,0 +1,7 @@
+{
+    "copyright": "Unknown",
+    "desc": "http://www.holidaybullshit.com/",
+    "license": "Creative Commons",
+    "name": "2013 Holiday Bullshit",
+    "official": false
+}

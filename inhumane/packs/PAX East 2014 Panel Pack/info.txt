@@ -1,0 +1,7 @@
+{
+    "copyright": "Unknown",
+    "desc": "These cards were proposed during the CAH panel at PAX East 2014, printed up overnight, and distributed to panel attendees the next day.",
+    "license": "Creative Commons",
+    "name": "PAX East 2014 Panel Pack",
+    "official": false
+}
