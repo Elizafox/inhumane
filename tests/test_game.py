@@ -1,7 +1,6 @@
 # Copyright © 2013 Andrew Wilcox. All Rights Reserved.
 
 from inhumane.game import Game, GameError, RuleError
-from inhumane.player import Player
 from inhumane import deck
 from math import ceil
 import random
@@ -9,8 +8,8 @@ import unittest
 
 
 def create_players_helper():
-    return [Player('Missingno'), Player('awilfox'), Player('MidnightCommando'),
-            Player('SilverWoof'), Player('appledash')]
+    return ["Missingno", "awilfox", "MidnightCommand", "SilverWoof",
+            "AppleDash"]
 
 
 class GameParametersTestCase(unittest.TestCase):
@@ -26,10 +25,12 @@ class FinishGameByAPTestCase(unittest.TestCase):
     def test(self):
         """Ensures that we can finish a game using maxap."""
         decks = [deck.Deck(deck.basepacks)]
-        better_fox, fox, stallion, derpy_dog, derpy_pony = player_list = create_players_helper()
+        player_list = create_players_helper()
         ap_to_test = 40
         game = Game(name='Max AP Test Game', decks=decks,
                     maxap=ap_to_test, players=player_list)
+
+        better_fox, fox, stallion, derpy_dog, derpy_pony = game.players
 
         for next_round in range(0, ap_to_test + 1 + int(ceil(ap_to_test / 5))):
             game.round_start()
@@ -54,11 +55,14 @@ class FinishGameByRoundsTestCase(unittest.TestCase):
     def test(self):
         """Ensures that we can finish a game using maxrounds."""
         decks = [deck.Deck(deck.basepacks)]
-        better_fox, fox, stallion, derpy_dog, derpy_pony = create_players_helper()
-        player_list = set([better_fox, fox, stallion, derpy_dog, derpy_pony])
+        player_list = create_players_helper() 
         rounds_to_test = 20
         game = Game(name='Max Rounds Test Game', decks=decks,
                     maxrounds=rounds_to_test, players=player_list)
+
+        better_fox, fox, stallion, derpy_dog, derpy_pony = game.players
+        player_list = set(game.players)
+
         for next_round in range(0, rounds_to_test):
             game.round_start()
             winner = random.choice(list(player_list.difference([game.tsar])))
@@ -80,10 +84,12 @@ class TradeCardsTestCase(unittest.TestCase):
     def setUp(self):
         """Initialise the game for each test."""
         assert self._decks and len(self._decks) > 0
-        self.fox = Player('awilfox')
-        self.better_fox = Player('Missingno')
         self.game = Game(name='Trading Cards Test Game', decks=self._decks,
-                         apxchg=(2, 4), players=[self.fox, self.better_fox])
+                         apxchg=(2, 4))
+
+        self.fox = self.game.player_add("TheWilfox")
+        self.better_fox = self.game.player_add("Missingno")
+
         self.game.ap[self.fox] = 1
         self.game.ap[self.better_fox] = 5
         self.game.round_start()

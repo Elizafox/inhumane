@@ -1,14 +1,11 @@
 # -*- coding: UTF-8 -*-
 from __future__ import print_function
 
-from . import game, player
-from . import deckloader
+from . import game
 
-g = game.Game('testblah', decks=deckloader.default_decks)
-p_missingno = player.Player('Missingno')
-p_awilfox = player.Player('awilfox')
-g.player_add(p_missingno)
-g.player_add(p_awilfox)
+g = game.Game('testblah')
+p_missingno = g.player_add("Missingno")
+p_awilfox = g.player_add("awilfox")
 
 g.round_start()
 
