@@ -474,7 +474,7 @@ class Game(object):
 
     def player_played(self):
         warn("This method is deprecated, use playerplay.items() instead",
-             DeprecationWarning)
+             DeprecationWarning, 2)
         return self.playerplay.items()
 
     def card_refill(self):
@@ -510,7 +510,7 @@ class Game(object):
     def card_black(self):
         """Return the current black card."""
         warn("This method is deprecated, use self.blackcard instead",
-             DeprecationWarning)
+             DeprecationWarning, 2)
         return self.blackcard
 
     def player_deal(self, player, count=0):
