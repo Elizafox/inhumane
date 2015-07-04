@@ -2,7 +2,7 @@
 # Licensed according to the terms specified in LICENSE.
 
 
-from threading import RLock
+from uuid import uuid1
 
 
 class Card(object):
@@ -10,9 +10,6 @@ class Card(object):
     """The base object for cards.
 
     Stores the watermark(s) and card text."""
-
-    _cid_count = 0
-    _cid_lock = RLock()
 
     def __init__(self, text, watermark=()):
         """Create a card.
@@ -24,9 +21,7 @@ class Card(object):
         self.text = text
         self.watermark = frozenset(watermark)
 
-        with self._cid_lock:
-            self.cid = self._cid_count
-            self._cid_count += 1
+        self.cid = uuid1()
 
     def __eq__(self, other):
         return self.text == other.text
@@ -92,5 +87,8 @@ class BlackCard(Card):
 
 class WhiteCard(Card):
     """A white card."""
-    pass
+
+    def __repr__(self):
+        return "WhiteCard(text={0}, watermark={1})".format(self.text,
+                                                           self.watermark)
 

@@ -1,10 +1,11 @@
 # Copyright © 2013 Elizabeth Myers. All Rights reserved.
 # Licensed according to the terms specified in LICENSE.
 
-from threading import RLock
 from random import shuffle, SystemRandom
 from collections import deque, Counter, OrderedDict, defaultdict, Iterable
 from operator import itemgetter
+from uuid import uuid1
+from warnings import warn
 
 from .contrib.orderedset import OrderedSet
 from .deck import Deck, basepacks
@@ -45,7 +46,7 @@ class Game(object):
     player hands. A player can be attached to ONLY one game at a time. This is
     subject to change.
 
-    Use the .add_player method to add Player instances to the game.
+    Use the .player_add method to add players to the game.
 
     Decks must be added at instantiation time.
 
@@ -54,10 +55,31 @@ class Game(object):
     caught (and you could cheat by setting attributes anyway, I won't add
     __setattr__ limits).
 
-    """
+    attributes:
+        name: the name of the game
 
-    gcounter = 0
-    _gc_lock = RLock()
+        blackcards: a deque holding the present set of black cards from the deck
+        whitecards: a deque holding the present set of white cards from the deck
+        discardblack: black discard pile
+        whitediscard: white discard pile
+        blackcard: present black card in play
+
+        players: an ordered set of player UUID's
+        tsar: the UUID of the present tsar
+        playercards: a player: ordered set of players cards
+        playerplay: played cards
+        playerlast: round last played by player
+
+        voters: players who have voted this round (if voting enabled)
+        votes: a tabulation of votes (if voting enabled)
+        gamblers: players gambling this round
+
+        ap: a counter representing the amount of present player's AP
+
+        rounds: present number of rounds played
+        suspended: the game is presently suspended
+        spent: the game is presently spent (game over)
+    """
 
 
     def __init__(self, name, **kwargs):
@@ -65,7 +87,9 @@ class Game(object):
 
         args:
             name: name of the game
-            players: current players in the form of an Iterable. Can be empty.
+            players: current players to add, in the form of an Iterable
+                containing player data. They will be set as the self.players
+                attribute.
             decks: card decks (see the Deck class)
             voting: HOUSE RULE: players vote instead of the tsar being used.
             maxcards: HOUSE RULE: change the number of cards per hand (default
@@ -97,6 +121,9 @@ class Game(object):
         self.maxdraw = maxdraw
 
         # Shuffle the decks
+        # Use the system RNG to (try to) ensure all possible shuffle states
+        # occur, because the default RNG only has 2**32 ish states and a deck
+        # can have 2**255.6 possible shuffles.
         shuffle(self.blackcards, rng.random)
         shuffle(self.whitecards, rng.random)
 
@@ -111,11 +138,8 @@ class Game(object):
         self.playercards = defaultdict(OrderedSet)
         self.playerplay = OrderedDict()
 
-        # Players last played
+        # Round that the players last played
         self.playerlast = defaultdict(int)
-
-        # Number of players who have played
-        self.played = 0
 
         # Votes and AP
         self.voters = dict()
@@ -155,13 +179,13 @@ class Game(object):
         self.tsar = None
         self.tsarindex = 0
 
-        # Add the players if we have any
-        for player in kwargs.get('players', list()):
-            self.player_add(player)
+        self.playerdata = dict()
 
-        with self._gc_lock:
-            self.gid = self.gcounter
-            self.gcounter += 1
+        # Add the players if we have any
+        for data in kwargs.get('players', list()):
+            self.player_add(data)
+
+        self.gid = uuid1()
 
     def player_vote(self, player, player2):
         """Vote for a player if voting enabled.
@@ -324,15 +348,22 @@ class Game(object):
         if maxhands > len(self.whitecards):
             raise GameConditionError("Insufficient cards for all players!")
 
-    def player_add(self, player):
-        """Add a new player to the game."""
+    def player_add(self, data=None):
+        """Add a new player to the game.
 
-        if player in self.players:
-            raise GameError("Adding an existing player!")
+        args:
+            data: player data
+
+        returns:
+            The player UUID. Keep this around for later use.
+        """
 
         self._check_enough()
 
+        player = uuid1()
+
         self.players.add(player)
+        self.playerdata[player] = data
 
         # Reviving a game if it was suspended due to losing all but one player
         self.suspended = len(self.players) < 1
@@ -344,6 +375,8 @@ class Game(object):
         # Give them cards if the round hasn't yet begun
         if not self.inround:
             self.player_deal(player, self.maxcards)
+
+        return player
 
     def player_clear(self, player):
         """Clear a player out."""
@@ -368,7 +401,6 @@ class Game(object):
         self.voters.pop(player, None)
 
         if self.inround and self.playerlast[player] == self.rounds:
-            self.played -= 1
             del self.playerlast[player]
 
         if self.tsar is not None and player == self.tsar and not self.spent and not self.suspended:
@@ -413,7 +445,6 @@ class Game(object):
             raise RuleError("Invalid number of cards played")
 
         self.playerlast[player] = self.rounds
-        self.played += 1
 
         if player not in self.playerplay:
             self.playerplay[player] = list()
@@ -440,9 +471,10 @@ class Game(object):
             raise GameError("You have already played!")
 
         self.playerlast[player] = self.rounds
-        self.played += 1
 
     def player_played(self):
+        warn("This method is deprecated, use playerplay.items() instead",
+             DeprecationWarning)
         return self.playerplay.items()
 
     def card_refill(self):
@@ -477,6 +509,8 @@ class Game(object):
 
     def card_black(self):
         """Return the current black card."""
+        warn("This method is deprecated, use self.blackcard instead",
+             DeprecationWarning)
         return self.blackcard
 
     def player_deal(self, player, count=0):
@@ -570,8 +604,8 @@ class Game(object):
         self.inround = True
         self.rounds += 1
 
-        # Because the tsar.
-        self.played = 1
+        # The tsar is considered to have played, to simplify return logic
+        self.playerlast[self.tsar] = self.rounds
 
         # Recycle the decks if need be
         self.card_refill()
@@ -693,8 +727,6 @@ class Game(object):
         self.ap_grant = 1
         self.gamblers.clear()
 
-        self.played = 0
-
         # Check for end-of-game conditions
         if self.maxrounds is not None and self.rounds == self.maxrounds:
             return self.game_end()
@@ -743,8 +775,6 @@ class Game(object):
         self.tsarindex = None
 
         self.rounds = 0
-
-        self.played = 0
 
         if forreal:
             # Nuke the players
