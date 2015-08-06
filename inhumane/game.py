@@ -259,7 +259,8 @@ class Game(object):
         return (False, turnout)
 
     def player_get_vote_sel(self, player):
-        """Get the vote for a given player."""
+        """Get the vote (that is, whom the player voted for) of a given
+        player."""
 
         if not self.voting:
             raise RuleError("Voting is prohibited in this game.")
@@ -281,11 +282,11 @@ class Game(object):
         return votes
 
     def player_get_vote_count(self, player):
-        """Get the vote count for a given user."""
+        """Get the number of votes for a given user."""
         return self.votes[player]
 
     def player_all_get_vote_count(self, sort_vote=True):
-        """Get the vote count for all users."""
+        """Get the vote counts for all users."""
         count = [(player, self.player_get_vote_count(player)) for player in
                  self.players]
         if sort_vote:
