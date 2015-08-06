@@ -608,7 +608,6 @@ class Game(object):
 
         if cards is None, discard the entire hand (excluding cards in
         play)
-
         """
         if player not in self.players:
             raise GameError("Player not in game!")
