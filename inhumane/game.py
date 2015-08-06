@@ -17,25 +17,21 @@ rng = SystemRandom()
 class BaseGameError(Exception):
 
     """The base for all game errors."""
-    pass
 
 
 class GameError(BaseGameError):
 
     """Class for internal game errors."""
-    pass
 
 
 class GameConditionError(GameError):
 
     """Invalid game condition."""
-    pass
 
 
 class RuleError(BaseGameError):
 
     """Class for rule violation errors."""
-    pass
 
 
 class Game(object):
@@ -43,62 +39,100 @@ class Game(object):
     """The basic game object.
 
     Basically this holds the entire state for a given game minus (at present)
-    player hands. A player can be attached to ONLY one game at a time. This is
-    subject to change.
-
-    Use the .player_add method to add players to the game.
+    player hands.
 
     Decks must be added at instantiation time.
 
-    When errors with the game itself arise, GameError is thrown. When the rules
-    are broken, RuleError is raised. Note that all forms of cheating are not
-    caught (and you could cheat by setting attributes anyway, I won't add
-    __setattr__ limits).
+    When an error with the game arises, :py:class:`~inhumane.game.GameError` is
+    raised. When the rules are broken, :py:class:`~inhumane.game.RuleError` is
+    raised. Note that all forms of cheating are not caught (and you could cheat
+    by setting attributes anyway).
 
-    attributes:
-        name: the name of the game
+    :ivar name:
+        The name of the game. Can be freeform.
 
-        blackcards: a deque holding the present set of black cards from the deck
-        whitecards: a deque holding the present set of white cards from the deck
-        discardblack: black discard pile
-        whitediscard: white discard pile
-        blackcard: present black card in play
+    :ivar blackcards:
+        A ``deque`` holding the present set of black cards from the deck.
 
-        players: an ordered set of player UUID's
-        tsar: the UUID of the present tsar
-        playercards: a player: ordered set of players cards
-        playerplay: played cards
-        playerlast: round last played by player
+    :ivar whitecards:
+        A ``deque`` holding the present set of white cards from the deck.
 
-        voters: players who have voted this round (if voting enabled)
-        votes: a tabulation of votes (if voting enabled)
-        gamblers: players gambling this round
+    :ivar discardblack:
+        The black discard pile.
 
-        ap: a counter representing the amount of present player's AP
+    :ivar discardwhite:
+        The white discard pile.
 
-        rounds: present number of rounds played
-        suspended: the game is presently suspended
-        spent: the game is presently spent (game over)
+    :ivar blackcard:
+        The present black card in play.
+
+    :ivar players:
+        An ``OrderedSet`` of player UUID's
+
+    :ivar playerplay:
+        An ``OrderedDict`` of player UUID's to cards played.
+    
+    :ivar playerlast:
+        A ``dict`` containing player UUID's to last round played.
+
+    :ivar voters:
+        An ``OrderedDict`` of players who have voted this round and the player
+        they have voted for, if voting is enabled. This is subject to change.
+
+    :ivar votes:
+        A ``Counter`` containing the total number of votes players have
+        received. Note that players without votes aren't listed.
+
+    :ivar gamblers:
+        The ``set`` containing gamblers for this round, if gambling is
+        enabled.
+
+    :ivar ap:
+        A ``Counter`` representing the amount of player's current AP.
+
+    :ivar rounds:
+        Present number of rounds played.
+
+    :ivar suspended:
+        The game is suspended for some reason (usually insufficient players).
+
+    :ivar spent:
+        The game is spent and is over.
     """
-
 
     def __init__(self, name, **kwargs):
         """Create a game.
 
-        args:
-            name: name of the game
-            players: current players to add, in the form of an Iterable
-                containing player data. They will be set as the self.players
-                attribute.
-            decks: card decks (see the Deck class)
-            voting: HOUSE RULE: players vote instead of the tsar being used.
-            maxcards: HOUSE RULE: change the number of cards per hand (default
-                10)
-            apxchg: HOUSE RULE: an Iterable containing (ap, cards) for
-                trading. (default: forbidden)
-            maxrounds: maximum number of game rounds (default unlimited)
-            maxap: maximum number of AP to play to (default 10)
+        :param name:
+            Name of the game.
 
+        :key players:
+            An ordered iterable containing player data to add. Players are
+            added based on this data and placed (in order) in the
+            :py:attr:`~inhumane.Game.players` attribute.
+
+        :key decks:
+            An iterable containing card decks. See the
+            :py:class:~inhumane.deck.Deck` class for more information.
+
+        :key voting:
+            A house rule. If set to true, players vote instead of the tsar
+            being used. Voting is presently not anonymous (this is a bug).
+
+        :key maxcards:
+            A house rule. Change the number of cards per hand. The default is
+            10.
+
+        :key apxchg:
+            A house rule. This is a tuple containing ``(ap, card)`` counts for
+            exchange of AP for new cards. This is forbidden by default.
+
+        :key maxrounds:
+            A house rule. Maximum number of rounds to play for. The default is
+            unlimited, until a winner is chosen.
+
+        :key maxap:
+            A house rule. Maximum number of AP to play to (default is 10).
         """
         self.name = name
 
@@ -190,13 +224,15 @@ class Game(object):
     def player_vote(self, player, player2):
         """Vote for a player if voting enabled.
 
-        args:
-            player: player voting
-            player2: player voting for
-        return:
-            (False, turnout) for no decisiveness yet
-            (True, turnout) for plurality reached
+        :param player:
+            The player voting.
 
+        :param player2:
+            The player being voted for.
+
+        :returns:
+            ``(False, turnout)`` for no decision made, or ``(True, turnout)``
+            when a plurality is reached.
         """
 
         if not self.voting:
@@ -250,7 +286,6 @@ class Game(object):
 
     def player_all_get_vote_count(self, sort_vote=True):
         """Get the vote count for all users."""
-
         count = [(player, self.player_get_vote_count(player)) for player in
                  self.players]
         if sort_vote:
@@ -260,7 +295,6 @@ class Game(object):
 
     def player_trade_ap(self, player, cards):
         """Trade AP for cards for the given player."""
-
         if player not in self.players:
             raise GameError("Player not in the game!")
 
@@ -289,9 +323,7 @@ class Game(object):
         """Gamble an AP on an additional white card.
 
         Only usable when a black card is pick one...
-
         """
-
         if player not in self.players:
             raise GameError("Player not in the game!")
 
@@ -328,7 +360,6 @@ class Game(object):
 
     def player_get_ap(self, player):
         """Get AP for a user."""
-
         if player is not None and player not in self.players:
             raise GameError("Player not in the game!")
 
@@ -336,7 +367,6 @@ class Game(object):
 
     def player_all_get_ap(self, sort_score=True):
         """Get AP for all users."""
-
         ap = [(player, self.player_get_ap(player)) for player in self.players]
         if sort_score:
             ap = sorted(ap, key=itemgetter(1))
@@ -351,10 +381,10 @@ class Game(object):
     def player_add(self, data=None):
         """Add a new player to the game.
 
-        args:
-            data: player data
+        :param data:
+            Private data for new player.
 
-        returns:
+        :returns:
             The player UUID. Keep this around for later use.
         """
 
@@ -380,7 +410,6 @@ class Game(object):
 
     def player_clear(self, player):
         """Clear a player out."""
-
         if player not in self.players:
             raise GameError("Player not in the game!")
 
@@ -409,7 +438,6 @@ class Game(object):
 
     def player_remove(self, player):
         """Remove a player from the game."""
-
         if player is not None and player not in self.players:
             raise GameError("Player not in the game!")
 
@@ -480,7 +508,6 @@ class Game(object):
     def card_refill(self):
         """Check if the decks are empty, and add cards from the discard pile if
         needs be."""
-
         if len(self.discardblack) == len(self.blackcards) == 0:
             raise GameConditionError("Empty decks!")
 
@@ -537,9 +564,7 @@ class Game(object):
         """raw version of player_deal where you specify your own cards.
 
         Only use if you know what you're doing.
-
         """
-
         if player not in self.players:
             raise GameError("Player not in the game!")
 
@@ -569,7 +594,6 @@ class Game(object):
         play)
 
         """
-
         if player not in self.players:
             raise GameError("Player not in game!")
 
@@ -585,7 +609,6 @@ class Game(object):
 
     def round_start(self):
         """Start a round."""
-
         if self.inround:
             raise GameError("Attempting to start a round with one existing!")
         elif self.spent:
@@ -619,7 +642,6 @@ class Game(object):
 
     def game_new_tsar(self, player=None):
         """Select a new tsar (without player, automatically)."""
-
         if player is not None and player not in self.players:
             raise GameError("Player not in the game!")
 
@@ -647,13 +669,13 @@ class Game(object):
 
         Please use round_end instead unless you know what you're doing.
 
-        return:
-            results: what it says on the tin (NOTE: for voting rounds, it
-                returns a two element tuple - first element is the results tally,
-                second is a list of the results.
-
+        :returns:
+            The results of the game.
+        
+        ..note::
+            For voting rounds, this returns a two element tuple - the first
+            element is the results tally; the second is a list of the results.
         """
-
         if player is not None and player not in self.players:
             raise GameError("Player not in the game!")
 
@@ -693,9 +715,7 @@ class Game(object):
 
         Be sure to check the spent member to see if the game is done; if
         it is, the game results are returned, instead.
-
         """
-
         if player is not None and player not in self.players:
             raise GameError("Player not in the game!")
         if not self.inround:
@@ -746,11 +766,10 @@ class Game(object):
     def game_end(self, forreal=False):
         """End the game.
 
-        forreal will PURGE the game. Also return the results
-        of the game (None if <= 1 player).
-
+        :param forreal:
+            Purge the game, clearing all state, and returning the results.
+            This will be none if there is <= 1 player.
         """
-
         self.suspended = True
         self.spent = True
 
