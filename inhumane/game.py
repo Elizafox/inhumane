@@ -535,7 +535,12 @@ class Game(object):
         return (blackempty, whiteempty)
 
     def card_black(self):
-        """Return the current black card."""
+        """Return the current black card.
+        
+        ..warning::
+            This method is deprecated. Use
+            :py:attr:`~inhumane.game.Game.blackcard` directly instead.
+        """
         warn("This method is deprecated, use self.blackcard instead",
              DeprecationWarning, 2)
         return self.blackcard
