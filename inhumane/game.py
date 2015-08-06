@@ -113,7 +113,7 @@ class Game(object):
 
         :key decks:
             An iterable containing card decks. See the
-            :py:class:~inhumane.deck.Deck` class for more information.
+            :py:class:`~inhumane.deck.Deck` class for more information.
 
         :key voting:
             A house rule. If set to true, players vote instead of the tsar
@@ -672,7 +672,7 @@ class Game(object):
         :returns:
             The results of the game.
         
-        ..note::
+        .. note::
             For voting rounds, this returns a two element tuple - the first
             element is the results tally; the second is a list of the results.
         """
