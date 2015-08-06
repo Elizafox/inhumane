@@ -24,8 +24,7 @@ class BasePack(object):
     """This object stores all the given cards (white and black) and metadata
     for a given pack.
 
-    It can be passed to the Game instance.
-
+    It can be passed to the :py:class:`~inhumane.game.Game` instance.
     """
 
     def __init__(self, path):
@@ -189,6 +188,61 @@ class ExternalPack(BasePack):
     def _open(self, filename):
         with open(self._formatpath(filename), "r") as f:
             yield f
+
+
+class PycardcastPack(BasePack):
+
+    """The pack object for Pycardcast packs."""
+
+    def __init__(self, deck):
+        super().__init__(None)
+        self.deck = deck
+
+    def load_info(self):
+        deck = self.deck.deckinfo
+
+        self.name = deck.name
+        self.copyright = self.license = deck.copyright.license
+        self.desc = deck.description
+        self.official = deck.copyright.external  # close enough
+
+    def load_black(self):
+        if not self.deck.blackcards:
+            return False
+
+        watermark = self.deck.deckinfo.name.replace(" ", "-")  # FIXME sucks
+
+        for card in self.deck.blackcards:
+            text = card.text
+            drawcount = 1 if card.pick < 3 else 2  # Fugly hack
+            playcount = card.pick
+        
+            if drawcount > self.maxdraw:
+                self.maxdraw = drawcount
+
+            if playcount > self.maxplay:
+                self.maxplay = playcount
+
+            c = BlackCard(text, watermark, drawcount, playcount)
+            # TODO warn on dupes
+            self.blackcards.add(c)
+
+        return True
+
+    def load_white(self):
+        if not self.deck.whitecards:
+            return False
+
+        watermark = self.deck.deckinfo.name.replace(" ", "-")  # FIXME sucks
+
+        for card in self.deck.whitecards:
+            text = card.text
+        
+            c = WhiteCard(text, watermark)
+            # TODO warn on dupes
+            self.whitecards.add(c)
+
+        return True
 
 
 class Deck(object):
