@@ -486,7 +486,7 @@ class Game(object):
             self.playerplay[player].append(cards)
 
     def player_pass(self, player):
-        """A player is skipping their turn."""
+        """Skip a player's turn."""
         if player not in self.players:
             raise GameError("Player not in the game!")
 
@@ -502,6 +502,13 @@ class Game(object):
         self.playerlast[player] = self.rounds
 
     def player_played(self):
+        """Get the cards a player played.
+
+        ..warning::
+            This method is deprecated. Use
+            :py:attr:`~inhumane.game.Game.playerplay`'s methods directly
+            instead.
+        """
         warn("This method is deprecated, use playerplay.items() instead",
              DeprecationWarning, 2)
         return self.playerplay.items()
@@ -547,8 +554,11 @@ class Game(object):
         return self.blackcard
 
     def player_deal(self, player, count=0):
-        """Deal count white cards to the player."""
-
+        """Deal white cards to the player.
+        
+        :param count:
+            Number of cards to deal; use 0 for the game's default.
+        """
         if player not in self.players:
             raise GameError("Player not in the game!")
 
