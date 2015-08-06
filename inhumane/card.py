@@ -14,9 +14,11 @@ class Card(object):
     def __init__(self, text, watermark=()):
         """Create a card.
 
-        args:
-            text: text for the card
-            watermark: watermark for the given card
+        :param text:
+            Text for the card.
+
+        :param watermark:
+            Watermark for the card.
         """
         self.text = text
         self.watermark = frozenset(watermark)
@@ -61,13 +63,18 @@ class BlackCard(Card):
 
     def __init__(self, text, watermark=(), drawcount=0, playcount=1):
         """A black card.
+        
+        :param text:
+            Text for the card.
 
-        args:
-            text: The text of the card.
-            watermark: The watermarks of the card, as an iterable.
-            drawcount: number of cards to draw when played (black only)
-            playcount: number of cards to play when played (black only)
+        :param watermark:
+            Watermark for the card.
 
+        :param drawcount:
+            The number of cards to draw when in play.
+
+        :param playcount:
+            Number of cards to play when in play.
         """
         super().__init__(text, watermark)
 
@@ -86,6 +93,7 @@ class BlackCard(Card):
 
 
 class WhiteCard(Card):
+
     """A white card."""
 
     def __repr__(self):
