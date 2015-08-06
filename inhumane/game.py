@@ -43,8 +43,8 @@ class Game(object):
 
     Decks must be added at instantiation time.
 
-    When an error with the game arises, :py:class:`~inhumane.game.GameError` is
-    raised. When the rules are broken, :py:class:`~inhumane.game.RuleError` is
+    When an error with the game arises, :py:exc:`~inhumane.game.GameError` is
+    raised. When the rules are broken, :py:exc:`~inhumane.game.RuleError` is
     raised. Note that all forms of cheating are not caught (and you could cheat
     by setting attributes anyway).
 
